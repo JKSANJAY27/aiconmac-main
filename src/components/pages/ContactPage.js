@@ -8,7 +8,7 @@ const ContactPage = () => {
       <div className="max-w-6xl mx-auto">
         <h1 className="text-5xl font-bold text-[#464646] mb-8">Get In Touch</h1>
         <p className="text-xl text-gray-600 mb-12">
-          Ready to bring your architectural vision to life? Let's discuss your project.
+          Ready to bring your architectural vision to life? Let&apos;s discuss your project.
         </p>
 
         <div className="grid lg:grid-cols-2 gap-12">

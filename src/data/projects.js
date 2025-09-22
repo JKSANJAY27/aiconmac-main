@@ -25,7 +25,7 @@ export const projects = [
     title: "Downtown Skyscraper",
     description: (
       <p>
-        A landmark commercial tower in the heart of the city. We produced a 1:100 scale architectural model with full interior lighting to showcase the building's grandeur for investor presentations.
+        A landmark commercial tower in the heart of the city. We produced a 1:100 scale architectural model with full interior lighting to showcase the building&rsquo;s grandeur for investor presentations.
       </p>
     ),
     badge: "Commercial",
@@ -34,7 +34,7 @@ export const projects = [
   },
   {
     id: 3,
-    title: "Coastal Resort & Spa",
+    title: "Coastal Resort &amp; Spa",
     description: (
       <p>
         This master planning model for a luxury coastal resort included villas, a hotel, and recreational facilities. The model was instrumental in securing regulatory approvals and marketing the destination to international partners.
