@@ -17,7 +17,7 @@ export default function ProjectsRoutePage() {
     <>
       <SiteNavbar />
       {/* Ensure main content wrapper allows space for fixed header and is above AnimatedBackground */}
-      <div className="relative z-10 pt-16 md:pt-24 min-h-screen"> {/* Added pt and min-h-screen */}
+      <div className="relative z-10 pt-24 sm:pt-28 md:pt-32 min-h-screen"> {/* Added pt and min-h-screen */}
         <ProjectsPageContent
           selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}
