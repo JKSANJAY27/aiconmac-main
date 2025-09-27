@@ -2,7 +2,7 @@
 "use client"; 
 import React, { useState } from 'react';
 import CareersPageContent from '@/components/pages/CareersPage';
-import SiteNavbar from '@/components/layout/Navbar';
+import SiteNavbar from '@/components/layout/GlassNavbar';
 
 export default function CareersRoutePage() {
 

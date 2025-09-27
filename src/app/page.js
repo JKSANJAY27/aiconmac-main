@@ -1,22 +1,10 @@
 // src/app/page.js
 "use client"; 
 
-import React, { useState } from 'react';
-
-import SiteNavbar from '@/components/layout/Navbar';
-
-// Import the new Homepage content component
+import React from 'react';
+// Import the new Homepage component that includes the navbar system
 import HomepageContent from '@/components/pages/Homepage'; 
 
 export default function HomePage() {
-
-  return (
-    <>
-      <SiteNavbar />
-      {/* Homepage content with the new design */}
-      <div className="relative z-10">
-        <HomepageContent />
-      </div>
-    </>
-  );
+  return <HomepageContent />;
 }

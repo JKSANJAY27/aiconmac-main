@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 
 import ProjectsPageContent from '@/components/pages/ProjectsPage'; // Renamed for clarity, though original name works
 import ProjectDetail from '@/components/modals/ProjectDetail';
-import SiteNavbar from '@/components/layout/Navbar';
+import SiteNavbar from '@/components/layout/GlassNavbar';
 
 export default function ProjectsRoutePage() {
   const router = useRouter();

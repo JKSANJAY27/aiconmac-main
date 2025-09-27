@@ -2,7 +2,7 @@
 "use client"; 
 import React, { useState } from 'react';
 import ContactPageContent from '@/components/pages/ContactPage';
-import SiteNavbar from '@/components/layout/Navbar';
+import SiteNavbar from '@/components/layout/GlassNavbar';
 
 export default function ContactRoutePage() {
   return (

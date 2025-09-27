@@ -1,153 +1,212 @@
-// src/components/layout/AnimatedBackground.js
-"use client"; // Retain use client if using Framer Motion or other hooks
+"use client";
 
 import React from 'react';
-// import { motion } from 'framer-motion'; // Only if you plan to use Framer Motion for these animations
 
-const AnimatedBackground = ({ scrollY }) => { // <-- Reintroduce scrollY prop
+const MuseumBackground = ({ scrollY = 0 }) => {
   return (
     <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-      {/* Base Gradient Background - Subtle, almost white, with hints of blue/gray */}
-      {/* This ensures a smooth transition and provides the initial "shades of white" */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-50/80 via-white/80 to-blue-50/80"></div>
+      {/* Clean Museum Base - Ultra minimal gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-gray-100"></div>
 
-      {/* Geometric Grid Pattern - Very Subtle */}
-      <div className="absolute inset-0 opacity-20"> {/* Reduced opacity */}
+      {/* Architectural Grid - Museum exhibition style */}
+      <div className="absolute inset-0 opacity-[0.03]">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse"> {/* Larger grid size */}
-              <path d="M 80 0 L 0 0 0 80" fill="none" stroke="#f0f4f8" strokeWidth="0.3"/> {/* Lighter, thinner lines */}
+            <pattern id="museum-grid" width="120" height="120" patternUnits="userSpaceOnUse">
+              <path d="M 120 0 L 0 0 0 120" fill="none" stroke="#1a1a1a" strokeWidth="0.5"/>
+              <circle cx="60" cy="60" r="1" fill="#1a1a1a" opacity="0.3"/>
             </pattern>
           </defs>
-          <rect width="100%" height="100%" fill="url(#grid)" />
+          <rect width="100%" height="100%" fill="url(#museum-grid)" />
         </svg>
       </div>
 
-      {/* Floating Architectural/Abstract Elements (Layer 1 - further back) */}
+      {/* Floating Gallery Frames */}
       <div className="absolute inset-0">
-        {/* Large, slow-moving blurred circle */}
+        {/* Large floating frame outline */}
         <div
-          className="absolute w-[500px] h-[500px] rounded-full bg-blue-100/30 filter blur-3xl animate-float-slow"
+          className="absolute w-96 h-64 border border-gray-200/40 rounded-sm"
           style={{
-            top: '15%', left: '-10%',
-            transform: `translateY(${scrollY * 0.05}px) translateX(${scrollY * 0.02}px)`, // Subtle scroll effect
+            top: '20%', 
+            right: '10%',
+            transform: `translateY(${scrollY * 0.02}px) rotate(2deg)`,
             zIndex: 1
           }}
-        ></div>
-        {/* Large, slow-moving blurred rectangle */}
+        >
+          <div className="absolute inset-2 border border-gray-300/20 rounded-sm" />
+        </div>
+
+        {/* Medium frame */}
         <div
-          className="absolute w-[400px] h-[300px] bg-slate-100/30 filter blur-3xl animate-gradient-shift-slow"
+          className="absolute w-48 h-32 border border-gray-200/30 rounded-sm"
           style={{
-            bottom: '10%', right: '-15%', transform: `translateY(${scrollY * -0.07}px) translateX(${scrollY * 0.03}px) rotate(15deg)`,
+            bottom: '25%', 
+            left: '15%',
+            transform: `translateY(${scrollY * -0.03}px) rotate(-1deg)`,
             zIndex: 1
           }}
-        ></div>
+        >
+          <div className="absolute inset-1 border border-gray-300/15 rounded-sm" />
+        </div>
 
-        {/* Blueprint Lines - Very subtle pulse, longer duration */}
+        {/* Small accent frame */}
         <div
-          className="absolute top-1/4 left-1/4 w-96 h-0.5 bg-gradient-to-r from-transparent via-blue-200/50 to-transparent animate-pulse-longer opacity-20"
-          style={{ transform: `translateY(${scrollY * 0.08}px)` }} // Scroll effect
-        ></div>
-        <div
-          className="absolute top-1/2 right-1/4 w-72 h-0.5 bg-gradient-to-l from-transparent via-slate-200/50 to-transparent animate-pulse-longer animation-delay-1500 opacity-20"
-          style={{ transform: `translateY(${scrollY * -0.05}px)` }} // Scroll effect
-        ></div>
+          className="absolute w-24 h-36 border border-gray-200/25 rounded-sm"
+          style={{
+            top: '60%', 
+            right: '25%',
+            transform: `translateY(${scrollY * 0.04}px) rotate(3deg)`,
+            zIndex: 1
+          }}
+        />
       </div>
 
-      {/* Geometric Shapes & Floating Dots (Layer 2 - mid-ground) */}
+      {/* Subtle Exhibition Lighting Effects */}
       <div className="absolute inset-0">
-        {/* Rotating Square */}
+        {/* Top gallery lighting */}
         <div
-          className="absolute top-1/6 right-1/6 w-6 h-6 border border-blue-200/70 rotate-45 animate-spin-medium opacity-50"
-          style={{ transform: `rotate(45deg) translateY(${scrollY * 0.1}px)`, zIndex: 2 }}
-        ></div>
-        {/* Rotating Triangle (custom shape) */}
+          className="absolute top-0 left-1/4 w-64 h-32 bg-gradient-to-b from-yellow-50/30 to-transparent rounded-full blur-3xl"
+          style={{
+            transform: `translateY(${scrollY * 0.01}px) translateX(${scrollY * 0.005}px)`,
+            zIndex: 1
+          }}
+        />
+        
+        {/* Side lighting accent */}
         <div
-          className="absolute bottom-1/4 left-1/5 w-5 h-5 border-l border-b border-slate-200/70 rotate-12 animate-spin-reverse-medium opacity-40"
-          style={{ clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)', transform: `translateY(${scrollY * -0.06}px) rotate(12deg)`, zIndex: 2 }}
-        ></div>
-        {/* Small pulsing circle */}
-        <div
-          className="absolute top-2/3 right-1/3 w-3 h-3 bg-gray-200/60 rounded-full animate-pulse-dot opacity-40"
-          style={{ transform: `translateY(${scrollY * 0.04}px)`, zIndex: 2 }}
-        ></div>
+          className="absolute right-0 top-1/3 w-48 h-96 bg-gradient-to-l from-blue-50/20 to-transparent blur-2xl"
+          style={{
+            transform: `translateY(${scrollY * -0.02}px)`,
+            zIndex: 1
+          }}
+        />
 
-        {/* Floating Precision Dots - slightly larger, softer colors */}
+        {/* Bottom corner ambient */}
         <div
-          className="absolute top-1/3 left-1/6 w-1.5 h-1.5 bg-blue-300/70 rounded-full animate-float-medium opacity-50"
-          style={{ transform: `translateY(${scrollY * 0.07}px)`, zIndex: 2 }}
-        ></div>
-        <div
-          className="absolute bottom-1/5 right-1/5 w-1.5 h-1.5 bg-slate-300/70 rounded-full animate-float-reverse-medium opacity-40"
-          style={{ transform: `translateY(${scrollY * -0.08}px)`, zIndex: 2 }}
-        ></div>
+          className="absolute bottom-0 left-0 w-80 h-40 bg-gradient-to-tr from-gray-100/40 to-transparent blur-3xl"
+          style={{
+            transform: `translateY(${scrollY * 0.015}px)`,
+            zIndex: 1
+          }}
+        />
       </div>
 
-      {/* Subtle Moving Gradients (Layer 3 - foreground) */}
+      {/* Architectural Blueprint Elements - Very Subtle */}
+      <div className="absolute inset-0">
+        {/* Dimension lines */}
+        <div
+          className="absolute top-1/4 left-1/3 w-48 h-0.5 bg-gradient-to-r from-transparent via-gray-300/20 to-transparent opacity-40"
+          style={{ transform: `translateY(${scrollY * 0.06}px)` }}
+        />
+        <div
+          className="absolute top-1/4 left-1/3 w-0.5 h-12 bg-gray-300/20 opacity-40"
+          style={{ transform: `translateY(${scrollY * 0.06}px)` }}
+        />
+        <div
+          className="absolute top-1/4 right-1/3 w-0.5 h-12 bg-gray-300/20 opacity-40"
+          style={{ transform: `translateY(${scrollY * 0.06}px)` }}
+        />
+
+        {/* Center measurement line */}
+        <div
+          className="absolute top-2/3 right-1/4 w-32 h-0.5 bg-gradient-to-l from-transparent via-gray-300/25 to-transparent opacity-30"
+          style={{ transform: `translateY(${scrollY * -0.04}px)` }}
+        />
+      </div>
+
+      {/* Floating Geometric Precision Elements */}
+      <div className="absolute inset-0">
+        {/* Compass rose */}
+        <div
+          className="absolute top-1/6 right-1/5 w-8 h-8 opacity-20"
+          style={{ transform: `rotate(${scrollY * 0.05}deg) translateY(${scrollY * 0.08}px)`, zIndex: 2 }}
+        >
+          <svg viewBox="0 0 32 32" className="w-full h-full">
+            <circle cx="16" cy="16" r="15" fill="none" stroke="#666" strokeWidth="0.5"/>
+            <path d="M16 2 L16 30 M2 16 L30 16" stroke="#666" strokeWidth="0.3"/>
+            <circle cx="16" cy="16" r="2" fill="#666" opacity="0.6"/>
+          </svg>
+        </div>
+
+        {/* Scale ruler */}
+        <div
+          className="absolute bottom-1/4 left-1/6 w-24 h-3 opacity-15"
+          style={{ transform: `translateY(${scrollY * -0.06}px)`, zIndex: 2 }}
+        >
+          <div className="w-full h-0.5 bg-gray-400 mb-1"/>
+          <div className="flex justify-between text-xs">
+            {[0, 1, 2, 3, 4].map(i => (
+              <div key={i} className="w-0.5 h-2 bg-gray-400"/>
+            ))}
+          </div>
+        </div>
+
+        {/* Precision dots */}
+        <div
+          className="absolute top-1/2 left-1/4 w-1 h-1 bg-gray-400/60 rounded-full"
+          style={{ transform: `translateY(${scrollY * 0.05}px)`, zIndex: 2 }}
+        />
+        <div
+          className="absolute bottom-1/3 right-1/3 w-1.5 h-1.5 border border-gray-400/40 rounded-full"
+          style={{ transform: `translateY(${scrollY * -0.07}px)`, zIndex: 2 }}
+        />
+        <div
+          className="absolute top-2/3 left-2/3 w-1 h-1 bg-gray-400/50 rounded-full"
+          style={{ transform: `translateY(${scrollY * 0.03}px)`, zIndex: 2 }}
+        />
+      </div>
+
+      {/* Museum Information Plaques - Subtle Shadows */}
       <div className="absolute inset-0">
         <div
-          className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-100/10 via-transparent to-slate-100/10 animate-gradient-shift-fast"
-          style={{ zIndex: 3 }}
-        ></div>
+          className="absolute top-1/3 left-1/12 w-32 h-20 bg-white/10 backdrop-blur-sm shadow-lg rounded opacity-20"
+          style={{
+            transform: `translateY(${scrollY * 0.04}px) rotate(-1deg)`,
+            zIndex: 3
+          }}
+        />
+        
         <div
-          className="absolute top-0 right-0 w-full h-full bg-gradient-to-bl from-gray-100/8 via-transparent to-blue-50/8 animate-gradient-shift-fast-reverse"
-          style={{ zIndex: 3 }}
-        ></div>
+          className="absolute bottom-1/4 right-1/8 w-28 h-16 bg-white/08 backdrop-blur-sm shadow-lg rounded opacity-15"
+          style={{
+            transform: `translateY(${scrollY * -0.05}px) rotate(2deg)`,
+            zIndex: 3
+          }}
+        />
       </div>
 
-      {/* Technical Drawing Inspiration - Very low opacity, minimal animation */}
+      {/* Ultra-subtle animated overlay */}
       <div
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-[0.05]"
-        style={{ transform: `translate(-50%, -50%) rotate(${scrollY * 0.01}deg)`, zIndex: 4 }} // Subtle scroll rotate
+        className="absolute inset-0 opacity-[0.02]"
+        style={{ zIndex: 4 }}
       >
-        <svg width="600" height="400" viewBox="0 0 400 300" className="animate-draw-subtle">
-          <g stroke="#94a3b8" strokeWidth="0.3" fill="none"> {/* Lighter stroke */}
-            <rect x="50" y="50" width="120" height="80" className="animate-dash-array-subtle" strokeDasharray="6,6" />
-            <rect x="200" y="100" width="80" height="60" className="animate-dash-array-subtle-reverse" strokeDasharray="5,5" />
-            <circle cx="320" cy="80" r="25" className="animate-dash-array-subtle" strokeDasharray="4,4" />
-            <line x1="170" y1="90" x2="200" y2="130" className="animate-pulse-subtle" />
-            <line x1="280" y1="130" x2="295" y2="80" className="animate-pulse-subtle" opacity="0.6" />
-          </g>
-        </svg>
+        <div
+          className="absolute inset-0 bg-gradient-to-br from-gray-900/5 via-transparent to-gray-800/5"
+          style={{
+            transform: `translateX(${Math.sin(scrollY * 0.001) * 2}px) translateY(${Math.cos(scrollY * 0.001) * 1}px)`,
+            animation: 'museum-ambient 60s ease-in-out infinite'
+          }}
+        />
       </div>
 
       <style jsx>{`
-        /* Animation Base */
-        @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        @keyframes spin-reverse { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
-        @keyframes bounce-slow { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
-        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-12px); } }
-        @keyframes float-reverse { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(8px); } }
-        @keyframes gradient-shift { 0%, 100% { transform: translateX(0) translateY(0); } 25% { transform: translateX(2px) translateY(-2px); } 50% { transform: translateX(-1px) translateY(-3px); } 75% { transform: translateX(1px) translateY(2px); } }
-        @keyframes gradient-shift-reverse { 0%, 100% { transform: translateX(0) translateY(0); } 25% { transform: translateX(-2px) translateY(2px); } 50% { transform: translateX(1px) translateY(3px); } 75% { transform: translateX(-1px) translateY(-2px); } }
-        @keyframes pulse-longer { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.4; } }
-        @keyframes pulse-dot { 0%, 100% { transform: scale(1); opacity: 0.4; } 50% { transform: scale(1.2); opacity: 0.6; } }
-        @keyframes dash-array { 0% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: 100; } } /* Longer dash for subtle effect */
-
-        /* Custom Animation Delays/Durations */
-        .animation-delay-1500 { animation-delay: 1.5s; }
-        .animation-delay-2000 { animation-delay: 2s; }
-
-        /* Applied Animations */
-        .animate-spin-slow { animation: spin-slow 40s linear infinite; } /* Slower */
-        .animate-spin-medium { animation: spin-slow 30s linear infinite; }
-        .animate-spin-reverse { animation: spin-reverse 45s linear infinite; } /* Slower */
-        .animate-spin-reverse-medium { animation: spin-reverse 35s linear infinite; }
-        .animate-bounce-slow { animation: bounce-slow 5s ease-in-out infinite; } /* Slower */
-        .animate-float-slow { animation: float 10s ease-in-out infinite; } /* Slower */
-        .animate-float-medium { animation: float 7s ease-in-out infinite; }
-        .animate-float-reverse-medium { animation: float-reverse 9s ease-in-out infinite; }
-        .animate-gradient-shift-slow { animation: gradient-shift 25s ease-in-out infinite; } /* Slower */
-        .animate-gradient-shift-fast { animation: gradient-shift 15s ease-in-out infinite; }
-        .animate-gradient-shift-fast-reverse { animation: gradient-shift-reverse 18s ease-in-out infinite; }
-        .animate-dash-array-subtle { animation: dash-array 10s linear infinite; } /* Longer duration for subtlety */
-        .animate-dash-array-subtle-reverse { animation: dash-array 12s linear infinite reverse; } /* Longer duration for subtlety */
-        .animate-pulse-longer { animation: pulse-longer 4s ease-in-out infinite; }
-        .animate-pulse-subtle { animation: pulse-longer 5s ease-in-out infinite; } /* Re-using pulse-longer but can define new if needed */
-        .animate-draw-subtle { animation: none; } /* Keeping SVG animation off by default for background subtlety */
+        @keyframes museum-ambient {
+          0%, 100% { 
+            opacity: 0.02; 
+            transform: scale(1) rotate(0deg); 
+          }
+          33% { 
+            opacity: 0.03; 
+            transform: scale(1.01) rotate(0.5deg); 
+          }
+          66% { 
+            opacity: 0.015; 
+            transform: scale(0.99) rotate(-0.3deg); 
+          }
+        }
       `}</style>
     </div>
   );
 };
 
-export default AnimatedBackground;
+export default MuseumBackground;
