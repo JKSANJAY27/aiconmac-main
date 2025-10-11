@@ -1,300 +1,234 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import Image from 'next/image';
 
-// Import your actual images
-import img1 from '@/images/img1.jpg';
-import img2 from '@/images/img2.jpg';
-import img3 from '@/images/img3.jpg';
-import img4 from '@/images/img4.jpg';
-import img5 from '@/images/img5.jpg';
-
-const EnhancedCarousel = () => {
+const OverlayCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const [isHovered, setIsHovered] = useState(false);
   const containerRef = useRef(null);
-  const x = useMotionValue(0);
 
   const services = [
     {
-      title: "Master Planning Models",
-      subtitle: "Urban Vision Curation",
-      description: "Comprehensive development models that capture the essence of entire urban landscapes with museum-quality precision.",
-      image: img3,
-      category: "URBAN PLANNING"
+      title: "Master Planning",
+      category: "URBAN VISION",
+      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&h=900&fit=crop"
     },
     {
-      title: "Architectural Models", 
-      subtitle: "Precision in Every Detail",
-      description: "Museum-quality architectural representations with meticulous craftsmanship and attention to detail.",
-      image: img4,
-      category: "ARCHITECTURE"
+      title: "Architectural Models",
+      category: "PRECISION CRAFT",
+      image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1600&h=900&fit=crop"
     },
     {
       title: "Industrial Models",
-      subtitle: "Complex Engineering Made Clear", 
-      description: "Detailed industrial facility models showcasing technical excellence and operational clarity.",
-      image: img5,
-      category: "INDUSTRIAL"
+      category: "TECHNICAL EXCELLENCE",
+      image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1600&h=900&fit=crop"
     },
     {
-      title: "Commercial Developments",
-      subtitle: "Business Visions Realized",
-      description: "Sophisticated commercial project models designed for investors and stakeholders.",
-      image: img1,
-      category: "COMMERCIAL"
+      title: "Commercial Spaces",
+      category: "BUSINESS VISION",
+      image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&h=900&fit=crop"
     },
     {
-      title: "Residential Complexes",
-      subtitle: "Dream Homes in Miniature",
-      description: "Elegant residential models showcasing lifestyle, luxury, and architectural beauty.",
-      image: img2,
-      category: "RESIDENTIAL"
+      title: "Residential Living",
+      category: "DREAM HOMES",
+      image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&h=900&fit=crop"
     }
   ];
 
-  const DRAG_BUFFER = 50;
-  const VELOCITY_THRESHOLD = 500;
-  const SPRING_OPTIONS = { type: 'spring', stiffness: 300, damping: 30 };
-
   // Auto-advance carousel
   useEffect(() => {
-    if (isAutoPlaying && !isHovered) {
+    if (isAutoPlaying) {
       const timer = setInterval(() => {
         setCurrentIndex(prev => (prev + 1) % services.length);
       }, 5000);
       return () => clearInterval(timer);
     }
-  }, [isAutoPlaying, isHovered, services.length]);
-
-  // Mouse hover handlers
-  useEffect(() => {
-    if (containerRef.current) {
-      const container = containerRef.current;
-      const handleMouseEnter = () => {
-        setIsHovered(true);
-        setIsAutoPlaying(false);
-      };
-      const handleMouseLeave = () => {
-        setIsHovered(false);
-        setIsAutoPlaying(true);
-      };
-      
-      container.addEventListener('mouseenter', handleMouseEnter);
-      container.addEventListener('mouseleave', handleMouseLeave);
-      
-      return () => {
-        container.removeEventListener('mouseenter', handleMouseEnter);
-        container.removeEventListener('mouseleave', handleMouseLeave);
-      };
-    }
-  }, []);
-
-  const handleDragEnd = (_, info) => {
-    const offset = info.offset.x;
-    const velocity = info.velocity.x;
-    
-    if (offset < -DRAG_BUFFER || velocity < -VELOCITY_THRESHOLD) {
-      setCurrentIndex(prev => (prev + 1) % services.length);
-    } else if (offset > DRAG_BUFFER || velocity > VELOCITY_THRESHOLD) {
-      setCurrentIndex(prev => (prev - 1 + services.length) % services.length);
-    }
-  };
+  }, [isAutoPlaying, services.length]);
 
   const goToSlide = (index) => {
     setCurrentIndex(index);
+    setIsAutoPlaying(false);
   };
 
   const nextSlide = () => {
     setCurrentIndex(prev => (prev + 1) % services.length);
+    setIsAutoPlaying(false);
   };
 
   const prevSlide = () => {
     setCurrentIndex(prev => (prev - 1 + services.length) % services.length);
+    setIsAutoPlaying(false);
   };
 
   return (
-    <div className="w-full bg-white">
-      {/* Image Section */}
+    <div className="w-full bg-black">
       <div 
         ref={containerRef}
         className="relative w-full overflow-hidden"
-        style={{ height: '400px' }}
+        style={{ height: '85vh', minHeight: '600px' }}
+        onMouseEnter={() => setIsAutoPlaying(false)}
+        onMouseLeave={() => setIsAutoPlaying(true)}
       >
-        {/* Improved background transition without white flash */}
-        <div className="absolute inset-0">
-          <AnimatePresence mode="sync">
+        {/* Image Background with Smooth Transitions */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentIndex}
+            className="absolute inset-0"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.7, ease: "easeInOut" }}
+          >
+            {/* Gradient Overlays for Better Text Readability */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-black/70 z-10" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40 z-10" />
+            
+            <img
+              src={services[currentIndex].image}
+              alt={services[currentIndex].title}
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Content Overlay - Minimal Text */}
+        <div className="absolute inset-0 z-20 flex flex-col justify-between p-8 sm:p-12 lg:p-16">
+          {/* Top: Category Badge */}
+          <motion.div
+            key={`category-${currentIndex}`}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+            className="flex justify-start"
+          >
+            <div className="inline-flex items-center space-x-2 px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full">
+              <div className="w-2 h-2 bg-amber-400 rounded-full animate-pulse" />
+              <span className="text-xs sm:text-sm font-light text-white tracking-[0.2em] uppercase">
+                {services[currentIndex].category}
+              </span>
+            </div>
+          </motion.div>
+
+          {/* Bottom: Title and Controls */}
+          <div className="space-y-8">
+            {/* Title */}
             <motion.div
-              key={currentIndex}
-              className="absolute inset-0"
-              initial={{ opacity: 0, scale: 1.05 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.98 }}
-              transition={{ 
-                opacity: { duration: 0.6, ease: "easeInOut" },
-                scale: { duration: 1.2, ease: "easeInOut" }
-              }}
+              key={`title-${currentIndex}`}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 30 }}
+              transition={{ delay: 0.4, duration: 0.6 }}
             >
-              <div className="absolute inset-0 bg-black/20 z-10" />
-              <Image
-                src={services[currentIndex].image}
-                alt={services[currentIndex].title}
-                fill
-                className="object-cover"
-                priority
-                placeholder="blur"
-              />
+              <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extralight text-white tracking-tight leading-tight max-w-4xl">
+                {services[currentIndex].title}
+              </h2>
             </motion.div>
-          </AnimatePresence>
-        </div>
 
-        {/* Navigation Controls */}
-        <div className="absolute inset-y-0 left-4 flex items-center z-30">
-          <motion.button
-            onClick={prevSlide}
-            className="p-3 rounded-full bg-white/15 backdrop-blur-sm border border-white/30 hover:bg-white/25 transition-all duration-300"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            onMouseEnter={() => setIsAutoPlaying(false)}
-            onMouseLeave={() => setIsAutoPlaying(true)}
-          >
-            <ChevronLeft className="w-6 h-6 text-white" />
-          </motion.button>
-        </div>
+            {/* Navigation Controls Bar */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.5 }}
+              className="flex items-center justify-between max-w-2xl"
+            >
+              {/* Progress Indicators */}
+              <div className="flex items-center space-x-3">
+                {services.map((_, index) => (
+                  <motion.button
+                    key={index}
+                    onClick={() => goToSlide(index)}
+                    className="group relative"
+                    whileHover={{ scale: 1.2 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    <div className={`h-1 rounded-full transition-all duration-500 ${
+                      currentIndex === index 
+                        ? 'w-16 bg-white' 
+                        : 'w-8 bg-white/30 hover:bg-white/50'
+                    }`}>
+                    </div>
+                  </motion.button>
+                ))}
+              </div>
 
-        <div className="absolute inset-y-0 right-4 flex items-center z-30">
-          <motion.button
-            onClick={nextSlide}
-            className="p-3 rounded-full bg-white/15 backdrop-blur-sm border border-white/30 hover:bg-white/25 transition-all duration-300"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            onMouseEnter={() => setIsAutoPlaying(false)}
-            onMouseLeave={() => setIsAutoPlaying(true)}
-          >
-            <ChevronRight className="w-6 h-6 text-white" />
-          </motion.button>
-        </div>
-
-        {/* Bottom Progress Indicators */}
-        <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-30">
-          <div className="flex items-center space-x-3">
-            {services.map((_, index) => (
-              <motion.button
-                key={index}
-                onClick={() => goToSlide(index)}
-                className="group relative overflow-hidden"
-                onMouseEnter={() => setIsAutoPlaying(false)}
-                onMouseLeave={() => setIsAutoPlaying(true)}
-                whileHover={{ scale: 1.2 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <div className={`w-12 h-1 rounded-full transition-all duration-500 ${
-                  currentIndex === index 
-                    ? 'bg-white shadow-lg shadow-white/50' 
-                    : 'bg-white/30 hover:bg-white/50'
-                }`}>
-                  {currentIndex === index && (
-                    <motion.div
-                      className="h-full bg-gradient-to-r from-amber-400 to-white rounded-full"
-                      layoutId="active-progress"
-                      transition={{ duration: 0.5, ease: "easeInOut" }}
-                    />
-                  )}
+              {/* Counter and Arrow Buttons */}
+              <div className="flex items-center space-x-4">
+                {/* Counter */}
+                <div className="text-white/80 text-sm font-light tracking-wider">
+                  <span className="text-white font-normal">{String(currentIndex + 1).padStart(2, '0')}</span>
+                  <span className="mx-2">/</span>
+                  <span>{String(services.length).padStart(2, '0')}</span>
                 </div>
-              </motion.button>
-            ))}
+
+                {/* Navigation Arrows */}
+                <div className="flex items-center space-x-2">
+                  <motion.button
+                    onClick={prevSlide}
+                    className="p-2.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all duration-300"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    <ChevronLeft className="w-5 h-5 text-white" />
+                  </motion.button>
+
+                  <motion.button
+                    onClick={nextSlide}
+                    className="p-2.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all duration-300"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    <ChevronRight className="w-5 h-5 text-white" />
+                  </motion.button>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
 
-        {/* Drag functionality for mobile */}
+        {/* Side Navigation (Large Screens Only) */}
+        <div className="hidden xl:block">
+          <div className="absolute left-8 top-1/2 transform -translate-y-1/2 z-30">
+            <motion.button
+              onClick={prevSlide}
+              className="p-4 rounded-full bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 transition-all duration-300"
+              whileHover={{ scale: 1.1, x: -5 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <ChevronLeft className="w-6 h-6 text-white" />
+            </motion.button>
+          </div>
+
+          <div className="absolute right-8 top-1/2 transform -translate-y-1/2 z-30">
+            <motion.button
+              onClick={nextSlide}
+              className="p-4 rounded-full bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 transition-all duration-300"
+              whileHover={{ scale: 1.1, x: 5 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <ChevronRight className="w-6 h-6 text-white" />
+            </motion.button>
+          </div>
+        </div>
+
+        {/* Drag Handler for Mobile */}
         <motion.div
-          className="absolute inset-0 z-20"
+          className="absolute inset-0 z-15 xl:hidden"
           drag="x"
           dragConstraints={{ left: 0, right: 0 }}
-          onDragEnd={handleDragEnd}
+          dragElastic={0.2}
+          onDragEnd={(_, info) => {
+            const threshold = 50;
+            if (info.offset.x < -threshold) {
+              nextSlide();
+            } else if (info.offset.x > threshold) {
+              prevSlide();
+            }
+          }}
         />
-      </div>
-
-      {/* Text Content Section Below Images */}
-      <div className="w-full bg-white py-12 px-6 sm:px-12">
-        <div className="max-w-6xl mx-auto">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={`text-${currentIndex}`}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -30 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-              className="text-center"
-            >
-              {/* Category Badge */}
-              <motion.div
-                className="inline-flex items-center px-4 py-2 mb-6 rounded-none border border-gray-200 bg-gray-50"
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ delay: 0.1 }}
-              >
-                <div className="w-2 h-2 bg-amber-500 rounded-full mr-3" />
-                <span className="text-sm font-light uppercase tracking-[0.2em] text-gray-600">
-                  {services[currentIndex].category}
-                </span>
-              </motion.div>
-
-              {/* Main Title */}
-              <motion.h2
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extralight tracking-tight mb-6 leading-tight text-gray-900"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.6 }}
-              >
-                {services[currentIndex].title}
-              </motion.h2>
-
-              {/* Subtitle */}
-              <motion.p
-                className="text-xl sm:text-2xl text-amber-600 font-light mb-8 tracking-wide"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 0.6 }}
-              >
-                {services[currentIndex].subtitle}
-              </motion.p>
-
-              {/* Description */}
-              <motion.p
-                className="text-base sm:text-lg max-w-4xl mx-auto text-gray-600 font-light leading-relaxed"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 0.6 }}
-              >
-                {services[currentIndex].description}
-              </motion.p>
-
-              {/* Counter */}
-              <motion.div 
-                className="mt-8 pt-6 border-t border-gray-200"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5 }}
-              >
-                <div className="flex items-center justify-center space-x-4 text-gray-500">
-                  <span className="text-sm font-light">
-                    {String(currentIndex + 1).padStart(2, '0')} of {String(services.length).padStart(2, '0')}
-                  </span>
-                  <div className="w-0.5 h-4 bg-gray-300" />
-                  <span className="text-xs uppercase tracking-[0.15em] font-light">
-                    Premium Models Collection
-                  </span>
-                </div>
-              </motion.div>
-            </motion.div>
-          </AnimatePresence>
-        </div>
       </div>
     </div>
   );
 };
 
-export default EnhancedCarousel;
+export default OverlayCarousel;

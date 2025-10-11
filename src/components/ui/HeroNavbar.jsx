@@ -1,209 +1,251 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ArrowUpRight } from 'lucide-react';
-import Link from 'next/link';
-import Image from 'next/image';
-import logo from '@/images/logo.jpg'; // Adjust path as needed
+import { Menu, X, Download, Mail } from 'lucide-react';
 
 const HeroNavbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showCataloguePopup, setShowCataloguePopup] = useState(false);
+  const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState('');
 
   const navItems = [
-    { name: "Home", href: "/", active: true },
+    { name: "Home", href: "/" },
     { name: "Projects", href: "/projects" },
-    { name: "Careers", href: "/careers" }
+    { name: "Careers", href: "/careers" },
+    { name: "Contact", href: "/contact" }
   ];
 
-  return (
-    <motion.div
-      initial={{ y: -20, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-      className="w-full bg-white/98 backdrop-blur-xl border-b border-gray-100 shadow-sm relative z-10"
-    >
-      <div className="max-w-7xl mx-auto px-6 py-6">
-        {/* Desktop Hero Header */}
-        <div className="hidden lg:flex items-center justify-between">
-          {/* Left: Logo and Branding */}
-          <motion.div 
-            className="flex items-center space-x-8"
-            initial={{ x: -30, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-          >
-            <Link href="/" className="group flex items-center space-x-4">
-              <div className="relative">
-                <motion.div 
-                  className="p-2 rounded-xl bg-gradient-to-br from-amber-50 to-orange-100 border border-amber-200/50 group-hover:from-amber-100 group-hover:to-orange-200 transition-all duration-300"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Image src={logo} alt="Aiconmac Logo" className="h-10 w-auto" />
-                </motion.div>
-                <div className="absolute -top-1 -right-1 w-3 h-3 bg-amber-400 rounded-full animate-pulse"></div>
-              </div>
-              <div>
-                <h1 className="text-2xl font-extralight text-gray-900 tracking-wide group-hover:text-amber-700 transition-colors">
-                  AICONMAC
-                </h1>
-                <p className="text-sm text-gray-500 font-light tracking-wider uppercase">
-                  Architectural Gallery
-                </p>
-              </div>
-            </Link>
-          </motion.div>
-          
-          {/* Center: Tagline with Animation */}
-          <motion.div 
-            className="text-center max-w-2xl"
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.4, duration: 0.6 }}
-          >
-            <div className="text-gray-600 font-light leading-relaxed text-base">
-              Curating architectural dreams into{' '}
-              <span className="relative">
-                <span className="text-amber-600 font-normal">museum-quality</span>
-                <motion.div
-                  className="absolute -bottom-1 left-0 w-full h-0.5 bg-amber-400/60"
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  transition={{ delay: 1, duration: 0.8 }}
-                />
-              </span>
-              {' '}masterpieces.
-            </div>
-          </motion.div>
-          
-          {/* Right: Navigation and Stats */}
-          <motion.div 
-            className="flex items-center space-x-8"
-            initial={{ x: 30, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
-          >
-            {/* Navigation Links */}
-            <div className="flex items-center space-x-1">
-              {navItems.map((item, index) => (
-                <motion.div
-                  key={item.name}
-                  initial={{ y: -20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.6 + index * 0.1 }}
-                >
-                  <Link
-                    href={item.href}
-                    className={`group px-4 py-2 text-sm font-light tracking-wider uppercase transition-all duration-300 ${
-                      item.active 
-                        ? 'text-amber-600 border-b-2 border-amber-600' 
-                        : 'text-gray-700 hover:text-gray-900'
-                    }`}
-                  >
-                    {item.name}
-                  </Link>
+  const handleCatalogueDownload = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    // Simulate API call
+    setTimeout(() => {
+      setSubmitStatus('success');
+      setIsSubmitting(false);
+      
+      // Simulate PDF download
+      setTimeout(() => {
+        setShowCataloguePopup(false);
+        setEmail('');
+        setSubmitStatus('');
+      }, 2000);
+    }, 1500);
+  };
 
-                </motion.div>
+  return (
+    <>
+      <motion.nav
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6 }}
+        className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100"
+      >
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="flex items-center justify-between h-20">
+            {/* Logo */}
+            <motion.a
+              href="/"
+              className="flex items-center space-x-3 group"
+              whileHover={{ scale: 1.02 }}
+            >
+              <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-600 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-lg">A</span>
+              </div>
+              <div className="hidden sm:block">
+                <div className="text-xl font-light tracking-wide text-gray-900">AICONMAC</div>
+                <div className="text-xs text-gray-500 tracking-wider">GALLERY</div>
+              </div>
+            </motion.a>
+
+            {/* Desktop Navigation */}
+            <div className="hidden lg:flex items-center space-x-8">
+              {navItems.map((item, index) => (
+                <motion.a
+                  key={item.name}
+                  href={item.href}
+                  className="text-md text-gray-700 hover:text-gray-900 transition-colors font-light tracking-wide"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  {item.name}
+                </motion.a>
               ))}
             </div>
-            
-            {/* Contact Button with Icon */}
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: 0.8, type: "spring", stiffness: 200 }}
-            >
-              <Link
-                href="/contact"
-                className="group flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white text-sm font-medium rounded-xl uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-xl"
+
+            {/* Catalogue Button & Mobile Menu */}
+            <div className="flex items-center space-x-4">
+              <motion.button
+                onClick={() => setShowCataloguePopup(true)}
+                className="hidden sm:flex items-center space-x-2 px-5 py-2.5 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white text-sm rounded-lg transition-all duration-300 shadow-sm hover:shadow-md"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                <span>Contact Us</span>
-                <ArrowUpRight className="w-4 h-4 group" />
-              </Link>
-            </motion.div>
-          </motion.div>
-        </div>
+                <Download className="w-4 h-4" />
+                <span className="font-medium">Catalogue</span>
+              </motion.button>
 
-        {/* Mobile Hero Header */}
-        <div className="lg:hidden flex items-center justify-between">
-          {/* Logo and Branding for Mobile */}
-          <motion.div
-            className="flex items-center space-x-4"
-            initial={{ x: -30, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-          >
-            <Link href="/" className="group flex items-center space-x-2">
-              <Image src={logo} alt="Aiconmac Logo" className="h-8 w-auto" />
-              <div>
-                <h1 className="text-xl font-extralight text-gray-800">AICONMAC</h1>
-                <p className="text-xs text-gray-500">Architectural Gallery</p>
-              </div>
-            </Link>
-          </motion.div>
+              {/* Mobile Menu Button */}
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="lg:hidden p-2 text-gray-700 hover:text-gray-900"
+              >
+                {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
+            </div>
+          </div>
 
-          {/* Hamburger Menu Button */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="p-2 text-gray-600 hover:text-gray-800"
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-
-        {/* Mobile Menu */}
-        <AnimatePresence>
-          {isMobileMenuOpen && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              className="lg:hidden mt-6 pt-6 border-t border-gray-200"
-            >
-              <div className="space-y-4">
-                <div className="text-gray-600 font-light text-sm leading-relaxed">
-                  Curating architectural dreams into museum-quality masterpieces since 2013.
-                </div>
-                
-                {/* Mobile Navigation Links */}
+          {/* Mobile Menu */}
+          <AnimatePresence>
+            {isMobileMenuOpen && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                className="lg:hidden border-t border-gray-100 py-4"
+              >
                 <div className="space-y-3">
                   {navItems.map((item) => (
-                    <Link
+                    <a
                       key={item.name}
                       href={item.href}
-                      className={`block py-2 text-gray-700 hover:text-gray-900 font-light uppercase tracking-wider transition-colors ${item.active && 'text-amber-600'}`}
+                      className="block py-2 text-gray-700 hover:text-gray-900 font-light"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       {item.name}
-                    </Link>
+                    </a>
                   ))}
-                  <Link
-                    href="/contact"
-                    className="block w-full py-3 mt-4 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white text-center text-sm font-light uppercase tracking-wider transition-all duration-300"
-                    onClick={() => setIsMobileMenuOpen(false)}
+                  <button
+                    onClick={() => {
+                      setShowCataloguePopup(true);
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="flex items-center space-x-2 w-full py-3 px-4 bg-gradient-to-r from-amber-600 to-orange-600 text-white text-sm rounded-lg mt-4"
                   >
-                    Contact Us
-                  </Link>
+                    <Download className="w-4 h-4" />
+                    <span>Download Catalogue</span>
+                  </button>
                 </div>
-                
-                {/* Mobile Stats */}
-                <div className="flex justify-center space-x-8 pt-4">
-                  <div className="text-center">
-                    <div className="text-xl font-extralight text-amber-600">1200+</div>
-                    <div className="text-xs uppercase tracking-wider text-gray-500">Works</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-xl font-extralight text-amber-600">11+</div>
-                    <div className="text-xs uppercase tracking-wider text-gray-500">Years</div>
-                  </div>
-                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </motion.nav>
+
+      {/* Catalogue Download Popup */}
+      <AnimatePresence>
+        {showCataloguePopup && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50"
+              onClick={() => !isSubmitting && setShowCataloguePopup(false)}
+            />
+
+            {/* Popup */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            >
+              <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8 relative">
+                {/* Close Button */}
+                <button
+                  onClick={() => !isSubmitting && setShowCataloguePopup(false)}
+                  className="absolute top-4 right-4 p-2 text-gray-400 hover:text-gray-600 transition-colors"
+                  disabled={isSubmitting}
+                >
+                  <X size={20} />
+                </button>
+
+                {submitStatus === 'success' ? (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="text-center py-8"
+                  >
+                    <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <h3 className="text-2xl font-light text-gray-900 mb-2">Success!</h3>
+                    <p className="text-gray-600">Your catalogue is downloading...</p>
+                  </motion.div>
+                ) : (
+                  <>
+                    {/* Icon */}
+                    <div className="w-16 h-16 bg-gradient-to-br from-amber-100 to-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                      <Download className="w-8 h-8 text-amber-600" />
+                    </div>
+
+                    {/* Title */}
+                    <h2 className="text-2xl font-light text-center text-gray-900 mb-2">
+                      Download Catalogue
+                    </h2>
+                    <p className="text-center text-gray-600 mb-8 text-sm">
+                      Enter your email to receive our complete project catalogue
+                    </p>
+
+                    {/* Form */}
+                    <form onSubmit={handleCatalogueDownload} className="space-y-6">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Email Address
+                        </label>
+                        <div className="relative">
+                          <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                          <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="your@email.com"
+                            required
+                            disabled={isSubmitting}
+                            className="w-full pl-12 pr-4 py-3.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all disabled:bg-gray-50 disabled:cursor-not-allowed"
+                          />
+                        </div>
+                      </div>
+
+                      <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="w-full py-3.5 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white rounded-xl font-medium transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+                      >
+                        {isSubmitting ? (
+                          <>
+                            <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                            <span>Processing...</span>
+                          </>
+                        ) : (
+                          <>
+                            <Download className="w-5 h-5" />
+                            <span>Download Catalogue</span>
+                          </>
+                        )}
+                      </button>
+
+                      <p className="text-xs text-center text-gray-500">
+                        By downloading, you agree to receive updates from AICONMAC
+                      </p>
+                    </form>
+                  </>
+                )}
               </div>
             </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
+      {/* Spacer for fixed navbar */}
+      <div className="h-20" />
+    </>
   );
 };
 
