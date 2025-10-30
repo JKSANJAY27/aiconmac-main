@@ -24,6 +24,7 @@ import img1 from '@/images/img1.jpg';
 import img3 from '@/images/img3.jpg';
 import img4 from '@/images/img4.jpg';
 import img5 from '@/images/img5.jpg';
+import CountUp from '@/components/ui/CountUp';
 
 // For the interactive services section
 const serviceImages = {
@@ -224,17 +225,41 @@ const Homepage = () => {
               className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-12 mb-16 sm:mb-20"
             >
               <div className="text-center relative">
-                <div className="text-4xl sm:text-5xl md:text-6xl font-extralight text-amber-600 mb-3">1200+</div>
+                <div className="text-4xl sm:text-5xl md:text-6xl font-extralight text-amber-600 mb-3">
+                  <CountUp
+                    from={0}
+                    to={1200}
+                    separator=","
+                    direction="up"
+                    duration={1}
+                    className="count-up-text"
+                  />+</div>
                 <div className="text-gray-500 text-xs sm:text-sm uppercase tracking-[0.2em] font-light">Masterpieces Created</div>
                 <div className="w-12 h-0.5 bg-amber-400/50 mx-auto mt-3" />
               </div>
               <div className="text-center relative">
-                <div className="text-4xl sm:text-5xl md:text-6xl font-extralight text-amber-600 mb-3">40+</div>
+                <div className="text-4xl sm:text-5xl md:text-6xl font-extralight text-amber-600 mb-3">
+                  <CountUp
+                    from={0}
+                    to={40}
+                    separator=","
+                    direction="up"
+                    duration={1}
+                    className="count-up-text"
+                  />+</div>
                 <div className="text-gray-500 text-xs sm:text-sm uppercase tracking-[0.2em] font-light">Master Artisans</div>
                 <div className="w-12 h-0.5 bg-amber-400/50 mx-auto mt-3" />
               </div>
               <div className="text-center relative">
-                <div className="text-4xl sm:text-5xl md:text-6xl font-extralight text-amber-600 mb-3">11+</div>
+                <div className="text-4xl sm:text-5xl md:text-6xl font-extralight text-amber-600 mb-3">
+                  <CountUp
+                    from={0}
+                    to={11}
+                    separator=","
+                    direction="up"
+                    duration={1}
+                    className="count-up-text"
+                  />+</div>
                 <div className="text-gray-500 text-xs sm:text-sm uppercase tracking-[0.2em] font-light">Years of Excellence</div>
                 <div className="w-12 h-0.5 bg-amber-400/50 mx-auto mt-3" />
               </div>
@@ -351,17 +376,18 @@ const Homepage = () => {
                   {/* Museum-style stats */}
                   <div className="mt-12 grid grid-cols-3 gap-8">
                     {[
-                      { value: "1200+", label: "Curated Works" },
-                      { value: "40+", label: "Master Artisans" },
-                      { value: "11+", label: "Years of Excellence" }
-                    ].map((stat, index) => (
+                      { phrase: "A Vast Collection", label: "Curated Works" },
+                      { phrase: "Award-Winning Experts", label: "Master Artisans" },
+                      { phrase: "Over a Decade", label: "Years of Excellence" }
+                    ].map((stat) => (
                       <div key={stat.label} className="text-center relative">
-                        <div className="text-2xl md:text-3xl font-extralight text-amber-600 mb-2">{stat.value}</div>
+                        <div className="text-xl md:text-2xl font-light text-amber-600 mb-2 min-h-[3.5rem] flex items-center justify-center text-center">{stat.phrase}</div>
                         <div className="text-xs uppercase tracking-[0.15em] text-gray-500 font-light">{stat.label}</div>
                         <div className="w-8 h-0.5 bg-amber-400/50 mx-auto mt-2" />
                       </div>
                     ))}
                   </div>
+
                 </motion.div>
               </div>
               

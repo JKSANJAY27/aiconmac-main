@@ -50,6 +50,7 @@ export const CardSpotlight = ({
         className="pointer-events-none absolute z-0 -inset-px rounded-md opacity-0 transition duration-300 group-hover/spotlight:opacity-100"
         style={{
           backgroundColor: spotlightColor, // Use the prop's value (defaulted to light)
+          opacity: isHovering ? 0.2 : 0.5,
           maskImage: useMotionTemplate`
             radial-gradient(
               ${radius}px circle at ${mouseX}px ${mouseY}px,

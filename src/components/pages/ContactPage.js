@@ -62,7 +62,7 @@ const ContactPage = () => {
             variants={fadeIn}
             className="text-5xl md:text-7xl font-extralight text-gray-800 mb-6 tracking-tight"
           >
-            Commission Studio
+            Crafted on Request
           </motion.h1>
 
           <motion.p
