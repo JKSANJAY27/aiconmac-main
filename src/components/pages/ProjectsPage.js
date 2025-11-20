@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Eye, ArrowRight, Calendar, MapPin } from 'lucide-react';
@@ -8,24 +8,46 @@ import { Eye, ArrowRight, Calendar, MapPin } from 'lucide-react';
 import { TracingBeam } from '@/components/ui/tracing-beam';
 import TiltedCard from '@/components/ui/TiltedCard';
 import { CardSpotlight } from '@/components/ui/card-spotlight';
-import { projects, categories } from '@/data/projects';
+import { categories } from '@/data/projects';
 import useMediaQuery from '@/hooks/useMediaQuery';
+import { fetcher } from '@/lib/api';
+
+const initialProjectsState = [];
 
 const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProject }) => {
-  const [hoveredProject, setHoveredProject] = useState(null);
-  
-  const filteredProjects = selectedCategory === 'all'
-    ? projects
-    : projects.filter(p => p.category === selectedCategory);
+  const [projectsData, setProjectsData] = useState(initialProjectsState);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [hoveredProjectId, setHoveredProjectId] = useState(null);
 
   const isDesktop = useMediaQuery('(min-width: 1024px)');
 
+  // Data Fetching
+  useEffect(() => {
+    const fetchProjects = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const url = `/projects?isPublished=true${selectedCategory !== 'all' ? `&category=${selectedCategory}` : ''}`;
+        const data = await fetcher(url);
+        setProjectsData(data);
+      } catch (err) {
+        setError(err.info?.message || err.message || 'Failed to fetch projects. Please try again later.');
+        console.error("Projects fetch error:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProjects();
+  }, [selectedCategory]);
+
   const fadeIn = {
     hidden: { opacity: 0, y: 30 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
-      transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] } 
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }
     },
   };
 
@@ -45,8 +67,24 @@ const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProjec
     visible: { opacity: 1, y: 0 }
   };
 
+  if (loading) {
+    return (
+      <div className="min-h-screen relative overflow-hidden pt-28 flex items-center justify-center bg-white">
+        <p className="text-gray-700">Loading projects...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen relative overflow-hidden pt-28 flex items-center justify-center bg-white">
+        <p className="text-red-600">Error: {error}</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen relative overflow-hidden">
+    <div className="min-h-screen relative overflow-hidden pt-28">
       {/* Museum lighting effects */}
       <div className="absolute inset-0">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-amber-100/20 rounded-full blur-3xl opacity-50" />
@@ -84,17 +122,17 @@ const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProjec
             variants={fadeIn}
             className="text-xl text-gray-600 font-light leading-relaxed max-w-3xl mx-auto mb-12"
           >
-            A carefully curated exhibition of architectural miniatures, each piece representing 
+            A carefully curated exhibition of architectural miniatures, each piece representing
             the pinnacle of precision craftsmanship and artistic vision.
           </motion.p>
 
-          {/* Museum-style statistics */}
+          {/* Statistics */}
           <motion.div
             variants={fadeIn}
             className="flex flex-wrap justify-center gap-8 mb-16"
           >
             <div className="text-center">
-              <div className="text-3xl font-extralight text-amber-600">{filteredProjects.length}</div>
+              <div className="text-3xl font-extralight text-amber-600">{projectsData.length}</div>
               <div className="text-sm uppercase tracking-wider text-gray-500">Masterpieces</div>
             </div>
             <div className="text-center">
@@ -108,14 +146,14 @@ const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProjec
           </motion.div>
         </motion.div>
 
-        {/* Premium Filter Categories */}
+        {/* Filter Categories */}
         <motion.div
           initial="hidden"
           animate="visible"
           variants={staggerContainer}
           className="flex flex-wrap justify-center gap-4 max-w-4xl mx-auto"
         >
-          {categories.map((category, index) => (
+          {categories.map((category) => (
             <motion.button
               key={category.id}
               variants={cardVariants}
@@ -147,9 +185,9 @@ const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProjec
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
               </div>
-              
+
               <span className="relative z-10">{category.label}</span>
-              
+
               {selectedCategory === category.id && (
                 <motion.div
                   layoutId="active-category"
@@ -170,7 +208,7 @@ const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProjec
         {isDesktop ? (
           <TracingBeam className="px-6">
             <div className="max-w-6xl mx-auto antialiased pt-8 relative">
-              {filteredProjects.map((item, index) => (
+              {projectsData.map((item, index) => (
                 <motion.div
                   key={`exhibit-${item.id}`}
                   className="mb-32"
@@ -178,8 +216,8 @@ const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProjec
                   whileInView="visible"
                   variants={fadeIn}
                   viewport={{ once: true, amount: 0.2 }}
-                  onHoverStart={() => setHoveredProject(item.id)}
-                  onHoverEnd={() => setHoveredProject(null)}
+                  onHoverStart={() => setHoveredProjectId(item.id)}
+                  onHoverEnd={() => setHoveredProjectId(null)}
                 >
                   {/* Exhibit Label */}
                   <motion.div
@@ -198,14 +236,13 @@ const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProjec
                           border: '1px solid rgba(245, 158, 11, 0.2)'
                         }}
                       >
-                        {item.badge}
+                        {item.badge || 'Featured'}
                       </div>
-                      
-                      {/* Museum-style metadata */}
+
                       <div className="flex items-center space-x-4 text-xs text-gray-500 uppercase tracking-wider">
                         <div className="flex items-center space-x-1">
                           <Calendar className="w-3 h-3" />
-                          <span>Est. 2023</span>
+                          <span>{new Date(item.createdAt).getFullYear()}</span>
                         </div>
                         <div className="flex items-center space-x-1">
                           <MapPin className="w-3 h-3" />
@@ -229,7 +266,7 @@ const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProjec
                   <div className={`grid lg:grid-cols-2 gap-16 items-center ${
                     index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''
                   }`}>
-                    {/* Featured Artwork with TiltedCard */}
+                    {/* Featured Artwork */}
                     <motion.div
                       className={`relative ${
                         index % 2 === 1 ? 'lg:col-start-2' : ''
@@ -241,8 +278,8 @@ const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProjec
                     >
                       <div className="h-[500px] w-full">
                         <TiltedCard
-                          imageSrc={item.image}
-                          altText={item.title}
+                          imageSrc={item.images[0] ? item.images[0].url : '/images/placeholder.jpg'}
+                          altText={item.images[0] ? item.images[0].altText : item.title}
                           containerHeight="500px"
                           scaleOnHover={1.02}
                           rotateAmplitude={12}
@@ -341,7 +378,7 @@ const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProjec
               animate="visible"
               variants={staggerContainer}
             >
-              {filteredProjects.map((item, index) => (
+              {projectsData.map((item) => (
                 <motion.div
                   key={`mobile-${item.id}`}
                   variants={cardVariants}
@@ -352,14 +389,14 @@ const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProjec
                   <CardSpotlight className="h-full p-0 overflow-hidden">
                     <div className="relative h-64 mb-4">
                       <Image
-                        src={item.image}
-                        alt={item.title}
+                        src={item.images[0] ? item.images[0].url : '/images/placeholder.jpg'}
+                        alt={item.images[0] ? item.images[0].altText : item.title}
                         fill
                         className="object-cover rounded-t-xl transition-transform duration-500 group-hover:scale-110"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
                     </div>
-                    
+
                     <div className="p-6 relative z-20">
                       <div className="flex items-center justify-between mb-3">
                         <span
@@ -370,17 +407,17 @@ const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProjec
                             border: '1px solid rgba(245, 158, 11, 0.2)'
                           }}
                         >
-                          {item.badge}
+                          {item.badge || 'Featured'}
                         </span>
                       </div>
-                      
+
                       <h3 className="text-xl font-light text-gray-800 mb-3 group-hover:text-amber-700 transition-colors">
                         {item.title}
                       </h3>
-                      
+
                       <div className="text-sm text-gray-600 line-clamp-3 font-light leading-relaxed">
-                        {typeof item.description === 'string' 
-                          ? item.description 
+                        {typeof item.description === 'string'
+                          ? item.description
                           : 'A masterfully crafted architectural model showcasing precision and artistry.'}
                       </div>
 
@@ -418,14 +455,15 @@ const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProjec
             <p className="text-xl text-gray-600 font-light mb-8 leading-relaxed">
               Ready to see your architectural vision transformed into a museum-quality miniature?
             </p>
-            
+
             <motion.button
+              onClick={() => setSelectedCategory('all')}
               className="px-8 py-4 rounded-full text-white font-medium tracking-wider uppercase text-sm shadow-xl"
               style={{
                 background: 'linear-gradient(135deg, #f06123 0%, #d97706 100%)',
                 boxShadow: '0 10px 30px rgba(240, 97, 35, 0.3)'
               }}
-              whileHover={{ 
+              whileHover={{
                 scale: 1.05,
                 boxShadow: '0 15px 40px rgba(240, 97, 35, 0.4)'
               }}

@@ -1,16 +1,152 @@
+// src/components/pages/CareersPage.js
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Upload, Palette, Ruler, Award, Users, Lightbulb, Target, Heart } from 'lucide-react';
+import { Upload, Palette, Ruler, Award, Users, Lightbulb, Heart } from 'lucide-react';
+
+import { poster } from '@/lib/api';
 
 const CareersPage = () => {
+  const [submissionStatus, setSubmissionStatus] = useState('idle');
+  const [submissionMessage, setSubmissionMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [resumeFileName, setResumeFileName] = useState(null);
+
+  // Form data state - NO SPECIALIZATION
+  const [formData, setFormData] = useState({
+    fullName: '',
+    email: '',
+    phone: '',
+    message: '',
+    resume: null
+  });
+
+  // Error state
+  const [errors, setErrors] = useState({});
+
+  // Handle input changes
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+    // Clear error for this field when user starts typing
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }));
+    }
+  };
+
+  // Handle file input
+  const handleFileChange = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      // Validate file
+      const validTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+      const maxSize = 5 * 1024 * 1024; // 5MB
+
+      if (!validTypes.includes(file.type)) {
+        setErrors(prev => ({
+          ...prev,
+          resume: 'Only PDF or DOCX formats are allowed'
+        }));
+        return;
+      }
+
+      if (file.size > maxSize) {
+        setErrors(prev => ({
+          ...prev,
+          resume: 'Max resume size is 5MB'
+        }));
+        return;
+      }
+
+      setFormData(prev => ({
+        ...prev,
+        resume: file
+      }));
+      setResumeFileName(file.name);
+      setErrors(prev => ({
+        ...prev,
+        resume: ''
+      }));
+    }
+  };
+
+  // Validation function - NO SPECIALIZATION CHECK
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!formData.fullName.trim()) {
+      newErrors.fullName = "Full Name is required";
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "Invalid email address";
+    }
+
+    if (!formData.resume) {
+      newErrors.resume = "Resume is required";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmissionStatus('loading');
+    setSubmissionMessage('');
+
+    try {
+      const formDataToSend = new FormData();
+      formDataToSend.append('fullName', formData.fullName);
+      formDataToSend.append('email', formData.email);
+      if (formData.phone) formDataToSend.append('phone', formData.phone);
+      if (formData.message) formDataToSend.append('message', formData.message);
+      if (formData.resume) formDataToSend.append('resume', formData.resume);
+      // NO SPECIALIZATION/POSITION FIELD
+
+      await poster('/careers', formDataToSend, true);
+      setSubmissionStatus('success');
+      setSubmissionMessage('Your application has been submitted successfully! We will get back to you soon.');
+      
+      // Reset form
+      setFormData({
+        fullName: '',
+        email: '',
+        phone: '',
+        message: '',
+        resume: null
+      });
+      setResumeFileName(null);
+    } catch (err) {
+      setSubmissionStatus('error');
+      setSubmissionMessage(err.info?.message || err.message || 'Failed to submit application. Please try again.');
+      console.error('Career submission error:', err);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   const fadeIn = {
     hidden: { opacity: 0, y: 30 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
-      transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] } 
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }
     },
   };
 
@@ -31,35 +167,35 @@ const CareersPage = () => {
   };
 
   const benefits = [
-    { 
-      icon: Palette, 
-      title: 'Creative Mastery', 
-      desc: 'Work on prestigious architectural projects with cutting-edge tools and materials' 
+    {
+      icon: Palette,
+      title: 'Creative Mastery',
+      desc: 'Work on prestigious architectural projects with cutting-edge tools and materials'
     },
-    { 
-      icon: Ruler, 
-      title: 'Precision Excellence', 
-      desc: 'Develop expertise in micro-scale craftsmanship and advanced manufacturing techniques' 
+    {
+      icon: Ruler,
+      title: 'Precision Excellence',
+      desc: 'Develop expertise in micro-scale craftsmanship and advanced manufacturing techniques'
     },
-    { 
-      icon: Award, 
-      title: 'Recognition & Growth', 
-      desc: 'Professional development programs and opportunities to showcase your artistry globally' 
+    {
+      icon: Award,
+      title: 'Recognition & Growth',
+      desc: 'Professional development programs and opportunities to showcase your artistry globally'
     },
-    { 
-      icon: Users, 
-      title: 'Collaborative Atelier', 
-      desc: 'Join a team of passionate artisans, architects, and creative technologists' 
+    {
+      icon: Users,
+      title: 'Collaborative Atelier',
+      desc: 'Join a team of passionate artisans, architects, and creative technologists'
     },
-    { 
-      icon: Lightbulb, 
-      title: 'Innovation Lab', 
-      desc: 'Access to latest 3D printing, laser cutting, and digital fabrication technologies' 
+    {
+      icon: Lightbulb,
+      title: 'Innovation Lab',
+      desc: 'Access to latest 3D printing, laser cutting, and digital fabrication technologies'
     },
-    { 
-      icon: Heart, 
-      title: 'Artisan Culture', 
-      desc: 'A workplace that values craftsmanship, attention to detail, and artistic vision' 
+    {
+      icon: Heart,
+      title: 'Artisan Culture',
+      desc: 'A workplace that values craftsmanship, attention to detail, and artistic vision'
     }
   ];
 
@@ -80,7 +216,6 @@ const CareersPage = () => {
           variants={staggerContainer}
           className="max-w-4xl mx-auto"
         >
-          {/* Atelier Header */}
           <motion.div
             variants={fadeIn}
             className="inline-flex items-center px-6 py-3 mb-8 rounded-full border border-amber-200 bg-amber-50/80 backdrop-blur-sm"
@@ -102,11 +237,10 @@ const CareersPage = () => {
             variants={fadeIn}
             className="text-xl text-gray-600 font-light leading-relaxed max-w-3xl mx-auto mb-12"
           >
-            Become part of a distinguished team where architectural vision meets artisan craftsmanship. 
+            Become part of a distinguished team where architectural vision meets artisan craftsmanship.
             Shape the future of miniature architecture with precision, passion, and purpose.
           </motion.p>
 
-          {/* Studio metrics */}
           <motion.div
             variants={fadeIn}
             className="flex flex-wrap justify-center gap-8 mb-16"
@@ -147,7 +281,7 @@ const CareersPage = () => {
             variants={fadeIn}
             className="text-xl text-gray-600 font-light max-w-3xl mx-auto"
           >
-            Where traditional craftsmanship meets contemporary innovation in the pursuit of 
+            Where traditional craftsmanship meets contemporary innovation in the pursuit of
             architectural miniature excellence.
           </motion.p>
         </motion.div>
@@ -170,7 +304,7 @@ const CareersPage = () => {
                 border: '1px solid rgba(255, 255, 255, 0.3)',
                 boxShadow: '0 8px 32px rgba(0, 0, 0, 0.05)'
               }}
-              whileHover={{ 
+              whileHover={{
                 y: -8,
                 boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1)'
               }}
@@ -217,103 +351,128 @@ const CareersPage = () => {
                 </p>
               </div>
 
-              <form className="space-y-6">
+              <form onSubmit={onSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <motion.div variants={cardVariants}>
-                    <label className="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wider">
+                    <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wider">
                       Full Name
                     </label>
                     <input
                       type="text"
+                      id="fullName"
+                      name="fullName"
+                      value={formData.fullName}
+                      onChange={handleChange}
                       className="w-full p-4 rounded-xl border border-gray-200/50 bg-white/50 backdrop-blur-sm focus:border-amber-400 focus:outline-none transition-all font-light"
                       style={{ backdropFilter: 'blur(10px)' }}
                     />
+                    {errors.fullName && <p className="mt-1 text-sm text-red-600">{errors.fullName}</p>}
                   </motion.div>
+                  
                   <motion.div variants={cardVariants}>
-                    <label className="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wider">
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wider">
                       Email Address
                     </label>
                     <input
                       type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
                       className="w-full p-4 rounded-xl border border-gray-200/50 bg-white/50 backdrop-blur-sm focus:border-amber-400 focus:outline-none transition-all font-light"
                       style={{ backdropFilter: 'blur(10px)' }}
                     />
+                    {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
                   </motion.div>
                 </div>
 
                 <motion.div variants={cardVariants}>
-                  <label className="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wider">
+                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wider">
                     Phone Number
                   </label>
                   <input
                     type="tel"
+                    id="phone"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
                     className="w-full p-4 rounded-xl border border-gray-200/50 bg-white/50 backdrop-blur-sm focus:border-amber-400 focus:outline-none transition-all font-light"
                     style={{ backdropFilter: 'blur(10px)' }}
                   />
                 </motion.div>
 
-                <motion.div variants={cardVariants}>
-                  <label className="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wider">
-                    Specialization Area
-                  </label>
-                  <select 
-                    className="w-full p-4 rounded-xl border border-gray-200/50 bg-white/50 backdrop-blur-sm focus:border-amber-400 focus:outline-none transition-all font-light"
-                    style={{ backdropFilter: 'blur(10px)' }}
-                  >
-                    <option>Select Your Expertise</option>
-                    <option>Master Model Maker</option>
-                    <option>Precision Laser Technician</option>
-                    <option>3D Design Specialist</option>
-                    <option>Materials & Finishing Expert</option>
-                    <option>Digital Fabrication Engineer</option>
-                    <option>Project Management</option>
-                    <option>Client Relations</option>
-                  </select>
-                </motion.div>
+                {/* NO SPECIALIZATION FIELD - REMOVED */}
 
                 <motion.div variants={cardVariants}>
-                  <label className="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wider">
+                  <label htmlFor="resume" className="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wider">
                     Portfolio & Resume
                   </label>
                   <motion.label
+                    htmlFor="resume"
                     className="border-2 border-dashed border-gray-300/50 rounded-xl p-8 text-center cursor-pointer hover:border-amber-400 transition-all block bg-white/30 backdrop-blur-sm group"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    <input type="file" className="hidden" accept=".pdf,.doc,.docx" />
-                    <Upload className="w-8 h-8 text-gray-400 mx-auto mb-4 group-hover:text-amber-500 transition-colors" />
-                    <p className="text-gray-600 mb-2 font-light">Upload your portfolio & resume</p>
-                    <p className="text-sm text-gray-400 font-light">PDF, DOC, DOCX (Max 10MB)</p>
+                    <input
+                      type="file"
+                      id="resume"
+                      name="resume"
+                      accept=".pdf,.doc,.docx"
+                      onChange={handleFileChange}
+                      className="sr-only"
+                    />
+                    <Upload className="mx-auto h-12 w-12 text-gray-400 mb-4 group-hover:text-amber-500 transition-colors" />
+                    <p className="text-gray-600 mb-2 font-light">
+                      {resumeFileName ? resumeFileName : 'Upload your portfolio & resume'}
+                    </p>
+                    <p className="text-sm text-gray-400 font-light">PDF, DOC, DOCX (Max 5MB)</p>
                   </motion.label>
+                  {errors.resume && <p className="mt-1 text-sm text-red-600">{errors.resume}</p>}
                 </motion.div>
 
                 <motion.div variants={cardVariants}>
-                  <label className="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wider">
+                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wider">
                     Your Artisan Story
                   </label>
                   <textarea
+                    id="message"
+                    name="message"
                     placeholder="Tell us about your passion for precision craftsmanship, your experience with architectural models, and why you want to join our atelier..."
-                    rows="6"
+                    rows={6}
+                    value={formData.message}
+                    onChange={handleChange}
                     className="w-full p-4 rounded-xl border border-gray-200/50 bg-white/50 backdrop-blur-sm focus:border-amber-400 focus:outline-none transition-all font-light resize-none"
                     style={{ backdropFilter: 'blur(10px)' }}
                   />
                 </motion.div>
 
+                {submissionStatus === 'success' && (
+                  <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-green-600 text-center text-lg">
+                    {submissionMessage}
+                  </motion.p>
+                )}
+                {submissionStatus === 'error' && (
+                  <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-red-600 text-center text-lg">
+                    {submissionMessage}
+                  </motion.p>
+                )}
+
                 <motion.button
                   type="submit"
-                  className="w-full px-8 py-4 rounded-xl text-white font-medium tracking-wider uppercase text-sm shadow-xl"
+                  disabled={isSubmitting}
+                  className="w-full px-8 py-4 rounded-xl text-white font-medium tracking-wider uppercase text-sm shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
                   style={{
                     background: 'linear-gradient(135deg, #f06123 0%, #d97706 100%)',
                     boxShadow: '0 10px 30px rgba(240, 97, 35, 0.3)'
                   }}
-                  whileHover={{ 
-                    scale: 1.02,
-                    boxShadow: '0 15px 40px rgba(240, 97, 35, 0.4)'
+                  whileHover={{
+                    scale: isSubmitting ? 1 : 1.02,
+                    boxShadow: isSubmitting ? '0 10px 30px rgba(240, 97, 35, 0.3)' : '0 15px 40px rgba(240, 97, 35, 0.4)'
                   }}
-                  whileTap={{ scale: 0.98 }}
+                  whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
                   variants={cardVariants}
                 >
-                  Submit Application
+                  {isSubmitting ? 'Submitting...' : 'Submit Application'}
                 </motion.button>
               </form>
             </div>
@@ -345,17 +504,17 @@ const CareersPage = () => {
 
               <div className="space-y-6">
                 {[
-                  { 
-                    title: 'Precision as Philosophy', 
-                    desc: 'Every millimeter matters. We believe that exceptional architecture deserves exceptional representation.' 
+                  {
+                    title: 'Precision as Philosophy',
+                    desc: 'Every millimeter matters. We believe that exceptional architecture deserves exceptional representation.'
                   },
-                  { 
-                    title: 'Innovation Through Tradition', 
-                    desc: 'Combining time-honored craftsmanship techniques with cutting-edge digital fabrication.' 
+                  {
+                    title: 'Innovation Through Tradition',
+                    desc: 'Combining time-honored craftsmanship techniques with cutting-edge digital fabrication.'
                   },
-                  { 
-                    title: 'Collaborative Excellence', 
-                    desc: 'Ideas flow freely in our open studio environment where every voice contributes to creative solutions.' 
+                  {
+                    title: 'Collaborative Excellence',
+                    desc: 'Ideas flow freely in our open studio environment where every voice contributes to creative solutions.'
                   }
                 ].map((value, index) => (
                   <div key={index} className="p-4 rounded-xl hover:bg-white/30 transition-all">
@@ -455,18 +614,22 @@ const CareersPage = () => {
               Craft Your Legacy
             </h2>
             <p className="text-xl text-gray-600 font-light mb-8 leading-relaxed">
-              Join a team where your artistic vision shapes architectural miniatures that will 
+              Join a team where your artistic vision shapes architectural miniatures that will
               be treasured for generations. Your precision, our platform.
             </p>
-            
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.button
+                type="button"
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
                 className="px-8 py-4 rounded-full text-white font-medium tracking-wider uppercase text-sm shadow-xl"
                 style={{
                   background: 'linear-gradient(135deg, #f06123 0%, #d97706 100%)',
                   boxShadow: '0 10px 30px rgba(240, 97, 35, 0.3)'
                 }}
-                whileHover={{ 
+                whileHover={{
                   scale: 1.05,
                   boxShadow: '0 15px 40px rgba(240, 97, 35, 0.4)'
                 }}
@@ -474,8 +637,12 @@ const CareersPage = () => {
               >
                 Apply Now
               </motion.button>
-              
+
               <motion.button
+                type="button"
+                onClick={() => {
+                  window.location.href = '/about';
+                }}
                 className="px-8 py-4 rounded-full font-medium tracking-wider uppercase text-sm border border-gray-300 text-gray-700 hover:border-amber-400 hover:text-amber-700 transition-all"
                 style={{
                   background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.2) 100%)',

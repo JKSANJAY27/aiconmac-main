@@ -1,16 +1,120 @@
+// src/components/pages/ContactPage.js
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Phone, Mail, MapPin, Clock, Award, Globe } from 'lucide-react';
 
+import { poster } from '@/lib/api';
+
 const ContactPage = () => {
+  const [submissionStatus, setSubmissionStatus] = useState('idle');
+  const [submissionMessage, setSubmissionMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Form data state
+  const [formData, setFormData] = useState({
+    fullName: '',
+    email: '',
+    phone: '',
+    commissionType: '',
+    projectVision: ''
+  });
+
+  // Error state
+  const [errors, setErrors] = useState({});
+
+  // Handle input changes
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+    // Clear error for this field when user starts typing
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }));
+    }
+  };
+
+  // Validation function
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!formData.fullName.trim()) {
+      newErrors.fullName = "Full Name is required";
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "Invalid email address";
+    }
+
+    if (!formData.commissionType) {
+      newErrors.commissionType = "Please select a commission type";
+    }
+
+    if (!formData.projectVision.trim()) {
+      newErrors.projectVision = "Please describe your project vision";
+    } else if (formData.projectVision.trim().length < 10) {
+      newErrors.projectVision = "Please provide at least 10 characters";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmissionStatus('loading');
+    setSubmissionMessage('');
+
+    try {
+      const payload = {
+        fullName: formData.fullName,
+        email: formData.email,
+        phone: formData.phone || undefined,
+        projectType: formData.commissionType,
+        message: formData.projectVision,
+      };
+
+      await poster('/contact', payload);
+      setSubmissionStatus('success');
+      setSubmissionMessage('Your commission request has been submitted successfully! We will contact you within 24 hours.');
+      
+      // Reset form
+      setFormData({
+        fullName: '',
+        email: '',
+        phone: '',
+        commissionType: '',
+        projectVision: ''
+      });
+    } catch (err) {
+      setSubmissionStatus('error');
+      setSubmissionMessage(err.info?.message || err.message || 'Failed to submit request. Please try again.');
+      console.error('Contact submission error:', err);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   const fadeIn = {
     hidden: { opacity: 0, y: 30 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
-      transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] } 
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }
     },
   };
 
@@ -47,7 +151,6 @@ const ContactPage = () => {
           variants={staggerContainer}
           className="max-w-4xl mx-auto"
         >
-          {/* Atelier Header */}
           <motion.div
             variants={fadeIn}
             className="inline-flex items-center px-6 py-3 mb-8 rounded-full border border-amber-200 bg-amber-50/80 backdrop-blur-sm"
@@ -69,11 +172,10 @@ const ContactPage = () => {
             variants={fadeIn}
             className="text-xl text-gray-600 font-light leading-relaxed max-w-3xl mx-auto mb-12"
           >
-            Transform your architectural vision into museum-quality miniature masterpieces. 
+            Transform your architectural vision into museum-quality miniature masterpieces.
             Our artisans combine traditional craftsmanship with cutting-edge precision.
           </motion.p>
 
-          {/* Studio credentials */}
           <motion.div
             variants={fadeIn}
             className="flex flex-wrap justify-center gap-8 mb-16"
@@ -121,86 +223,123 @@ const ContactPage = () => {
                 </p>
               </div>
 
-              <form className="space-y-6">
+              <form onSubmit={onSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <motion.div variants={cardVariants}>
-                    <label className="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wider">
+                    <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wider">
                       Full Name
                     </label>
                     <input
                       type="text"
+                      id="fullName"
+                      name="fullName"
+                      value={formData.fullName}
+                      onChange={handleChange}
                       className="w-full p-4 rounded-xl border border-gray-200/50 bg-white/50 backdrop-blur-sm focus:border-amber-400 focus:outline-none transition-all font-light"
                       style={{ backdropFilter: 'blur(10px)' }}
                     />
+                    {errors.fullName && <p className="mt-1 text-sm text-red-600">{errors.fullName}</p>}
                   </motion.div>
+                  
                   <motion.div variants={cardVariants}>
-                    <label className="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wider">
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wider">
                       Email Address
                     </label>
                     <input
                       type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
                       className="w-full p-4 rounded-xl border border-gray-200/50 bg-white/50 backdrop-blur-sm focus:border-amber-400 focus:outline-none transition-all font-light"
                       style={{ backdropFilter: 'blur(10px)' }}
                     />
+                    {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
                   </motion.div>
                 </div>
 
                 <motion.div variants={cardVariants}>
-                  <label className="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wider">
+                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wider">
                     Phone Number
                   </label>
                   <input
                     type="tel"
+                    id="phone"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
                     className="w-full p-4 rounded-xl border border-gray-200/50 bg-white/50 backdrop-blur-sm focus:border-amber-400 focus:outline-none transition-all font-light"
                     style={{ backdropFilter: 'blur(10px)' }}
                   />
                 </motion.div>
 
                 <motion.div variants={cardVariants}>
-                  <label className="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wider">
+                  <label htmlFor="commissionType" className="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wider">
                     Commission Type
                   </label>
-                  <select 
+                  <select
+                    id="commissionType"
+                    name="commissionType"
+                    value={formData.commissionType}
+                    onChange={handleChange}
                     className="w-full p-4 rounded-xl border border-gray-200/50 bg-white/50 backdrop-blur-sm focus:border-amber-400 focus:outline-none transition-all font-light"
                     style={{ backdropFilter: 'blur(10px)' }}
                   >
-                    <option>Select Commission Type</option>
-                    <option>Architectural Scale Model</option>
-                    <option>Industrial Prototype</option>
-                    <option>Urban Masterplan</option>
-                    <option>Precision 3D Printing</option>
-                    <option>Executive Gift Models</option>
-                    <option>Museum Exhibition Piece</option>
+                    <option value="">Select Commission Type</option>
+                    <option value="Architectural Scale Model">Architectural Scale Model</option>
+                    <option value="Industrial Prototype">Industrial Prototype</option>
+                    <option value="Urban Masterplan">Urban Masterplan</option>
+                    <option value="Precision 3D Printing">Precision 3D Printing</option>
+                    <option value="Executive Gift Models">Executive Gift Models</option>
+                    <option value="Museum Exhibition Piece">Museum Exhibition Piece</option>
                   </select>
+                  {errors.commissionType && <p className="mt-1 text-sm text-red-600">{errors.commissionType}</p>}
                 </motion.div>
 
                 <motion.div variants={cardVariants}>
-                  <label className="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wider">
+                  <label htmlFor="projectVision" className="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wider">
                     Project Vision
                   </label>
                   <textarea
+                    id="projectVision"
+                    name="projectVision"
                     placeholder="Describe your architectural vision, scale requirements, materials preference, and any special details..."
-                    rows="6"
+                    rows={6}
+                    value={formData.projectVision}
+                    onChange={handleChange}
                     className="w-full p-4 rounded-xl border border-gray-200/50 bg-white/50 backdrop-blur-sm focus:border-amber-400 focus:outline-none transition-all font-light resize-none"
                     style={{ backdropFilter: 'blur(10px)' }}
                   />
+                  {errors.projectVision && <p className="mt-1 text-sm text-red-600">{errors.projectVision}</p>}
                 </motion.div>
+
+                {submissionStatus === 'success' && (
+                  <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-green-600 text-center text-lg">
+                    {submissionMessage}
+                  </motion.p>
+                )}
+                {submissionStatus === 'error' && (
+                  <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-red-600 text-center text-lg">
+                    {submissionMessage}
+                  </motion.p>
+                )}
 
                 <motion.button
                   type="submit"
-                  className="w-full px-8 py-4 rounded-xl text-white font-medium tracking-wider uppercase text-sm shadow-xl"
+                  disabled={isSubmitting}
+                  className="w-full px-8 py-4 rounded-xl text-white font-medium tracking-wider uppercase text-sm shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
                   style={{
                     background: 'linear-gradient(135deg, #f06123 0%, #d97706 100%)',
                     boxShadow: '0 10px 30px rgba(240, 97, 35, 0.3)'
                   }}
-                  whileHover={{ 
-                    scale: 1.02,
-                    boxShadow: '0 15px 40px rgba(240, 97, 35, 0.4)'
+                  whileHover={{
+                    scale: isSubmitting ? 1 : 1.02,
+                    boxShadow: isSubmitting ? '0 10px 30px rgba(240, 97, 35, 0.3)' : '0 15px 40px rgba(240, 97, 35, 0.4)'
                   }}
-                  whileTap={{ scale: 0.98 }}
+                  whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
                   variants={cardVariants}
                 >
-                  Submit Commission Request
+                  {isSubmitting ? 'Submitting...' : 'Submit Commission Request'}
                 </motion.button>
               </form>
             </div>
@@ -330,18 +469,22 @@ const ContactPage = () => {
               Begin Your Commission
             </h2>
             <p className="text-xl text-gray-600 font-light mb-8 leading-relaxed">
-              Every architectural masterpiece begins with a conversation. Let&apos;s discuss how we can 
+              Every architectural masterpiece begins with a conversation. Let&apos;s discuss how we can
               transform your vision into tangible artistry.
             </p>
-            
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.button
+                type="button"
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
                 className="px-8 py-4 rounded-full text-white font-medium tracking-wider uppercase text-sm shadow-xl"
                 style={{
                   background: 'linear-gradient(135deg, #f06123 0%, #d97706 100%)',
                   boxShadow: '0 10px 30px rgba(240, 97, 35, 0.3)'
                 }}
-                whileHover={{ 
+                whileHover={{
                   scale: 1.05,
                   boxShadow: '0 15px 40px rgba(240, 97, 35, 0.4)'
                 }}
@@ -349,8 +492,12 @@ const ContactPage = () => {
               >
                 Schedule Consultation
               </motion.button>
-              
+
               <motion.button
+                type="button"
+                onClick={() => { 
+                  window.location.href = '/projects';
+                }}
                 className="px-8 py-4 rounded-full font-medium tracking-wider uppercase text-sm border border-gray-300 text-gray-700 hover:border-amber-400 hover:text-amber-700 transition-all"
                 style={{
                   background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.2) 100%)',
@@ -369,4 +516,4 @@ const ContactPage = () => {
   );
 };
 
-export default ContactPage;
+export default ContactPage;

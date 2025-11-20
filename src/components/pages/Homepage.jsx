@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
@@ -26,6 +26,8 @@ import img4 from '@/images/img4.jpg';
 import img5 from '@/images/img5.jpg';
 import CountUp from '@/components/ui/CountUp';
 
+import { fetcher } from '@/lib/api'; // Import fetcher for backend data
+
 // For the interactive services section
 const serviceImages = {
   master: img3,
@@ -33,32 +35,12 @@ const serviceImages = {
   industrial: img5,
 };
 
-// Testimonials data for the infinite moving cards
-const testimonials = [
+// Fallback data for testimonials and services if API calls fail
+const testimonialsInitial = [
   {
-    quote: "AICONMAC delivered an incredibly detailed architectural model that helped us secure major funding for our project. Their attention to detail is unmatched.",
-    name: "Sarah Al-Rashid",
-    title: "Project Manager, Dubai Development Authority"
-  },
-  {
-    quote: "The precision and craftsmanship in their industrial models exceeded our expectations. Every component was perfectly scaled and beautifully finished.",
-    name: "Michael Chen",
-    title: "Chief Engineer, Gulf Industries"
-  },
-  {
-    quote: "Working with AICONMAC transformed how we present our architectural concepts to clients. Their models are true works of art.",
-    name: "Fatima Al-Zahra",
-    title: "Senior Architect, Emirates Design Studio"
-  },
-  {
-    quote: "The master planning model they created for our urban development project was instrumental in gaining stakeholder approval.",
-    name: "James Rodriguez",
-    title: "Urban Planning Director, Metro Development Corp"
-  },
-  {
-    quote: "Their ability to translate complex architectural drawings into stunning physical models is remarkable. Highly recommended.",
-    name: "Aisha Patel",
-    title: "Design Director, Skyline Architecture"
+    quote: "Building the future, one miniature at a time. Their models are breathtaking.",
+    name: "Architectural Firm",
+    title: "Global Partner"
   }
 ];
 
@@ -131,6 +113,9 @@ const services = [
 const Homepage = () => {
   const [activeServiceImage, setActiveServiceImage] = useState(serviceImages.master);
   const [scrollY, setScrollY] = useState(0);
+  const [servicesData, setServicesData] = useState([]); // State for fetched services
+  const [testimonialsData, setTestimonialsData] = useState(testimonialsInitial); // State for fetched testimonials
+  const [featuredProjectsData, setFeaturedProjectsData] = useState([]); // State for fetched featured projects
 
   // Animation variants
   const fadeIn = {
@@ -155,6 +140,70 @@ const Homepage = () => {
     </svg>
   );
 
+// --- Data Fetching ---
+  useEffect(() => {
+    // Fetch Testimonials
+    fetcher('/testimonials?isApproved=true')
+      .then(data => {
+        const mappedTestimonials = data.map(t => ({
+          quote: t.quote,
+          name: t.author,
+          title: t.title ? `${t.title}, ${t.company}` : t.company || 'Client',
+        }));
+        setTestimonialsData(mappedTestimonials.length > 0 ? mappedTestimonials : testimonialsInitial);
+      })
+      .catch(err => {
+        console.error("Failed to fetch testimonials:", err);
+        setTestimonialsData(testimonialsInitial);
+      });
+
+    // Fetch Services/Projects
+    fetcher('/projects?isPublished=true&take=3')
+      .then(data => {
+        const mappedServices = data.map(project => ({
+          id: project.id,
+          title: project.title,
+          description: project.description.substring(0, 150) + '...',
+          img: project.images[0] ? { src: project.images[0].url, alt: project.images[0].altText || project.title } : { src: '/images/placeholder.jpg', alt: 'Placeholder' },
+        }));
+        setServicesData(mappedServices);
+        if (mappedServices.length > 0) {
+          setActiveServiceImage(mappedServices[0].img);
+        } else {
+          setActiveServiceImage({ src: '/images/placeholder.jpg', alt: 'Placeholder' });
+        }
+      })
+      .catch(err => {
+        console.error("Failed to fetch services/projects:", err);
+        setServicesData([
+          { id: 'static-master', title: 'Master Planning Models', description: "Comprehensive urban visions...", img: { src: '/images/placeholder.jpg', alt: 'Masterplan' } },
+          { id: 'static-arch', title: 'Architectural Models', description: 'Detailed building models...', img: { src: '/images/placeholder.jpg', alt: 'Architecture' } },
+        ]);
+        setActiveServiceImage({ src: '/images/placeholder.jpg', alt: 'Placeholder' });
+      });
+
+    // Fetch Featured Projects
+    fetcher('/projects?isPublished=true&take=3')
+      .then(data => {
+        const mappedFeatured = data.map(project => ({
+          img: project.images[0] ? { src: project.images[0].url, alt: project.images[0].altText || project.title } : { src: '/images/placeholder.jpg', alt: 'Placeholder' },
+          title: project.title,
+          medium: `Scale 1:${Math.floor(Math.random() * 800) + 200} — Mixed Media`,
+          year: new Date(project.createdAt).getFullYear(),
+          link: `/projects/${project.id}`
+        }));
+        setFeaturedProjectsData(mappedFeatured);
+      })
+      .catch(err => {
+        console.error("Failed to fetch featured projects:", err);
+        setFeaturedProjectsData([
+          { img: { src: '/images/placeholder.jpg', alt: 'Featured 1' }, title: "Urban Planning Masterpiece", medium: "Scale 1:500 — Mixed Media", year: "2023", link: "/projects" },
+          { img: { src: '/images/placeholder.jpg', alt: 'Featured 2' }, title: "Contemporary Architecture", medium: "Scale 1:200 — Premium Materials", year: "2023", link: "/projects" },
+        ]);
+      });
+
+  }, []);
+  
   // Feature item component
   const FeatureItem = ({ title }) => (
     <li className="flex gap-2 items-start">
@@ -569,7 +618,7 @@ const Homepage = () => {
               viewport={{ once: true }}
             >
               <InfiniteMovingCards
-                items={testimonials}
+                items={testimonialsData}
                 direction="right"
                 speed="slow"
                 pauseOnHover={true}
