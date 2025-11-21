@@ -276,11 +276,10 @@ const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProjec
                       transition={{ duration: 0.8, delay: 0.2 }}
                       viewport={{ once: true }}
                     >
-                      <div className="h-[500px] w-full">
-                        <TiltedCard
+                      <TiltedCard
                           imageSrc={item.images[0] ? item.images[0].url : '/images/placeholder.jpg'}
                           altText={item.images[0] ? item.images[0].altText : item.title}
-                          containerHeight="500px"
+                          containerHeight="auto"
                           scaleOnHover={1.02}
                           rotateAmplitude={12}
                           overlayContent={
@@ -302,25 +301,6 @@ const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProjec
                           displayOverlayContent={true}
                           onClick={() => setSelectedProject(item)}
                         />
-                      </div>
-
-                      {/* Exhibit placard */}
-                      <motion.div
-                        className="mt-6 p-4 rounded-xl"
-                        style={{
-                          background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.4) 100%)',
-                          backdropFilter: 'blur(10px)',
-                          border: '1px solid rgba(255, 255, 255, 0.3)'
-                        }}
-                        initial={{ opacity: 0, y: 10 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4, delay: 0.4 }}
-                        viewport={{ once: true }}
-                      >
-                        <div className="text-sm text-gray-600 font-light italic text-center">
-                          {item.title} — Scale 1:200 — Materials: Precision wood, acrylic, brass detailing
-                        </div>
-                      </motion.div>
                     </motion.div>
 
                     {/* Curatorial Description */}

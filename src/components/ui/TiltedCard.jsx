@@ -41,6 +41,9 @@ export default function TiltedCard({
 
   const [lastY, setLastY] = useState(0);
 
+  // Check if we should use flexible height
+  const isFlexibleHeight = containerHeight === "auto";
+
   function handleMouse(e) {
     if (!ref.current) return;
 
@@ -80,9 +83,9 @@ export default function TiltedCard({
   return (
     <motion.figure // Wrap figure with motion.div for transitions
       ref={ref}
-      className="relative w-full h-full [perspective:800px] flex flex-col items-center justify-center"
+      className={`relative w-full [perspective:800px] flex flex-col items-center justify-center ${isFlexibleHeight ? '' : 'h-full'}`}
       style={{
-        height: containerHeight, // Use containerHeight
+        height: isFlexibleHeight ? 'auto' : containerHeight, // Use containerHeight or auto
         // width: containerWidth, // Removed, let parent control width
       }}
       onMouseMove={handleMouse}
@@ -92,20 +95,33 @@ export default function TiltedCard({
     >
       {/* The main image container - uses full width/height of figure */}
       <motion.div
-        className="relative w-full h-full [transform-style:preserve-3d] rounded-[15px] overflow-hidden" // Added overflow-hidden to clip image
+        className={`relative w-full [transform-style:preserve-3d] rounded-[15px] overflow-hidden ${isFlexibleHeight ? '' : 'h-full'}`}
         style={{
           rotateX,
           rotateY,
           scale,
         }}
       >
-        <Image // <-- Use Next.js Image component
-          src={imageSrc} // Pass the image module directly
-          alt={altText}
-          layout="fill" // Fill the parent container (motion.div)
-          objectFit="cover" // Cover the area without distortion
-          className="absolute top-0 left-0 will-change-transform [transform:translateZ(0)]" // Remove explicit width/height
-        />
+        {isFlexibleHeight ? (
+          // For flexible height, use responsive image that maintains aspect ratio
+          <Image
+            src={imageSrc}
+            alt={altText}
+            width={1200} // Provide a reasonable default width
+            height={800} // Provide a reasonable default height (will maintain aspect ratio)
+            className="w-full h-auto will-change-transform [transform:translateZ(0)]"
+            style={{ display: 'block' }}
+          />
+        ) : (
+          // For fixed height, use fill layout with cover
+          <Image
+            src={imageSrc} // Pass the image module directly
+            alt={altText}
+            layout="fill" // Fill the parent container (motion.div)
+            objectFit="cover" // Cover the area without distortion
+            className="absolute top-0 left-0 will-change-transform [transform:translateZ(0)]" // Remove explicit width/height
+          />
+        )}
 
         {displayOverlayContent && overlayContent && (
           <motion.div
