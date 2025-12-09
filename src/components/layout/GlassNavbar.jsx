@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import Image from 'next/image';
 import logo from '@/images/logo.jpg'; // Adjust path as needed
+import LanguageSwitcher from '@/components/ui/LanguageSwitcher';
 
 const GlassNavbar = ({ isVisible }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -65,21 +66,24 @@ const GlassNavbar = ({ isVisible }) => {
             ))}
           </div>
 
-          {/* Contact Button */}
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Link
-              href="/contact"
-              className="inline-block px-6 py-3 text-sm font-medium text-black rounded-full uppercase tracking-wider"
-              style={{
-                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%)',
-                backdropFilter: 'blur(15px)',
-                border: '1px solid rgba(255, 255, 255, 0.2)',
-                boxShadow: '0 4px 16px rgba(0, 0, 0, 0.1)'
-              }}
-            >
-              Contact Us
-            </Link>
-          </motion.div>
+          {/* Contact Button & Language Switcher */}
+          <div className="flex items-center space-x-4">
+            <LanguageSwitcher />
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Link
+                href="/contact"
+                className="inline-block px-6 py-3 text-sm font-medium text-black rounded-full uppercase tracking-wider"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%)',
+                  backdropFilter: 'blur(15px)',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  boxShadow: '0 4px 16px rgba(0, 0, 0, 0.1)'
+                }}
+              >
+                Contact Us
+              </Link>
+            </motion.div>
+          </div>
         </motion.div>
       </div>
 
@@ -143,7 +147,7 @@ const GlassNavbar = ({ isVisible }) => {
                     </Link>
                   </motion.div>
                 ))}
-                
+
                 <div className="pt-4 border-t border-white/20">
                   <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                     <Link

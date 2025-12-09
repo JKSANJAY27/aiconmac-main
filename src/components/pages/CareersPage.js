@@ -1,13 +1,16 @@
-// src/components/pages/CareersPage.js
 "use client";
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Upload, Palette, Ruler, Award, Users, Lightbulb, Heart } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { useRouter } from '@/i18n/routing';
 
 import { poster } from '@/lib/api';
 
 const CareersPage = () => {
+  const t = useTranslations('CareersPage');
+  const router = useRouter();
   const [submissionStatus, setSubmissionStatus] = useState('idle');
   const [submissionMessage, setSubmissionMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -101,7 +104,7 @@ const CareersPage = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
@@ -122,7 +125,7 @@ const CareersPage = () => {
       await poster('/careers', formDataToSend, true);
       setSubmissionStatus('success');
       setSubmissionMessage('Your application has been submitted successfully! We will get back to you soon.');
-      
+
       // Reset form
       setFormData({
         fullName: '',
@@ -169,33 +172,33 @@ const CareersPage = () => {
   const benefits = [
     {
       icon: Palette,
-      title: 'Creative Mastery',
-      desc: 'Work on prestigious architectural projects with cutting-edge tools and materials'
+      title: t('benefits.creativeMastery.title'),
+      desc: t('benefits.creativeMastery.desc')
     },
     {
       icon: Ruler,
-      title: 'Precision Excellence',
-      desc: 'Develop expertise in micro-scale craftsmanship and advanced manufacturing techniques'
+      title: t('benefits.precisionExcellence.title'),
+      desc: t('benefits.precisionExcellence.desc')
     },
     {
       icon: Award,
-      title: 'Recognition & Growth',
-      desc: 'Professional development programs and opportunities to showcase your artistry globally'
+      title: t('benefits.recognitionGrowth.title'),
+      desc: t('benefits.recognitionGrowth.desc')
     },
     {
       icon: Users,
-      title: 'Collaborative Atelier',
-      desc: 'Join a team of passionate artisans, architects, and creative technologists'
+      title: t('benefits.collaborativeAtelier.title'),
+      desc: t('benefits.collaborativeAtelier.desc')
     },
     {
       icon: Lightbulb,
-      title: 'Innovation Lab',
-      desc: 'Access to latest 3D printing, laser cutting, and digital fabrication technologies'
+      title: t('benefits.innovationLab.title'),
+      desc: t('benefits.innovationLab.desc')
     },
     {
       icon: Heart,
-      title: 'Artisan Culture',
-      desc: 'A workplace that values craftsmanship, attention to detail, and artistic vision'
+      title: t('benefits.artisanCulture.title'),
+      desc: t('benefits.artisanCulture.desc')
     }
   ];
 
@@ -222,7 +225,7 @@ const CareersPage = () => {
           >
             <div className="w-2 h-2 bg-amber-400 rounded-full mr-3 animate-pulse" />
             <span className="text-sm font-light uppercase tracking-wider text-amber-700">
-              Master Craftsmen Collective
+              {t('masterCraftsmen')}
             </span>
           </motion.div>
 
@@ -230,15 +233,14 @@ const CareersPage = () => {
             variants={fadeIn}
             className="text-5xl md:text-7xl font-extralight text-gray-800 mb-6 tracking-tight"
           >
-            Join Our Atelier
+            {t('heroTitle')}
           </motion.h1>
 
           <motion.p
             variants={fadeIn}
             className="text-xl text-gray-600 font-light leading-relaxed max-w-3xl mx-auto mb-12"
           >
-            Become part of a distinguished team where architectural vision meets artisan craftsmanship.
-            Shape the future of miniature architecture with precision, passion, and purpose.
+            {t('heroDescription')}
           </motion.p>
 
           <motion.div
@@ -247,15 +249,15 @@ const CareersPage = () => {
           >
             <div className="text-center">
               <div className="text-3xl font-extralight text-amber-600">25+</div>
-              <div className="text-sm uppercase tracking-wider text-gray-500">Master Artisans</div>
+              <div className="text-sm uppercase tracking-wider text-gray-500">{t('statsArtisans')}</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-extralight text-amber-600">15</div>
-              <div className="text-sm uppercase tracking-wider text-gray-500">Countries</div>
+              <div className="text-sm uppercase tracking-wider text-gray-500">{t('statsCountries')}</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-extralight text-amber-600">98%</div>
-              <div className="text-sm uppercase tracking-wider text-gray-500">Satisfaction</div>
+              <div className="text-sm uppercase tracking-wider text-gray-500">{t('statsSatisfaction')}</div>
             </div>
           </motion.div>
         </motion.div>
@@ -274,15 +276,14 @@ const CareersPage = () => {
             variants={fadeIn}
             className="text-4xl md:text-5xl font-extralight text-gray-800 mb-6 tracking-tight"
           >
-            The Artisan Experience
+            {t('whyJoinTitle')}
           </motion.h2>
           <motion.div variants={fadeIn} className="w-24 h-px bg-amber-300 mx-auto mb-8" />
           <motion.p
             variants={fadeIn}
             className="text-xl text-gray-600 font-light max-w-3xl mx-auto"
           >
-            Where traditional craftsmanship meets contemporary innovation in the pursuit of
-            architectural miniature excellence.
+            {t('whyJoinDescription')}
           </motion.p>
         </motion.div>
 
@@ -344,10 +345,10 @@ const CareersPage = () => {
               }}
             >
               <div className="mb-8">
-                <h2 className="text-3xl font-light text-gray-800 mb-4">Join Our Team</h2>
+                <h2 className="text-3xl font-light text-gray-800 mb-4">{t('joinTeamTitle')}</h2>
                 <div className="w-16 h-px bg-amber-300 mb-4" />
                 <p className="text-gray-600 font-light">
-                  Submit your application to become part of our master craftsmen collective
+                  {t('joinTeamDescription')}
                 </p>
               </div>
 
@@ -355,7 +356,7 @@ const CareersPage = () => {
                 <div className="grid md:grid-cols-2 gap-6">
                   <motion.div variants={cardVariants}>
                     <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wider">
-                      Full Name
+                      {t('formFullName')}
                     </label>
                     <input
                       type="text"
@@ -368,10 +369,10 @@ const CareersPage = () => {
                     />
                     {errors.fullName && <p className="mt-1 text-sm text-red-600">{errors.fullName}</p>}
                   </motion.div>
-                  
+
                   <motion.div variants={cardVariants}>
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wider">
-                      Email Address
+                      {t('formEmail')}
                     </label>
                     <input
                       type="email"
@@ -388,7 +389,7 @@ const CareersPage = () => {
 
                 <motion.div variants={cardVariants}>
                   <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wider">
-                    Phone Number
+                    {t('formPhone')}
                   </label>
                   <input
                     type="tel"
@@ -405,7 +406,7 @@ const CareersPage = () => {
 
                 <motion.div variants={cardVariants}>
                   <label htmlFor="resume" className="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wider">
-                    Portfolio & Resume
+                    {t('formResume')}
                   </label>
                   <motion.label
                     htmlFor="resume"
@@ -423,7 +424,7 @@ const CareersPage = () => {
                     />
                     <Upload className="mx-auto h-12 w-12 text-gray-400 mb-4 group-hover:text-amber-500 transition-colors" />
                     <p className="text-gray-600 mb-2 font-light">
-                      {resumeFileName ? resumeFileName : 'Upload your portfolio & resume'}
+                      {resumeFileName ? resumeFileName : t('formResume')}
                     </p>
                     <p className="text-sm text-gray-400 font-light">PDF, DOC, DOCX (Max 5MB)</p>
                   </motion.label>
@@ -432,7 +433,7 @@ const CareersPage = () => {
 
                 <motion.div variants={cardVariants}>
                   <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wider">
-                    Your Artisan Story
+                    {t('formMessage')}
                   </label>
                   <textarea
                     id="message"
@@ -472,7 +473,7 @@ const CareersPage = () => {
                   whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
                   variants={cardVariants}
                 >
-                  {isSubmitting ? 'Submitting...' : 'Submit Application'}
+                  {isSubmitting ? t('formSubmitting') : t('formSubmit')}
                 </motion.button>
               </form>
             </div>
@@ -498,23 +499,23 @@ const CareersPage = () => {
               }}
             >
               <div className="mb-6">
-                <h3 className="text-2xl font-light text-gray-800 mb-4">Our Atelier Culture</h3>
+                <h3 className="text-2xl font-light text-gray-800 mb-4">{t('cultureTitle')}</h3>
                 <div className="w-16 h-px bg-amber-300 mb-4" />
               </div>
 
               <div className="space-y-6">
                 {[
                   {
-                    title: 'Precision as Philosophy',
-                    desc: 'Every millimeter matters. We believe that exceptional architecture deserves exceptional representation.'
+                    title: t('culture.precision.title'),
+                    desc: t('culture.precision.desc')
                   },
                   {
-                    title: 'Innovation Through Tradition',
-                    desc: 'Combining time-honored craftsmanship techniques with cutting-edge digital fabrication.'
+                    title: t('culture.innovation.title'),
+                    desc: t('culture.innovation.desc')
                   },
                   {
-                    title: 'Collaborative Excellence',
-                    desc: 'Ideas flow freely in our open studio environment where every voice contributes to creative solutions.'
+                    title: t('culture.collaboration.title'),
+                    desc: t('culture.collaboration.desc')
                   }
                 ].map((value, index) => (
                   <div key={index} className="p-4 rounded-xl hover:bg-white/30 transition-all">
@@ -536,17 +537,17 @@ const CareersPage = () => {
               }}
             >
               <div className="mb-6">
-                <h3 className="text-2xl font-light text-gray-800 mb-4">Growth Pathway</h3>
+                <h3 className="text-2xl font-light text-gray-800 mb-4">{t('growthTitle')}</h3>
                 <div className="w-16 h-px bg-amber-300 mb-4" />
               </div>
 
               <div className="space-y-4">
                 {[
-                  'Apprentice Artisan → Journey Craftsperson → Master Model Maker',
-                  'Continuous skill development workshops',
-                  'International exhibition opportunities',
-                  'Leadership roles in prestigious projects',
-                  'Mentorship programs with industry legends'
+                  t('growth.0'),
+                  t('growth.1'),
+                  t('growth.2'),
+                  t('growth.3'),
+                  t('growth.4')
                 ].map((path, index) => (
                   <div key={index} className="flex items-start space-x-3">
                     <div className="bg-amber-600 w-2 h-2 rounded-full mt-2 flex-shrink-0" />
@@ -566,16 +567,16 @@ const CareersPage = () => {
               }}
             >
               <div className="mb-6">
-                <h3 className="text-2xl font-light text-gray-800 mb-4">Current Openings</h3>
+                <h3 className="text-2xl font-light text-gray-800 mb-4">{t('openingsTitle')}</h3>
                 <div className="w-16 h-px bg-amber-300 mb-4" />
               </div>
 
               <div className="space-y-3">
                 {[
-                  { role: 'Senior Model Maker', type: 'Full-time', urgent: true },
-                  { role: '3D Design Specialist', type: 'Full-time', urgent: false },
-                  { role: 'Precision Finishing Artist', type: 'Contract', urgent: false },
-                  { role: 'Project Coordinator', type: 'Full-time', urgent: true }
+                  { role: t('openings.seniorModelMaker'), type: t('openings.fullTime'), urgent: true },
+                  { role: t('openings.designSpecialist'), type: t('openings.fullTime'), urgent: false },
+                  { role: t('openings.finishingArtist'), type: t('openings.contract'), urgent: false },
+                  { role: t('openings.projectCoordinator'), type: t('openings.fullTime'), urgent: true }
                 ].map((position, index) => (
                   <div key={index} className="flex items-center justify-between p-3 rounded-lg bg-white/40">
                     <div>
@@ -584,7 +585,7 @@ const CareersPage = () => {
                     </div>
                     {position.urgent && (
                       <span className="px-2 py-1 bg-amber-200 text-amber-800 text-xs rounded-full font-medium">
-                        Urgent
+                        {t('openings.urgent')}
                       </span>
                     )}
                   </div>
@@ -611,11 +612,10 @@ const CareersPage = () => {
             }}
           >
             <h2 className="text-4xl md:text-5xl font-extralight text-gray-800 mb-6">
-              Craft Your Legacy
+              {t('ctaTitle')}
             </h2>
             <p className="text-xl text-gray-600 font-light mb-8 leading-relaxed">
-              Join a team where your artistic vision shapes architectural miniatures that will
-              be treasured for generations. Your precision, our platform.
+              {t('ctaDescription')}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -635,13 +635,13 @@ const CareersPage = () => {
                 }}
                 whileTap={{ scale: 0.95 }}
               >
-                Apply Now
+                {t('applyNow')}
               </motion.button>
 
               <motion.button
                 type="button"
                 onClick={() => {
-                  window.location.href = '/about';
+                  router.push('/about');
                 }}
                 className="px-8 py-4 rounded-full font-medium tracking-wider uppercase text-sm border border-gray-300 text-gray-700 hover:border-amber-400 hover:text-amber-700 transition-all"
                 style={{
@@ -651,7 +651,7 @@ const CareersPage = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                Studio Tour
+                {t('studioTour')}
               </motion.button>
             </div>
           </motion.div>

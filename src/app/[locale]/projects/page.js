@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/i18n/routing';
 
 import ProjectsPageContent from '@/components/pages/ProjectsPage'; // Renamed for clarity, though original name works
 import ProjectDetail from '@/components/modals/ProjectDetail';
@@ -15,7 +15,7 @@ export default function ProjectsRoutePage() {
 
   return (
     <>
-      <SiteNavbar />
+      <SiteNavbar isVisible={true} />
       {/* Ensure main content wrapper allows space for fixed header and is above AnimatedBackground */}
       <div className="relative z-10 pt-24 sm:pt-28 md:pt-32 min-h-screen"> {/* Added pt and min-h-screen */}
         <ProjectsPageContent

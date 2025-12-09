@@ -1,0 +1,170 @@
+{
+    "HomePage": {
+        "title": "نماذج أيكون ماك - دقة في التصغير",
+        "description": "صياغة نماذج معمارية معقدة بتفاصيل لا مثيل لها وتميز فني."
+    },
+    "Navigation": {
+        "home": "الرئيسية",
+        "projects": "المشاريع",
+        "careers": "وظائف",
+        "contact": "اتصل بنا"
+    },
+    "ProjectsPage": {
+        "heroTitle": "معرض المشاريع",
+        "heroDescription": "معرض منسق بعناية للمنمنمات المعمارية، تمثل كل قطعة قمة الحرفية الدقيقة والرؤية الفنية.",
+        "statsMasterpieces": "روائع",
+        "statsCollections": "مجموعات",
+        "statsYears": "سنوات من التنظيم",
+        "curatorialCollection": "مجموعة تنظيمية",
+        "commissionTitle": "اطلب تحفتك الفنية",
+        "commissionDescription": "هل أنت مستعد لرؤية رؤيتك المعمارية تتحول إلى نموذج مصغر بجودة المتاحف؟",
+        "startCommission": "ابدأ طلبك",
+        "viewDetails": "عرض التفاصيل",
+        "curatorialNotes": "ملاحظات تنظيمية",
+        "explorePiece": "استكشف القطعة"
+    },
+    "CareersPage": {
+        "heroTitle": "انضم إلى مشغلنا",
+        "heroDescription": "كن جزءًا من فريق متميز حيث تلتقي الرؤية المعمارية بالحرفية الفنية. شكل مستقبل العمارة المصغرة بدقة وشغف وهدف.",
+        "statsArtisans": "حرفيون ماهرون",
+        "statsCountries": "بلدان",
+        "statsSatisfaction": "رضا",
+        "masterCraftsmen": "تجمع الحرفيين المهرة",
+        "whyJoinTitle": "تجربة الحرفي",
+        "whyJoinDescription": "حيث تلتقي الحرفية التقليدية بالابتكار المعاصر في السعي لتحقيق التميز في المنمنمات المعمارية.",
+        "joinTeamTitle": "انضم إلى فريقنا",
+        "joinTeamDescription": "قدم طلبك لتصبح جزءًا من تجمع الحرفيين المهرة لدينا",
+        "formFullName": "الاسم الكامل",
+        "formEmail": "عنوان البريد الإلكتروني",
+        "formPhone": "رقم الهاتف",
+        "formResume": "المحفظة والسيرة الذاتية",
+        "formMessage": "قصتك الحرفية",
+        "formSubmit": "تقديم الطلب",
+        "formSubmitting": "جاري التقديم...",
+        "cultureTitle": "ثقافة مشغلنا",
+        "growthTitle": "مسار النمو",
+        "openingsTitle": "الوظائف المتاحة",
+        "ctaTitle": "اصنع إرثك",
+        "ctaDescription": "انضم إلى فريق تشكل فيه رؤيتك الفنية منمنمات معمارية ستعتز بها الأجيال. دقتك، منصتنا.",
+        "applyNow": "قدم الآن",
+        "studioTour": "جولة في الاستوديو",
+        "benefits": {
+            "creativeMastery": {
+                "title": "إتقان إبداعي",
+                "desc": "العمل على مشاريع معمارية مرموقة بأدوات ومواد متطورة"
+            },
+            "precisionExcellence": {
+                "title": "تميز في الدقة",
+                "desc": "تطوير الخبرة في الحرفية الدقيقة وتقنيات التصنيع المتقدمة"
+            },
+            "recognitionGrowth": {
+                "title": "التقدير والنمو",
+                "desc": "برامج التطوير المهني وفرص لعرض فنك عالميًا"
+            },
+            "collaborativeAtelier": {
+                "title": "مشغل تعاوني",
+                "desc": "انضم إلى فريق من الحرفيين المتحمسين والمهندسين المعماريين والتقنيين المبدعين"
+            },
+            "innovationLab": {
+                "title": "مختبر الابتكار",
+                "desc": "الوصول إلى أحدث تقنيات الطباعة ثلاثية الأبعاد والقطع بالليزر والتصنيع الرقمي"
+            },
+            "artisanCulture": {
+                "title": "ثقافة الحرفي",
+                "desc": "مكان عمل يقدر الحرفية والاهتمام بالتفاصيل والرؤية الفنية"
+            }
+        },
+        "culture": {
+            "precision": {
+                "title": "الدقة كفلسفة",
+                "desc": "كل مليمتر مهم. نحن نؤمن بأن العمارة الاستثنائية تستحق تمثيلاً استثنائيًا."
+            },
+            "innovation": {
+                "title": "الابتكار من خلال التقاليد",
+                "desc": "الجمع بين تقنيات الحرفية العريقة والتصنيع الرقمي المتطور."
+            },
+            "collaboration": {
+                "title": "التميز التعاوني",
+                "desc": "تتدفق الأفكار بحرية في بيئة الاستوديو المفتوحة لدينا حيث يساهم كل صوت في الحلول الإبداعية."
+            }
+        },
+        "growth": [
+            "حرفي متدرب ← حرفي ماهر ← صانع نماذج رئيسي",
+            "ورش عمل مستمرة لتطوير المهارات",
+            "فرص للمعارض الدولية",
+            "أدوار قيادية في مشاريع مرموقة",
+            "برامج إرشاد مع أساطير الصناعة"
+        ],
+        "openings": {
+            "seniorModelMaker": "صانع نماذج أول",
+            "designSpecialist": "أخصائي تصميم ثلاثي الأبعاد",
+            "finishingArtist": "فنان تشطيب دقيق",
+            "projectCoordinator": "منسق مشاريع",
+            "fullTime": "دوام كامل",
+            "contract": "عقد",
+            "urgent": "عاجل"
+        }
+    },
+    "ContactPage": {
+        "heroTitle": "صنع حسب الطلب",
+        "heroDescription": "حول رؤيتك المعمارية إلى روائع مصغرة بجودة المتاحف. يجمع حرفيونا بين الحرفية التقليدية والدقة المتطورة.",
+        "statsCommissions": "طلبات",
+        "statsResponse": "استجابة",
+        "statsCountries": "بلدان",
+        "architecturalAtelier": "مشغل معماري",
+        "commissionRequestTitle": "طلب تكليف",
+        "commissionRequestDescription": "ابدأ رحلتك نحو التميز في المنمنمات المعمارية",
+        "formFullName": "الاسم الكامل",
+        "formEmail": "عنوان البريد الإلكتروني",
+        "formPhone": "رقم الهاتف",
+        "formCommissionType": "نوع التكليف",
+        "formProjectVision": "رؤية المشروع",
+        "formSubmit": "إرسال طلب التكليف",
+        "formSubmitting": "جاري الإرسال...",
+        "atelierDetailsTitle": "تفاصيل المشغل",
+        "studioExcellenceTitle": "تميز الاستوديو",
+        "ctaTitle": "ابدأ تكليفك",
+        "ctaDescription": "كل تحفة معمارية تبدأ بمحادثة. دعنا نناقش كيف يمكننا تحويل رؤيتك إلى فن ملموس.",
+        "scheduleConsultation": "جدولة استشارة",
+        "viewPortfolio": "عرض المحفظة",
+        "contactDetails": {
+            "directLine": "خط مباشر",
+            "available": "متاح 9 صباحًا - 6 مساءً بتوقيت شرق الولايات المتحدة",
+            "studioEmail": "بريد الاستوديو",
+            "response": "الرد خلال 24 ساعة",
+            "designStudio": "استوديو التصميم",
+            "studioHours": "ساعات العمل",
+            "saturday": "السبت: بموعد مسبق"
+        },
+        "credentials": {
+            "awardWinning": {
+                "title": "حرفية حائزة على جوائز",
+                "desc": "اعتراف دولي بالدقة والفن"
+            },
+            "globalClientele": {
+                "title": "عملاء عالميون",
+                "desc": "خدمة المهندسين المعماريين والمطورين في جميع أنحاء العالم"
+            },
+            "timelessQuality": {
+                "title": "جودة خالدة",
+                "desc": "أكثر من 15 عامًا من إتقان المنمنمات المعمارية"
+            }
+        },
+        "commissionTypes": {
+            "scaleModel": "نموذج معماري مصغر",
+            "prototype": "نموذج صناعي أولي",
+            "masterplan": "مخطط حضري رئيسي",
+            "printing": "طباعة ثلاثية الأبعاد دقيقة",
+            "gifts": "نماذج هدايا تنفيذية",
+            "museum": "قطعة عرض متحفية"
+        }
+    },
+    "Categories": {
+        "all": "كل المشاريع",
+        "architectural": "معماري",
+        "industrial": "صناعي",
+        "masterplan": "مخطط رئيسي",
+        "3d_printing": "طباعة ثلاثية الأبعاد",
+        "business_gifts": "هدايا تجارية"
+    }
+}

@@ -1,18 +1,17 @@
-// components/layout/SiteNavbar.jsx
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { usePathname } from 'next/navigation';
 import { useScroll, useMotionValueEvent } from 'framer-motion';
+import { usePathname } from '@/i18n/routing';
 import HeroNavbar from '@/components/ui/HeroNavbar';
 import GlassNavbar from '@/components/layout/GlassNavbar';
 
-export default function SiteNavbar() {
+const SiteNavbar = ({ isVisible = true }) => {
   const pathname = usePathname();
-  const isHomePage = pathname === '/';
+  const isHomePage = pathname === '/' || pathname === '/en' || pathname === '/ar' || pathname === '/ru';
   const [showHeroNav, setShowHeroNav] = useState(true);
   const [showGlassNav, setShowGlassNav] = useState(false);
-  
+
   const { scrollY } = useScroll();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
@@ -44,13 +43,17 @@ export default function SiteNavbar() {
     }
   }, [pathname, isHomePage]);
 
+  if (!isVisible) return null;
+
   return (
     <>
       {/* Show HeroNavbar only on homepage and when at top */}
       {isHomePage && showHeroNav && <HeroNavbar />}
-      
+
       {/* Show GlassNavbar when scrolled on homepage OR always on other pages */}
       {showGlassNav && <GlassNavbar isVisible={true} />}
     </>
   );
-}
+};
+
+export default SiteNavbar;

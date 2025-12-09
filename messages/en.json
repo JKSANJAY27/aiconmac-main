@@ -1,0 +1,170 @@
+{
+    "HomePage": {
+        "title": "AICON MAC MODELS - Precision in Miniature",
+        "description": "Crafting intricate architectural models with unparalleled detail and artistic excellence."
+    },
+    "Navigation": {
+        "home": "Home",
+        "projects": "Projects",
+        "careers": "Careers",
+        "contact": "Contact"
+    },
+    "ProjectsPage": {
+        "heroTitle": "Project Gallery",
+        "heroDescription": "A carefully curated exhibition of architectural miniatures, each piece representing the pinnacle of precision craftsmanship and artistic vision.",
+        "statsMasterpieces": "Masterpieces",
+        "statsCollections": "Collections",
+        "statsYears": "Years Curating",
+        "curatorialCollection": "Curatorial Collection",
+        "commissionTitle": "Commission Your Masterpiece",
+        "commissionDescription": "Ready to see your architectural vision transformed into a museum-quality miniature?",
+        "startCommission": "Start Your Commission",
+        "viewDetails": "View Details",
+        "curatorialNotes": "Curatorial Notes",
+        "explorePiece": "Explore Piece"
+    },
+    "CareersPage": {
+        "heroTitle": "Join Our Atelier",
+        "heroDescription": "Become part of a distinguished team where architectural vision meets artisan craftsmanship. Shape the future of miniature architecture with precision, passion, and purpose.",
+        "statsArtisans": "Master Artisans",
+        "statsCountries": "Countries",
+        "statsSatisfaction": "Satisfaction",
+        "masterCraftsmen": "Master Craftsmen Collective",
+        "whyJoinTitle": "The Artisan Experience",
+        "whyJoinDescription": "Where traditional craftsmanship meets contemporary innovation in the pursuit of architectural miniature excellence.",
+        "joinTeamTitle": "Join Our Team",
+        "joinTeamDescription": "Submit your application to become part of our master craftsmen collective",
+        "formFullName": "Full Name",
+        "formEmail": "Email Address",
+        "formPhone": "Phone Number",
+        "formResume": "Portfolio & Resume",
+        "formMessage": "Your Artisan Story",
+        "formSubmit": "Submit Application",
+        "formSubmitting": "Submitting...",
+        "cultureTitle": "Our Atelier Culture",
+        "growthTitle": "Growth Pathway",
+        "openingsTitle": "Current Openings",
+        "ctaTitle": "Craft Your Legacy",
+        "ctaDescription": "Join a team where your artistic vision shapes architectural miniatures that will be treasured for generations. Your precision, our platform.",
+        "applyNow": "Apply Now",
+        "studioTour": "Studio Tour",
+        "benefits": {
+            "creativeMastery": {
+                "title": "Creative Mastery",
+                "desc": "Work on prestigious architectural projects with cutting-edge tools and materials"
+            },
+            "precisionExcellence": {
+                "title": "Precision Excellence",
+                "desc": "Develop expertise in micro-scale craftsmanship and advanced manufacturing techniques"
+            },
+            "recognitionGrowth": {
+                "title": "Recognition & Growth",
+                "desc": "Professional development programs and opportunities to showcase your artistry globally"
+            },
+            "collaborativeAtelier": {
+                "title": "Collaborative Atelier",
+                "desc": "Join a team of passionate artisans, architects, and creative technologists"
+            },
+            "innovationLab": {
+                "title": "Innovation Lab",
+                "desc": "Access to latest 3D printing, laser cutting, and digital fabrication technologies"
+            },
+            "artisanCulture": {
+                "title": "Artisan Culture",
+                "desc": "A workplace that values craftsmanship, attention to detail, and artistic vision"
+            }
+        },
+        "culture": {
+            "precision": {
+                "title": "Precision as Philosophy",
+                "desc": "Every millimeter matters. We believe that exceptional architecture deserves exceptional representation."
+            },
+            "innovation": {
+                "title": "Innovation Through Tradition",
+                "desc": "Combining time-honored craftsmanship techniques with cutting-edge digital fabrication."
+            },
+            "collaboration": {
+                "title": "Collaborative Excellence",
+                "desc": "Ideas flow freely in our open studio environment where every voice contributes to creative solutions."
+            }
+        },
+        "growth": [
+            "Apprentice Artisan → Journey Craftsperson → Master Model Maker",
+            "Continuous skill development workshops",
+            "International exhibition opportunities",
+            "Leadership roles in prestigious projects",
+            "Mentorship programs with industry legends"
+        ],
+        "openings": {
+            "seniorModelMaker": "Senior Model Maker",
+            "designSpecialist": "3D Design Specialist",
+            "finishingArtist": "Precision Finishing Artist",
+            "projectCoordinator": "Project Coordinator",
+            "fullTime": "Full-time",
+            "contract": "Contract",
+            "urgent": "Urgent"
+        }
+    },
+    "ContactPage": {
+        "heroTitle": "Crafted on Request",
+        "heroDescription": "Transform your architectural vision into museum-quality miniature masterpieces. Our artisans combine traditional craftsmanship with cutting-edge precision.",
+        "statsCommissions": "Commissions",
+        "statsResponse": "Response",
+        "statsCountries": "Countries",
+        "architecturalAtelier": "Architectural Atelier",
+        "commissionRequestTitle": "Commission Request",
+        "commissionRequestDescription": "Begin your journey to architectural miniature excellence",
+        "formFullName": "Full Name",
+        "formEmail": "Email Address",
+        "formPhone": "Phone Number",
+        "formCommissionType": "Commission Type",
+        "formProjectVision": "Project Vision",
+        "formSubmit": "Submit Commission Request",
+        "formSubmitting": "Submitting...",
+        "atelierDetailsTitle": "Atelier Details",
+        "studioExcellenceTitle": "Studio Excellence",
+        "ctaTitle": "Begin Your Commission",
+        "ctaDescription": "Every architectural masterpiece begins with a conversation. Let's discuss how we can transform your vision into tangible artistry.",
+        "scheduleConsultation": "Schedule Consultation",
+        "viewPortfolio": "View Portfolio",
+        "contactDetails": {
+            "directLine": "Direct Line",
+            "available": "Available 9AM - 6PM EST",
+            "studioEmail": "Studio Email",
+            "response": "Response within 24 hours",
+            "designStudio": "Design Studio",
+            "studioHours": "Studio Hours",
+            "saturday": "Saturday: By appointment"
+        },
+        "credentials": {
+            "awardWinning": {
+                "title": "Award-Winning Craftsmanship",
+                "desc": "International recognition for precision and artistry"
+            },
+            "globalClientele": {
+                "title": "Global Clientele",
+                "desc": "Serving architects and developers worldwide"
+            },
+            "timelessQuality": {
+                "title": "Timeless Quality",
+                "desc": "15+ years of architectural miniature mastery"
+            }
+        },
+        "commissionTypes": {
+            "scaleModel": "Architectural Scale Model",
+            "prototype": "Industrial Prototype",
+            "masterplan": "Urban Masterplan",
+            "printing": "Precision 3D Printing",
+            "gifts": "Executive Gift Models",
+            "museum": "Museum Exhibition Piece"
+        }
+    },
+    "Categories": {
+        "all": "All Projects",
+        "architectural": "Architectural",
+        "industrial": "Industrial",
+        "masterplan": "Masterplan",
+        "3d_printing": "3D Printing",
+        "business_gifts": "Business Gifts"
+    }
+}

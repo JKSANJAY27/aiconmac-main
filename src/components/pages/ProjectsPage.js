@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Eye, ArrowRight, Calendar, MapPin } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 import { TracingBeam } from '@/components/ui/tracing-beam';
 import TiltedCard from '@/components/ui/TiltedCard';
@@ -15,6 +16,8 @@ import { fetcher } from '@/lib/api';
 const initialProjectsState = [];
 
 const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProject }) => {
+  const t = useTranslations('ProjectsPage');
+  const tCategories = useTranslations('Categories');
   const [projectsData, setProjectsData] = useState(initialProjectsState);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -107,7 +110,7 @@ const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProjec
           >
             <div className="w-2 h-2 bg-amber-400 rounded-full mr-3 animate-pulse" />
             <span className="text-sm font-light uppercase tracking-wider text-amber-700">
-              Curatorial Collection
+              {t('curatorialCollection')}
             </span>
           </motion.div>
 
@@ -115,15 +118,14 @@ const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProjec
             variants={fadeIn}
             className="text-5xl md:text-7xl font-extralight text-gray-800 mb-6 tracking-tight"
           >
-            Project Gallery
+            {t('heroTitle')}
           </motion.h1>
 
           <motion.p
             variants={fadeIn}
             className="text-xl text-gray-600 font-light leading-relaxed max-w-3xl mx-auto mb-12"
           >
-            A carefully curated exhibition of architectural miniatures, each piece representing
-            the pinnacle of precision craftsmanship and artistic vision.
+            {t('heroDescription')}
           </motion.p>
 
           {/* Statistics */}
@@ -133,15 +135,15 @@ const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProjec
           >
             <div className="text-center">
               <div className="text-3xl font-extralight text-amber-600">{projectsData.length}</div>
-              <div className="text-sm uppercase tracking-wider text-gray-500">Masterpieces</div>
+              <div className="text-sm uppercase tracking-wider text-gray-500">{t('statsMasterpieces')}</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-extralight text-amber-600">{categories.length - 1}</div>
-              <div className="text-sm uppercase tracking-wider text-gray-500">Collections</div>
+              <div className="text-sm uppercase tracking-wider text-gray-500">{t('statsCollections')}</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-extralight text-amber-600">11+</div>
-              <div className="text-sm uppercase tracking-wider text-gray-500">Years Curating</div>
+              <div className="text-sm uppercase tracking-wider text-gray-500">{t('statsYears')}</div>
             </div>
           </motion.div>
         </motion.div>
@@ -158,11 +160,10 @@ const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProjec
               key={category.id}
               variants={cardVariants}
               onClick={() => setSelectedCategory(category.id)}
-              className={`relative px-8 py-4 rounded-full transition-all duration-300 text-sm font-light tracking-wider uppercase overflow-hidden group ${
-                selectedCategory === category.id
+              className={`relative px-8 py-4 rounded-full transition-all duration-300 text-sm font-light tracking-wider uppercase overflow-hidden group ${selectedCategory === category.id
                   ? 'text-black shadow-xl'
                   : 'text-gray-600 hover:text-black'
-              }`}
+                }`}
               style={{
                 background: selectedCategory === category.id
                   ? 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%)'
@@ -186,7 +187,7 @@ const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProjec
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
               </div>
 
-              <span className="relative z-10">{category.label}</span>
+              <span className="relative z-10">{tCategories(category.id.replace(/-/g, '_'))}</span>
 
               {selectedCategory === category.id && (
                 <motion.div
@@ -263,51 +264,48 @@ const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProjec
                   </motion.h2>
 
                   {/* Museum Exhibition Layout */}
-                  <div className={`grid lg:grid-cols-2 gap-16 items-center ${
-                    index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''
-                  }`}>
+                  <div className={`grid lg:grid-cols-2 gap-16 items-center ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''
+                    }`}>
                     {/* Featured Artwork */}
                     <motion.div
-                      className={`relative ${
-                        index % 2 === 1 ? 'lg:col-start-2' : ''
-                      }`}
+                      className={`relative ${index % 2 === 1 ? 'lg:col-start-2' : ''
+                        }`}
                       initial={{ opacity: 0, scale: 0.95 }}
                       whileInView={{ opacity: 1, scale: 1 }}
                       transition={{ duration: 0.8, delay: 0.2 }}
                       viewport={{ once: true }}
                     >
                       <TiltedCard
-                          imageSrc={item.images[0] ? item.images[0].url : '/images/placeholder.jpg'}
-                          altText={item.images[0] ? item.images[0].altText : item.title}
-                          containerHeight="auto"
-                          scaleOnHover={1.02}
-                          rotateAmplitude={12}
-                          overlayContent={
-                            <div className="text-center text-white space-y-4">
-                              <motion.div
-                                className="px-6 py-3 rounded-full font-medium tracking-wider uppercase text-sm flex items-center space-x-2 mx-auto w-fit"
-                                style={{
-                                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%)',
-                                  backdropFilter: 'blur(15px)',
-                                  border: '1px solid rgba(255, 255, 255, 0.3)'
-                                }}
-                                whileHover={{ scale: 1.05 }}
-                              >
-                                <Eye className="w-4 h-4" />
-                                <span>View Details</span>
-                              </motion.div>
-                            </div>
-                          }
-                          displayOverlayContent={true}
-                          onClick={() => setSelectedProject(item)}
-                        />
+                        imageSrc={item.images[0] ? item.images[0].url : '/images/placeholder.jpg'}
+                        altText={item.images[0] ? item.images[0].altText : item.title}
+                        containerHeight="auto"
+                        scaleOnHover={1.02}
+                        rotateAmplitude={12}
+                        overlayContent={
+                          <div className="text-center text-white space-y-4">
+                            <motion.div
+                              className="px-6 py-3 rounded-full font-medium tracking-wider uppercase text-sm flex items-center space-x-2 mx-auto w-fit"
+                              style={{
+                                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%)',
+                                backdropFilter: 'blur(15px)',
+                                border: '1px solid rgba(255, 255, 255, 0.3)'
+                              }}
+                              whileHover={{ scale: 1.05 }}
+                            >
+                              <Eye className="w-4 h-4" />
+                              <span>{t('viewDetails')}</span>
+                            </motion.div>
+                          </div>
+                        }
+                        displayOverlayContent={true}
+                        onClick={() => setSelectedProject(item)}
+                      />
                     </motion.div>
 
                     {/* Curatorial Description */}
                     <motion.div
-                      className={`space-y-6 ${
-                        index % 2 === 1 ? 'lg:col-start-1 lg:row-start-1' : ''
-                      }`}
+                      className={`space-y-6 ${index % 2 === 1 ? 'lg:col-start-1 lg:row-start-1' : ''
+                        }`}
                       initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.8, delay: 0.3 }}
@@ -325,7 +323,7 @@ const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProjec
                         <div className="prose prose-lg text-gray-700 font-light leading-relaxed">
                           <div className="mb-6">
                             <h3 className="text-2xl font-light text-gray-800 mb-4">
-                              Curatorial Notes
+                              {t('curatorialNotes')}
                             </h3>
                             <div className="w-16 h-px bg-amber-300 mb-4" />
                           </div>
@@ -338,7 +336,7 @@ const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProjec
                             className="flex items-center space-x-2 text-amber-700 hover:text-amber-800 font-medium tracking-wider uppercase text-sm transition-colors group"
                             whileHover={{ x: 5 }}
                           >
-                            <span>Explore Piece</span>
+                            <span>{t('explorePiece')}</span>
                             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                           </motion.button>
                         </div>
@@ -403,7 +401,7 @@ const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProjec
 
                       <div className="mt-4 flex items-center text-amber-600 opacity-0 group-hover:opacity-100 transition-opacity">
                         <Eye className="w-4 h-4 mr-2" />
-                        <span className="text-sm font-medium tracking-wider uppercase">View Details</span>
+                        <span className="text-sm font-medium tracking-wider uppercase">{t('viewDetails')}</span>
                       </div>
                     </div>
                   </CardSpotlight>
@@ -430,10 +428,10 @@ const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProjec
             }}
           >
             <h2 className="text-4xl md:text-5xl font-extralight text-gray-800 mb-6">
-              Commission Your Masterpiece
+              {t('commissionTitle')}
             </h2>
             <p className="text-xl text-gray-600 font-light mb-8 leading-relaxed">
-              Ready to see your architectural vision transformed into a museum-quality miniature?
+              {t('commissionDescription')}
             </p>
 
             <motion.button
@@ -449,7 +447,7 @@ const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProjec
               }}
               whileTap={{ scale: 0.95 }}
             >
-              Start Your Commission
+              {t('startCommission')}
             </motion.button>
           </motion.div>
         </div>

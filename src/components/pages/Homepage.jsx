@@ -1,12 +1,17 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+import Link from 'next/link'; // We might need to use the locale-aware Link from navigation, but for now standard Link or the one passed via props/context
+// Actually, for i18n, we should use the Link from our routing configuration if possible, 
+// but since this is a client component, we might need to import it from '@/i18n/routing' or 'next-intl/navigation'
+// Let's use 'next-intl/navigation' for Link to ensure it handles locales correctly.
+import { Link as IntlLink } from '@/i18n/routing';
+
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 
-// Import the new components
 // Import the navbar components
 import HeroNavbar from '@/components/ui/HeroNavbar';
 
@@ -111,6 +116,7 @@ const services = [
 ];
 
 const Homepage = () => {
+  const t = useTranslations('HomePage');
   const [activeServiceImage, setActiveServiceImage] = useState(serviceImages.master);
   const [scrollY, setScrollY] = useState(0);
   const [servicesData, setServicesData] = useState([]); // State for fetched services
@@ -140,7 +146,7 @@ const Homepage = () => {
     </svg>
   );
 
-// --- Data Fetching ---
+  // --- Data Fetching ---
   useEffect(() => {
     // Fetch Testimonials
     fetcher('/testimonials?isApproved=true')
@@ -203,7 +209,7 @@ const Homepage = () => {
       });
 
   }, []);
-  
+
   // Feature item component
   const FeatureItem = ({ title }) => (
     <li className="flex gap-2 items-start">
@@ -222,9 +228,9 @@ const Homepage = () => {
       </div>
 
       {/* Lamp Animation Section - Museum Gallery Style */}
-      <motion.section 
-        initial="hidden" 
-        animate="visible" 
+      <motion.section
+        initial="hidden"
+        animate="visible"
         variants={fadeIn}
         className="relative z-10 w-full"
       >
@@ -240,7 +246,7 @@ const Homepage = () => {
 
             <TextType
               text={[
-                "Curating Architectural Dreams",
+                t('title'),
                 "Where Vision Becomes Art",
                 "Excellence in Every Detail"
               ]}
@@ -254,20 +260,18 @@ const Homepage = () => {
               cursorCharacter="_"
               cursorClassName="text-amber-600"
             />
-            
-            <motion.p 
+
+            <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1, duration: 0.8 }}
               className="text-base sm:text-lg md:text-xl max-w-4xl mx-auto text-gray-600 mb-12 sm:mb-16 leading-relaxed font-light"
             >
-              Over 1200 architectural masterpieces curated with museum-quality precision since 2013. 
-              Each model represents a perfect synthesis of traditional craftsmanship and contemporary innovation, 
-              transforming architectural visions into tangible works of art.
+              {t('description')}
             </motion.p>
 
             {/* Museum-style stats */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.5, duration: 0.8 }}
@@ -315,7 +319,7 @@ const Homepage = () => {
             </motion.div>
 
             {/* Museum-quality features with CardSpotlight */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 2, duration: 0.8 }}
@@ -354,24 +358,24 @@ const Homepage = () => {
             </motion.div>
 
             {/* Museum-style call to action */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 2.5, duration: 0.6 }}
               className="flex flex-col sm:flex-row gap-6 justify-center items-center"
             >
-              <Link 
+              <IntlLink
                 href="/projects"
                 className="bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white font-light py-4 px-8 rounded-none transition-all duration-300 transform hover:scale-105 hover:shadow-xl shadow-amber-500/25 text-sm sm:text-base uppercase tracking-wider"
               >
                 Explore Our Collection
-              </Link>
-              <Link 
+              </IntlLink>
+              <IntlLink
                 href="/contact"
                 className="border border-gray-300 hover:border-amber-500 bg-white/80 backdrop-blur-sm text-gray-700 hover:text-amber-600 font-light py-4 px-8 rounded-none transition-all duration-300 transform hover:scale-105 text-sm sm:text-base uppercase tracking-wider"
               >
                 Commission Artwork
-              </Link>
+              </IntlLink>
             </motion.div>
           </div>
         </LampContainer>
@@ -380,9 +384,9 @@ const Homepage = () => {
       {/* All Other Sections with Museum Theme */}
       <div className="bg-transparent backdrop-blur-sm relative z-20 w-full">
         {/* About Us Section - Museum Style */}
-        <motion.section 
-          initial="hidden" 
-          whileInView="visible" 
+        <motion.section
+          initial="hidden"
+          whileInView="visible"
           variants={fadeIn}
           viewport={{ once: true, amount: 0.2 }}
           className="py-20 md:py-32 bg-transparent backdrop-blur-sm w-full"
@@ -403,25 +407,25 @@ const Homepage = () => {
                       About the Atelier
                     </span>
                   </div>
-                  
+
                   <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extralight text-[#464646] mb-8 leading-tight">
                     Aiconmac<br />
                     <span className="font-light text-gray-600">Architectural Gallery</span>
                   </h2>
-                  
+
                   <div className="prose prose-lg max-w-none">
                     <p className="text-gray-600 text-lg leading-relaxed mb-6 font-light">
-                      Established in 2013 as Dubai's premier architectural model atelier, AICONMAC combines 
-                      traditional craftsmanship with museum-quality presentation standards. Each piece in our 
+                      Established in 2013 as Dubai's premier architectural model atelier, AICONMAC combines
+                      traditional craftsmanship with museum-quality presentation standards. Each piece in our
                       collection represents a meticulous fusion of art, architecture, and precision engineering.
                     </p>
                     <p className="text-gray-500 text-base leading-relaxed font-light">
-                      Our gallery of 40+ master artisans has curated over 1200 architectural masterpieces, 
-                      establishing a legacy that transcends borders and transforms the way architectural 
+                      Our gallery of 40+ master artisans has curated over 1200 architectural masterpieces,
+                      establishing a legacy that transcends borders and transforms the way architectural
                       visions are presented and preserved.
                     </p>
                   </div>
-                  
+
                   {/* Museum-style stats */}
                   <div className="mt-12 grid grid-cols-3 gap-8">
                     {[
@@ -439,8 +443,8 @@ const Homepage = () => {
 
                 </motion.div>
               </div>
-              
-              <motion.div 
+
+              <motion.div
                 className="relative w-full"
                 initial={{ opacity: 0, x: 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -450,14 +454,14 @@ const Homepage = () => {
                 {/* Museum-style exhibition frame */}
                 <div className="relative bg-transparent p-6 shadow-2xl border border-gray-100">
                   <div className="absolute -inset-6 bg-gradient-to-br from-amber-50 via-white to-gray-50 -z-10" />
-                  <Image 
-                    src={img1} 
-                    alt="Featured Architectural Model" 
+                  <Image
+                    src={img1}
+                    alt="Featured Architectural Model"
                     width={700}
                     height={500}
-                    className="w-full h-auto grayscale-[10%] contrast-110 transform hover:scale-105 transition-transform duration-700" 
+                    className="w-full h-auto grayscale-[10%] contrast-110 transform hover:scale-105 transition-transform duration-700"
                   />
-                  
+
                   {/* Museum exhibition label */}
                   <div className="mt-6 px-2 border-t border-gray-100 pt-4">
                     <div className="text-sm font-light text-gray-800 mb-1">Featured Masterpiece</div>
@@ -475,16 +479,16 @@ const Homepage = () => {
         </motion.section>
 
         {/* Services Section - Gallery Exhibition Style */}
-        <motion.section 
-          initial="hidden" 
-          whileInView="visible" 
+        <motion.section
+          initial="hidden"
+          whileInView="visible"
           variants={fadeIn}
           viewport={{ once: true }}
           className="py-20 md:py-32 bg-gray-50/80 backdrop-blur-sm w-full"
         >
           <div className="container mx-auto px-2 sm:px-4 lg:px-6">
             {/* Gallery-style header */}
-            <motion.div 
+            <motion.div
               className="text-center mb-20"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -510,10 +514,10 @@ const Homepage = () => {
                 showCursor={false}
               />
             </motion.div>
-            
+
             <div className="grid md:grid-cols-2 gap-16 md:gap-20 items-center">
               {/* Services Exhibition Menu */}
-              <motion.div 
+              <motion.div
                 className="space-y-8 order-2 md:order-1"
                 initial={{ opacity: 0, x: -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -547,9 +551,9 @@ const Homepage = () => {
                   </motion.div>
                 ))}
               </motion.div>
-              
+
               {/* Gallery Display Case */}
-              <motion.div 
+              <motion.div
                 className="relative h-96 md:h-[500px] w-full order-1 md:order-2"
                 initial={{ opacity: 0, x: 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -564,11 +568,11 @@ const Homepage = () => {
                       style={{ backgroundImage: `url(${activeServiceImage.src})` }}
                     />
                   </div>
-                  
+
                   {/* Gallery spotlight effect */}
                   <div className="absolute top-0 inset-x-0 h-20 bg-gradient-to-b from-amber-50/50 to-transparent" />
                   <div className="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-white/80 to-transparent" />
-                  
+
                   {/* Museum information placard */}
                   <div className="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-sm p-4 border border-gray-200/50">
                     <div className="text-xs uppercase tracking-[0.2em] text-gray-500 font-light">
@@ -582,9 +586,9 @@ const Homepage = () => {
         </motion.section>
 
         {/* Client Testimonials - Refined Museum Style */}
-        <motion.section 
-          initial="hidden" 
-          whileInView="visible" 
+        <motion.section
+          initial="hidden"
+          whileInView="visible"
           variants={fadeIn}
           viewport={{ once: true, amount: 0.2 }}
           className="py-20 md:py-32 bg-white/95 backdrop-blur-sm w-full"
@@ -610,7 +614,7 @@ const Homepage = () => {
                 Trusted by leading architects, developers, and designers across the UAE and beyond.
               </p>
             </motion.div>
-            
+
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
@@ -629,9 +633,9 @@ const Homepage = () => {
         </motion.section>
 
         {/* Featured Projects Section - Gallery Grid */}
-        <motion.section 
-          initial="hidden" 
-          whileInView="visible" 
+        <motion.section
+          initial="hidden"
+          whileInView="visible"
           variants={fadeIn}
           viewport={{ once: true, amount: 0.2 }}
           className="py-20 md:py-32 bg-gray-50/50 backdrop-blur-sm w-full"
@@ -654,11 +658,11 @@ const Homepage = () => {
                 Featured <span className="font-light text-gray-600">Masterpieces</span>
               </h2>
               <p className="text-gray-600 max-w-3xl mx-auto text-base sm:text-lg font-light leading-relaxed">
-                A curated selection of our most distinguished architectural models, each representing 
+                A curated selection of our most distinguished architectural models, each representing
                 the pinnacle of craftsmanship and artistic excellence.
               </p>
             </motion.div>
-            
+
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
               {[
                 { img: img3, title: "Urban Planning Masterpiece", medium: "Scale 1:500 — Mixed Media", year: "2023" },
@@ -674,21 +678,21 @@ const Homepage = () => {
                   whileHover={{ y: -8 }}
                   className="group"
                 >
-                  <Link href="/projects" className="block">
+                  <IntlLink href="/projects" className="block">
                     {/* Museum exhibition frame */}
                     <div className="relative bg-white p-6 shadow-lg group-hover:shadow-2xl transition-all duration-500 border border-gray-100">
                       {/* Ambient lighting effect */}
                       <div className="absolute inset-0 bg-gradient-to-br from-amber-50/20 via-white to-gray-50/30 group-hover:from-amber-50/40 transition-all duration-500" />
-                      
+
                       <div className="relative z-10">
-                        <Image 
-                          src={project.img} 
-                          alt={project.title} 
+                        <Image
+                          src={project.img}
+                          alt={project.title}
                           width={600}
                           height={400}
-                          className="w-full h-64 sm:h-80 object-cover grayscale-[8%] group-hover:grayscale-0 contrast-105 group-hover:contrast-110 transition-all duration-700" 
+                          className="w-full h-64 sm:h-80 object-cover grayscale-[8%] group-hover:grayscale-0 contrast-105 group-hover:contrast-110 transition-all duration-700"
                         />
-                        
+
                         {/* Museum exhibition label */}
                         <div className="mt-6 px-2 border-t border-gray-100 pt-4">
                           <div className="flex justify-between items-start mb-2">
@@ -708,33 +712,33 @@ const Homepage = () => {
                         </div>
                       </div>
                     </div>
-                  </Link>
+                  </IntlLink>
                 </motion.div>
               ))}
             </div>
-            
-            <motion.div 
+
+            <motion.div
               className="text-center mt-16"
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.3 }}
               viewport={{ once: true }}
             >
-              <Link 
+              <IntlLink
                 href="/projects"
                 className="inline-flex items-center px-8 py-4 bg-white/90 backdrop-blur-sm hover:bg-white text-[#464646] hover:text-amber-600 font-light rounded-none border border-gray-200 hover:border-amber-400 hover:shadow-lg transition-all duration-300 text-base uppercase tracking-[0.15em] group"
               >
                 View Complete Collection
                 <ArrowRight className="ml-3 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
+              </IntlLink>
             </motion.div>
           </div>
         </motion.section>
 
         {/* Call to Action Section - Museum Contact */}
-        <motion.section 
-          initial="hidden" 
-          whileInView="visible" 
+        <motion.section
+          initial="hidden"
+          whileInView="visible"
           variants={fadeIn}
           viewport={{ once: true, amount: 0.3 }}
           className="py-20 md:py-32 bg-white/95 backdrop-blur-sm w-full"
@@ -753,18 +757,18 @@ const Homepage = () => {
                     Commission Your Masterpiece
                   </span>
                 </div>
-                
+
                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extralight text-[#464646] mb-8 leading-tight">
                   Ready to Create Your<br />
                   <span className="font-light text-amber-600">Architectural Legacy?</span>
                 </h2>
-                
+
                 <p className="text-gray-600 text-lg sm:text-xl max-w-3xl mx-auto mb-12 leading-relaxed font-light">
-                  Transform your architectural vision into a museum-quality masterpiece. 
+                  Transform your architectural vision into a museum-quality masterpiece.
                   Our master artisans are ready to bring your dreams to life with unparalleled precision and artistry.
                 </p>
-                
-                <motion.div 
+
+                <motion.div
                   className="flex flex-col sm:flex-row gap-6 justify-center items-center"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -772,22 +776,22 @@ const Homepage = () => {
                   viewport={{ once: true }}
                 >
                   <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                    <Link 
+                    <IntlLink
                       href="/contact"
                       className="bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white font-light py-4 px-8 rounded-none transition-all duration-300 hover:shadow-xl shadow-amber-500/25 text-base uppercase tracking-[0.15em] group"
                     >
                       Start Your Commission
                       <ArrowRight className="inline ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    </Link>
+                    </IntlLink>
                   </motion.div>
-                  
+
                   <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                    <Link 
+                    <IntlLink
                       href="/projects"
                       className="border border-gray-300 hover:border-amber-500 bg-white/80 backdrop-blur-sm text-gray-700 hover:text-amber-600 font-light py-4 px-8 rounded-none transition-all duration-300 text-base uppercase tracking-[0.15em]"
                     >
                       View Our Portfolio
-                    </Link>
+                    </IntlLink>
                   </motion.div>
                 </motion.div>
               </motion.div>

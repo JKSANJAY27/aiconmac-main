@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Download, Mail } from 'lucide-react';
+import { Link } from '@/i18n/routing';
+import LanguageSwitcher from '@/components/ui/LanguageSwitcher';
 
 const HeroNavbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -19,12 +21,12 @@ const HeroNavbar = () => {
   const handleCatalogueDownload = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     // Simulate API call
     setTimeout(() => {
       setSubmitStatus('success');
       setIsSubmitting(false);
-      
+
       // Simulate PDF download
       setTimeout(() => {
         setShowCataloguePopup(false);
@@ -45,10 +47,9 @@ const HeroNavbar = () => {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <motion.a
+            <Link
               href="/"
               className="flex items-center space-x-3 group"
-              whileHover={{ scale: 1.02 }}
             >
               <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-lg">A</span>
@@ -57,26 +58,31 @@ const HeroNavbar = () => {
                 <div className="text-xl font-light tracking-wide text-gray-900">AICONMAC</div>
                 <div className="text-xs text-gray-500 tracking-wider">GALLERY</div>
               </div>
-            </motion.a>
+            </Link>
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-8">
               {navItems.map((item, index) => (
-                <motion.a
+                <motion.div
                   key={item.name}
-                  href={item.href}
-                  className="text-md text-gray-700 hover:text-gray-900 transition-colors font-light tracking-wide"
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  {item.name}
-                </motion.a>
+                  <Link
+                    href={item.href}
+                    className="text-md text-gray-700 hover:text-gray-900 transition-colors font-light tracking-wide"
+                  >
+                    {item.name}
+                  </Link>
+                </motion.div>
               ))}
             </div>
 
             {/* Catalogue Button & Mobile Menu */}
             <div className="flex items-center space-x-4">
+              <LanguageSwitcher />
+
               <motion.button
                 onClick={() => setShowCataloguePopup(true)}
                 className="hidden sm:flex items-center space-x-2 px-5 py-2.5 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white text-sm rounded-lg transition-all duration-300 shadow-sm hover:shadow-md"
@@ -108,14 +114,14 @@ const HeroNavbar = () => {
               >
                 <div className="space-y-3">
                   {navItems.map((item) => (
-                    <a
+                    <Link
                       key={item.name}
                       href={item.href}
                       className="block py-2 text-gray-700 hover:text-gray-900 font-light"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       {item.name}
-                    </a>
+                    </Link>
                   ))}
                   <button
                     onClick={() => {

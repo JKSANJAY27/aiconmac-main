@@ -1,13 +1,16 @@
-// src/components/pages/ContactPage.js
 "use client";
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Phone, Mail, MapPin, Clock, Award, Globe } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { useRouter } from '@/i18n/routing';
 
 import { poster } from '@/lib/api';
 
 const ContactPage = () => {
+  const t = useTranslations('ContactPage');
+  const router = useRouter();
   const [submissionStatus, setSubmissionStatus] = useState('idle');
   const [submissionMessage, setSubmissionMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -70,7 +73,7 @@ const ContactPage = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
@@ -91,7 +94,7 @@ const ContactPage = () => {
       await poster('/contact', payload);
       setSubmissionStatus('success');
       setSubmissionMessage('Your commission request has been submitted successfully! We will contact you within 24 hours.');
-      
+
       // Reset form
       setFormData({
         fullName: '',
@@ -157,7 +160,7 @@ const ContactPage = () => {
           >
             <div className="w-2 h-2 bg-amber-400 rounded-full mr-3 animate-pulse" />
             <span className="text-sm font-light uppercase tracking-wider text-amber-700">
-              Architectural Atelier
+              {t('architecturalAtelier')}
             </span>
           </motion.div>
 
@@ -165,15 +168,14 @@ const ContactPage = () => {
             variants={fadeIn}
             className="text-5xl md:text-7xl font-extralight text-gray-800 mb-6 tracking-tight"
           >
-            Crafted on Request
+            {t('heroTitle')}
           </motion.h1>
 
           <motion.p
             variants={fadeIn}
             className="text-xl text-gray-600 font-light leading-relaxed max-w-3xl mx-auto mb-12"
           >
-            Transform your architectural vision into museum-quality miniature masterpieces.
-            Our artisans combine traditional craftsmanship with cutting-edge precision.
+            {t('heroDescription')}
           </motion.p>
 
           <motion.div
@@ -182,15 +184,15 @@ const ContactPage = () => {
           >
             <div className="text-center">
               <div className="text-3xl font-extralight text-amber-600">500+</div>
-              <div className="text-sm uppercase tracking-wider text-gray-500">Commissions</div>
+              <div className="text-sm uppercase tracking-wider text-gray-500">{t('statsCommissions')}</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-extralight text-amber-600">24hr</div>
-              <div className="text-sm uppercase tracking-wider text-gray-500">Response</div>
+              <div className="text-sm uppercase tracking-wider text-gray-500">{t('statsResponse')}</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-extralight text-amber-600">15+</div>
-              <div className="text-sm uppercase tracking-wider text-gray-500">Countries</div>
+              <div className="text-sm uppercase tracking-wider text-gray-500">{t('statsCountries')}</div>
             </div>
           </motion.div>
         </motion.div>
@@ -216,10 +218,10 @@ const ContactPage = () => {
               }}
             >
               <div className="mb-8">
-                <h2 className="text-3xl font-light text-gray-800 mb-4">Commission Request</h2>
+                <h2 className="text-3xl font-light text-gray-800 mb-4">{t('commissionRequestTitle')}</h2>
                 <div className="w-16 h-px bg-amber-300 mb-4" />
                 <p className="text-gray-600 font-light">
-                  Begin your journey to architectural miniature excellence
+                  {t('commissionRequestDescription')}
                 </p>
               </div>
 
@@ -227,7 +229,7 @@ const ContactPage = () => {
                 <div className="grid md:grid-cols-2 gap-6">
                   <motion.div variants={cardVariants}>
                     <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wider">
-                      Full Name
+                      {t('formFullName')}
                     </label>
                     <input
                       type="text"
@@ -240,10 +242,10 @@ const ContactPage = () => {
                     />
                     {errors.fullName && <p className="mt-1 text-sm text-red-600">{errors.fullName}</p>}
                   </motion.div>
-                  
+
                   <motion.div variants={cardVariants}>
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wider">
-                      Email Address
+                      {t('formEmail')}
                     </label>
                     <input
                       type="email"
@@ -260,7 +262,7 @@ const ContactPage = () => {
 
                 <motion.div variants={cardVariants}>
                   <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wider">
-                    Phone Number
+                    {t('formPhone')}
                   </label>
                   <input
                     type="tel"
@@ -275,7 +277,7 @@ const ContactPage = () => {
 
                 <motion.div variants={cardVariants}>
                   <label htmlFor="commissionType" className="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wider">
-                    Commission Type
+                    {t('formCommissionType')}
                   </label>
                   <select
                     id="commissionType"
@@ -285,25 +287,25 @@ const ContactPage = () => {
                     className="w-full p-4 rounded-xl border border-gray-200/50 bg-white/50 backdrop-blur-sm focus:border-amber-400 focus:outline-none transition-all font-light"
                     style={{ backdropFilter: 'blur(10px)' }}
                   >
-                    <option value="">Select Commission Type</option>
-                    <option value="Architectural Scale Model">Architectural Scale Model</option>
-                    <option value="Industrial Prototype">Industrial Prototype</option>
-                    <option value="Urban Masterplan">Urban Masterplan</option>
-                    <option value="Precision 3D Printing">Precision 3D Printing</option>
-                    <option value="Executive Gift Models">Executive Gift Models</option>
-                    <option value="Museum Exhibition Piece">Museum Exhibition Piece</option>
+                    <option value="">{t('formCommissionType')}</option>
+                    <option value="Architectural Scale Model">{t('commissionTypes.scaleModel')}</option>
+                    <option value="Industrial Prototype">{t('commissionTypes.prototype')}</option>
+                    <option value="Urban Masterplan">{t('commissionTypes.masterplan')}</option>
+                    <option value="Precision 3D Printing">{t('commissionTypes.printing')}</option>
+                    <option value="Executive Gift Models">{t('commissionTypes.gifts')}</option>
+                    <option value="Museum Exhibition Piece">{t('commissionTypes.museum')}</option>
                   </select>
                   {errors.commissionType && <p className="mt-1 text-sm text-red-600">{errors.commissionType}</p>}
                 </motion.div>
 
                 <motion.div variants={cardVariants}>
                   <label htmlFor="projectVision" className="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wider">
-                    Project Vision
+                    {t('formProjectVision')}
                   </label>
                   <textarea
                     id="projectVision"
                     name="projectVision"
-                    placeholder="Describe your architectural vision, scale requirements, materials preference, and any special details..."
+                    placeholder={t('formProjectVision')}
                     rows={6}
                     value={formData.projectVision}
                     onChange={handleChange}
@@ -339,7 +341,7 @@ const ContactPage = () => {
                   whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
                   variants={cardVariants}
                 >
-                  {isSubmitting ? 'Submitting...' : 'Submit Commission Request'}
+                  {isSubmitting ? t('formSubmitting') : t('formSubmit')}
                 </motion.button>
               </form>
             </div>
@@ -365,16 +367,16 @@ const ContactPage = () => {
               }}
             >
               <div className="mb-6">
-                <h3 className="text-2xl font-light text-gray-800 mb-4">Atelier Details</h3>
+                <h3 className="text-2xl font-light text-gray-800 mb-4">{t('atelierDetailsTitle')}</h3>
                 <div className="w-16 h-px bg-amber-300 mb-4" />
               </div>
 
               <div className="space-y-6">
                 {[
-                  { icon: Phone, label: 'Direct Line', value: '+1 (555) 123-4567', subValue: 'Available 9AM - 6PM EST' },
-                  { icon: Mail, label: 'Studio Email', value: 'commissions@aiconmacmodels.com', subValue: 'Response within 24 hours' },
-                  { icon: MapPin, label: 'Design Studio', value: '123 Architecture Quarter', subValue: 'Creative District, New York 10001' },
-                  { icon: Clock, label: 'Studio Hours', value: 'Monday - Friday: 9:00 AM - 6:00 PM', subValue: 'Saturday: By appointment' }
+                  { icon: Phone, label: t('contactDetails.directLine'), value: '+1 (555) 123-4567', subValue: t('contactDetails.available') },
+                  { icon: Mail, label: t('contactDetails.studioEmail'), value: 'commissions@aiconmacmodels.com', subValue: t('contactDetails.response') },
+                  { icon: MapPin, label: t('contactDetails.designStudio'), value: '123 Architecture Quarter', subValue: 'Creative District, New York 10001' },
+                  { icon: Clock, label: t('contactDetails.studioHours'), value: 'Monday - Friday: 9:00 AM - 6:00 PM', subValue: t('contactDetails.saturday') }
                 ].map((contact, index) => (
                   <motion.div
                     key={index}
@@ -407,15 +409,15 @@ const ContactPage = () => {
               }}
             >
               <div className="mb-6">
-                <h3 className="text-2xl font-light text-gray-800 mb-4">Studio Excellence</h3>
+                <h3 className="text-2xl font-light text-gray-800 mb-4">{t('studioExcellenceTitle')}</h3>
                 <div className="w-16 h-px bg-amber-300 mb-4" />
               </div>
 
               <div className="grid grid-cols-1 gap-4">
                 {[
-                  { icon: Award, title: 'Award-Winning Craftsmanship', desc: 'International recognition for precision and artistry' },
-                  { icon: Globe, title: 'Global Clientele', desc: 'Serving architects and developers worldwide' },
-                  { icon: Clock, title: 'Timeless Quality', desc: '15+ years of architectural miniature mastery' }
+                  { icon: Award, title: t('credentials.awardWinning.title'), desc: t('credentials.awardWinning.desc') },
+                  { icon: Globe, title: t('credentials.globalClientele.title'), desc: t('credentials.globalClientele.desc') },
+                  { icon: Clock, title: t('credentials.timelessQuality.title'), desc: t('credentials.timelessQuality.desc') }
                 ].map((credential, index) => (
                   <div key={index} className="flex items-start space-x-4 p-4">
                     <div className="bg-amber-600 p-2 rounded-lg">
@@ -466,11 +468,10 @@ const ContactPage = () => {
             }}
           >
             <h2 className="text-4xl md:text-5xl font-extralight text-gray-800 mb-6">
-              Begin Your Commission
+              {t('ctaTitle')}
             </h2>
             <p className="text-xl text-gray-600 font-light mb-8 leading-relaxed">
-              Every architectural masterpiece begins with a conversation. Let&apos;s discuss how we can
-              transform your vision into tangible artistry.
+              {t('ctaDescription')}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -490,13 +491,13 @@ const ContactPage = () => {
                 }}
                 whileTap={{ scale: 0.95 }}
               >
-                Schedule Consultation
+                {t('scheduleConsultation')}
               </motion.button>
 
               <motion.button
                 type="button"
-                onClick={() => { 
-                  window.location.href = '/projects';
+                onClick={() => {
+                  router.push('/projects');
                 }}
                 className="px-8 py-4 rounded-full font-medium tracking-wider uppercase text-sm border border-gray-300 text-gray-700 hover:border-amber-400 hover:text-amber-700 transition-all"
                 style={{
@@ -506,7 +507,7 @@ const ContactPage = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                View Portfolio
+                {t('viewPortfolio')}
               </motion.button>
             </div>
           </motion.div>
@@ -516,4 +517,4 @@ const ContactPage = () => {
   );
 };
 
-export default ContactPage;
+export default ContactPage;
