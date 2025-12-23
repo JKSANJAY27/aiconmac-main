@@ -6,8 +6,13 @@ export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://loca
 export async function fetcher(url) {
   const response = await fetch(`${API_BASE_URL}${url}`);
   if (!response.ok) {
+    console.warn(`API Error fetching ${url}:`, response.status, response.statusText);
     const error = new Error('An error occurred while fetching data.');
-    error.info = await response.json();
+    try {
+      error.info = await response.json();
+    } catch (e) {
+      error.info = { message: response.statusText };
+    }
     error.status = response.status;
     throw error;
   }

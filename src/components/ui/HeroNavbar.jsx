@@ -14,6 +14,7 @@ const HeroNavbar = () => {
   const navItems = [
     { name: "Home", href: "/" },
     { name: "Projects", href: "/projects" },
+    { name: "Clients", href: "/clients" },
     { name: "Careers", href: "/careers" },
     { name: "Contact", href: "/contact" }
   ];

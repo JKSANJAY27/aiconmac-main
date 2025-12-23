@@ -21,6 +21,7 @@ import MuseumBackground from '@/components/ui/AnimatedBackground';
 import { LampContainer } from '@/components/ui/lamp';
 import TextType from '@/components/ui/typing-animation';
 import { InfiniteMovingCards } from '@/components/ui/infinite-moving-cards';
+import { InfiniteMovingLogos } from '@/components/ui/infinite-moving-logos';
 import { CardSpotlight } from '@/components/ui/card-spotlight';
 
 // Import images
@@ -121,7 +122,9 @@ const Homepage = () => {
   const [scrollY, setScrollY] = useState(0);
   const [servicesData, setServicesData] = useState([]); // State for fetched services
   const [testimonialsData, setTestimonialsData] = useState(testimonialsInitial); // State for fetched testimonials
+
   const [featuredProjectsData, setFeaturedProjectsData] = useState([]); // State for fetched featured projects
+  const [clientsData, setClientsData] = useState([]); // State for fetched clients
 
   // Animation variants
   const fadeIn = {
@@ -205,6 +208,33 @@ const Homepage = () => {
         setFeaturedProjectsData([
           { img: { src: '/images/placeholder.jpg', alt: 'Featured 1' }, title: "Urban Planning Masterpiece", medium: "Scale 1:500 — Mixed Media", year: "2023", link: "/projects" },
           { img: { src: '/images/placeholder.jpg', alt: 'Featured 2' }, title: "Contemporary Architecture", medium: "Scale 1:200 — Premium Materials", year: "2023", link: "/projects" },
+        ]);
+      });
+
+    // Fetch Clients
+    fetcher('/clients')
+      .then(data => {
+        if (Array.isArray(data) && data.length > 0) {
+          setClientsData(data);
+        } else {
+          // Fallback if empty array
+          setClientsData([
+            { id: '1', name: 'Emaar', logo: '' },
+            { id: '2', name: 'Nakheel', logo: '' },
+            { id: '3', name: 'DP', logo: '' },
+            { id: '4', name: 'Damac', logo: '' },
+          ]);
+        }
+      })
+      .catch(err => {
+        console.warn("Failed to fetch clients for homepage:", err.message);
+        // Fallback mock data
+        setClientsData([
+          { id: '1', name: 'Emaar', logo: '' },
+          { id: '2', name: 'Nakheel', logo: '' },
+          { id: '3', name: 'DP', logo: '' },
+          { id: '4', name: 'Damac', logo: '' },
+          { id: '5', name: 'Aldar', logo: '' },
         ]);
       });
 
@@ -585,6 +615,46 @@ const Homepage = () => {
           </div>
         </motion.section>
 
+        {/* Clients Section - Museum Gallery Style */}
+        <motion.section
+          initial="hidden"
+          whileInView="visible"
+          variants={fadeIn}
+          viewport={{ once: true, amount: 0.2 }}
+          className="py-20 md:py-32 bg-gray-50/30 backdrop-blur-sm w-full"
+        >
+          <div className="container mx-auto px-2 sm:px-4 lg:px-6">
+            <div className="text-center mb-12">
+              <div className="w-16 h-0.5 bg-gradient-to-r from-transparent via-amber-400 to-transparent mx-auto mb-4" />
+              <span className="text-xs uppercase tracking-[0.3em] text-gray-500 font-light">
+                Our Partnerships
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-extralight text-[#464646] mt-4">
+                Distinguished <span className="font-light text-gray-600">Clientele</span>
+              </h2>
+            </div>
+
+            {clientsData.length > 0 && (
+              <InfiniteMovingLogos
+                items={clientsData}
+                direction="left"
+                speed="slow"
+                pauseOnHover={true}
+                className="w-full"
+              />
+            )}
+
+            <div className="text-center mt-8">
+              <IntlLink
+                href="/clients"
+                className="text-sm uppercase tracking-widest text-amber-600 hover:text-amber-700 transition-colors border-b border-amber-600/30 hover:border-amber-600 pb-1"
+              >
+                View All Partners
+              </IntlLink>
+            </div>
+          </div>
+        </motion.section>
+
         {/* Client Testimonials - Refined Museum Style */}
         <motion.section
           initial="hidden"
@@ -798,8 +868,8 @@ const Homepage = () => {
             </div>
           </div>
         </motion.section>
-      </div>
-    </div>
+      </div >
+    </div >
   );
 };
 
