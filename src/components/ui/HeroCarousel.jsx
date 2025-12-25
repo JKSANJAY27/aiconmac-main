@@ -2,35 +2,38 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
+import { useTranslations } from 'next-intl';
+
 const OverlayCarousel = () => {
+  const t = useTranslations('HomePage.HeroCarousel');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const containerRef = useRef(null);
 
   const services = [
     {
-      title: "Master Planning",
-      category: "URBAN VISION",
+      title: t('masterPlanning.title'),
+      category: t('masterPlanning.category'),
       image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&h=900&fit=crop"
     },
     {
-      title: "Architectural Models",
-      category: "PRECISION CRAFT",
+      title: t('architecturalModels.title'),
+      category: t('architecturalModels.category'),
       image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1600&h=900&fit=crop"
     },
     {
-      title: "Industrial Models",
-      category: "TECHNICAL EXCELLENCE",
+      title: t('industrialModels.title'),
+      category: t('industrialModels.category'),
       image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1600&h=900&fit=crop"
     },
     {
-      title: "Commercial Spaces",
-      category: "BUSINESS VISION",
+      title: t('commercialSpaces.title'),
+      category: t('commercialSpaces.category'),
       image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&h=900&fit=crop"
     },
     {
-      title: "Residential Living",
-      category: "DREAM HOMES",
+      title: t('residentialLiving.title'),
+      category: t('residentialLiving.category'),
       image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&h=900&fit=crop"
     }
   ];
@@ -62,7 +65,7 @@ const OverlayCarousel = () => {
 
   return (
     <div className="w-full bg-black">
-      <div 
+      <div
         ref={containerRef}
         className="relative w-full overflow-hidden"
         style={{ height: '85vh', minHeight: '600px' }}
@@ -82,7 +85,7 @@ const OverlayCarousel = () => {
             {/* Gradient Overlays for Better Text Readability */}
             <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-black/70 z-10" />
             <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40 z-10" />
-            
+
             <img
               src={services[currentIndex].image}
               alt={services[currentIndex].title}
@@ -142,11 +145,10 @@ const OverlayCarousel = () => {
                     whileHover={{ scale: 1.2 }}
                     whileTap={{ scale: 0.9 }}
                   >
-                    <div className={`h-1 rounded-full transition-all duration-500 ${
-                      currentIndex === index 
-                        ? 'w-16 bg-white' 
+                    <div className={`h-1 rounded-full transition-all duration-500 ${currentIndex === index
+                        ? 'w-16 bg-white'
                         : 'w-8 bg-white/30 hover:bg-white/50'
-                    }`}>
+                      }`}>
                     </div>
                   </motion.button>
                 ))}

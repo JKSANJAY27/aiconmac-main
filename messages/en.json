@@ -1,13 +1,169 @@
 {
     "HomePage": {
         "title": "AICON MAC MODELS - Precision in Miniature",
-        "description": "Crafting intricate architectural models with unparalleled detail and artistic excellence."
+        "description": "Crafting intricate architectural models with unparalleled detail and artistic excellence.",
+        "masterCraftsmanship": "Master Craftsmanship",
+        "visionArt": "Where Vision Becomes Art",
+        "excellence": "Excellence in Every Detail",
+        "statsMasterpieces": "Masterpieces Created",
+        "statsArtisans": "Master Artisans",
+        "statsYears": "Years of Excellence",
+        "premiumService": "Premium Service",
+        "features": {
+            "museumQuality": {
+                "title": "Museum Quality",
+                "description": "Exhibition-grade models with impeccable detail",
+                "items": [
+                    "Archival materials and finishes",
+                    "Professional presentation standards",
+                    "Climate-resistant construction",
+                    "Collector-worthy craftsmanship"
+                ]
+            },
+            "precisionEngineering": {
+                "title": "Precision Engineering",
+                "description": "Technical accuracy meets artistic excellence",
+                "items": [
+                    "CAD-driven precision manufacturing",
+                    "Scale-perfect proportions",
+                    "Engineering-grade tolerances",
+                    "Quality control protocols"
+                ]
+            },
+            "curatedExperience": {
+                "title": "Curated Experience",
+                "description": "Thoughtful design process from concept to completion",
+                "items": [
+                    "Collaborative design sessions",
+                    "Progress documentation",
+                    "Expert consultation",
+                    "Custom presentation solutions"
+                ]
+            },
+            "legacyCollection": {
+                "title": "Legacy Collection",
+                "description": "Building tomorrow's architectural heritage today",
+                "items": [
+                    "11+ years of masterpieces",
+                    "1200+ models in portfolios worldwide",
+                    "Award-winning recognition",
+                    "Industry-leading innovation"
+                ]
+            }
+        },
+        "exploreCollection": "Explore Our Collection",
+        "commissionArtwork": "Commission Artwork",
+        "aboutAtelier": "About the Atelier",
+        "architecturalGallery": "Architectural Gallery",
+        "aboutText1": "Established in 2013 as Dubai's premier architectural model atelier, AICONMAC combines traditional craftsmanship with museum-quality presentation standards. Each piece in our collection represents a meticulous fusion of art, architecture, and precision engineering.",
+        "aboutText2": "Our gallery of 40+ master artisans has curated over 1200 architectural masterpieces, establishing a legacy that transcends borders and transforms the way architectural visions are presented and preserved.",
+        "vastCollection": "A Vast Collection",
+        "curatedWorks": "Curated Works",
+        "awardWinningExperts": "Award-Winning Experts",
+        "overDecade": "Over a Decade",
+        "featuredMasterpiece": "Featured Masterpiece",
+        "featuredDetails": "Precision Architectural Model — Mixed Media, Scale 1:200",
+        "collectionLocation": "From the AICONMAC Collection, Dubai",
+        "collectionOverview": "Collection Overview",
+        "ourSpecializations": "Specializations",
+        "specializationsDesc": "From grand urban landscapes to intricate building details, we curate the models for architectural excellence.",
+        "services": {
+            "master": {
+                "title": "Master Planning Models",
+                "description": "Comprehensive urban visions that capture the grand scale of development projects with museum-quality presentation."
+            },
+            "architectural": {
+                "title": "Architectural Models",
+                "description": "Detailed building models showcasing both exterior beauty and interior sophistication in exhibition-ready formats."
+            },
+            "industrial": {
+                "title": "Industrial Models",
+                "description": "Complex facility models that communicate technical excellence and operational flow with artistic precision."
+            }
+        },
+        "interactiveDisplay": "Interactive Display",
+        "ourPartnerships": "Our Partnerships",
+        "distinguishedClientele": "Clientele",
+        "viewAllPartners": "View All Partners",
+        "clientTestimonials": "Client Testimonials",
+        "voicesFromCollection": "Collection",
+        "voicesDesc": "Trusted by leading architects, developers, and designers across the UAE and beyond.",
+        "exhibitionHighlights": "Exhibition Highlights",
+        "featuredMasterpiecesTitle": "Masterpieces",
+        "featuredMasterpiecesDesc": "A curated selection of our most distinguished architectural models, each representing the pinnacle of craftsmanship and artistic excellence.",
+        "viewCompleteCollection": "View Complete Collection",
+        "fallback": {
+            "featured": {
+                "title1": "Urban Planning Masterpiece",
+                "medium1": "Scale 1:500 — Mixed Media",
+                "title2": "Contemporary Architecture",
+                "medium2": "Scale 1:200 — Premium Materials",
+                "title3": "Industrial Complex Model",
+                "medium3": "Scale 1:1000 — Technical Precision"
+            },
+            "client": "Client",
+            "placeholder": "Placeholder",
+            "testimonial": {
+                "quote": "Building the future, one miniature at a time. Their models are breathtaking.",
+                "name": "Architectural Firm",
+                "title": "Global Partner"
+            },
+            "clients": {
+                "emaar": "Emaar",
+                "nakheel": "Nakheel",
+                "dp": "DP",
+                "damac": "Damac",
+                "aldar": "Aldar"
+            }
+        },
+        "generatedMedium": "Scale 1:{scale} — Mixed Media",
+        "clientTestimonial": "Client Testimonial",
+        "HeroCarousel": {
+            "masterPlanning": {
+                "title": "Master Planning",
+                "category": "URBAN VISION"
+            },
+            "architecturalModels": {
+                "title": "Architectural Models",
+                "category": "PRECISION CRAFT"
+            },
+            "industrialModels": {
+                "title": "Industrial Models",
+                "category": "TECHNICAL EXCELLENCE"
+            },
+            "commercialSpaces": {
+                "title": "Commercial Spaces",
+                "category": "BUSINESS VISION"
+            },
+            "residentialLiving": {
+                "title": "Residential Living",
+                "category": "DREAM HOMES"
+            }
+        },
+        "callToAction": {
+            "commissionMasterpiece": "Commission Your Masterpiece",
+            "readyToCreate": "Ready to Create Your",
+            "architecturalLegacy": "Architectural Legacy?",
+            "transformVision": "Transform your architectural vision into a museum-quality masterpiece. Our master artisans are ready to bring your dreams to life with unparalleled precision and artistry.",
+            "startCommission": "Start Your Commission",
+            "viewPortfolio": "View Our Portfolio"
+        }
     },
     "Navigation": {
         "home": "Home",
         "projects": "Projects",
+        "clients": "Clients",
         "careers": "Careers",
-        "contact": "Contact"
+        "contact": "Contact",
+        "catalogue": "Catalogue",
+        "contactUs": "Contact Us",
+        "downloadCatalogue": "Download Catalogue",
+        "success": "Success!",
+        "downloadingMessage": "Your catalogue is downloading...",
+        "emailPrompt": "Enter your email to receive our complete project catalogue",
+        "emailAddress": "Email Address",
+        "processing": "Processing...",
+        "consent": "By downloading, you agree to receive updates from AICONMAC"
     },
     "ProjectsPage": {
         "heroTitle": "Project Gallery",
@@ -21,7 +177,10 @@
         "startCommission": "Start Your Commission",
         "viewDetails": "View Details",
         "curatorialNotes": "Curatorial Notes",
-        "explorePiece": "Explore Piece"
+        "explorePiece": "Explore Piece",
+        "error": "Failed to fetch projects. Please try again later.",
+        "dubaiCollection": "Dubai Collection",
+        "defaultDescription": "A masterfully crafted architectural model showcasing precision and artistry."
     },
     "CareersPage": {
         "heroTitle": "Join Our Atelier",
@@ -48,6 +207,7 @@
         "ctaDescription": "Join a team where your artistic vision shapes architectural miniatures that will be treasured for generations. Your precision, our platform.",
         "applyNow": "Apply Now",
         "studioTour": "Studio Tour",
+        "formMessagePlaceholder": "Tell us about your passion for precision craftsmanship, your experience with architectural models, and why you want to join our atelier...",
         "benefits": {
             "creativeMastery": {
                 "title": "Creative Mastery",
@@ -100,9 +260,22 @@
             "designSpecialist": "3D Design Specialist",
             "finishingArtist": "Precision Finishing Artist",
             "projectCoordinator": "Project Coordinator",
-            "fullTime": "Full-time",
+            "fullTime": "Full Time",
             "contract": "Contract",
             "urgent": "Urgent"
+        },
+        "messages": {
+            "success": "Your application has been submitted successfully! We will get back to you soon.",
+            "error": "Failed to submit application. Please try again.",
+            "fileHint": "PDF, DOC, DOCX (Max 5MB)"
+        },
+        "errors": {
+            "fullName": "Full Name is required",
+            "emailRequired": "Email is required",
+            "emailInvalid": "Invalid email address",
+            "resumeRequired": "Resume is required",
+            "fileType": "Only PDF or DOCX formats are allowed",
+            "fileSize": "Max resume size is 5MB"
         }
     },
     "ContactPage": {
@@ -127,15 +300,6 @@
         "ctaDescription": "Every architectural masterpiece begins with a conversation. Let's discuss how we can transform your vision into tangible artistry.",
         "scheduleConsultation": "Schedule Consultation",
         "viewPortfolio": "View Portfolio",
-        "contactDetails": {
-            "directLine": "Direct Line",
-            "available": "Available 9AM - 6PM EST",
-            "studioEmail": "Studio Email",
-            "response": "Response within 24 hours",
-            "designStudio": "Design Studio",
-            "studioHours": "Studio Hours",
-            "saturday": "Saturday: By appointment"
-        },
         "credentials": {
             "awardWinning": {
                 "title": "Award-Winning Craftsmanship",
@@ -157,6 +321,34 @@
             "printing": "Precision 3D Printing",
             "gifts": "Executive Gift Models",
             "museum": "Museum Exhibition Piece"
+        },
+        "messages": {
+            "success": "Your commission request has been submitted successfully! We will contact you within 24 hours.",
+            "error": "Failed to submit request. Please try again."
+        },
+        "errors": {
+            "fullName": "Full Name is required",
+            "emailRequired": "Email is required",
+            "emailInvalid": "Invalid email address",
+            "commissionType": "Please select a commission type",
+            "projectVision": "Please describe your project vision",
+            "projectVisionLength": "Please provide at least 10 characters"
+        },
+        "contactDetails": {
+            "directLine": "Direct Line",
+            "available": "Available 9am - 6pm EST",
+            "studioEmail": "Studio Email",
+            "response": "24hr Response Time",
+            "designStudio": "Design Studio",
+            "studioHours": "Studio Hours",
+            "saturday": "Saturday: By Appointment",
+            "addressLine1": "123 Architecture Quarter",
+            "addressLine2": "Creative District, New York 10001",
+            "weekdays": "Monday - Friday: 9:00 AM - 6:00 PM"
+        },
+        "map": {
+            "title": "Interactive Studio Location",
+            "hint": "Click to view detailed directions"
         }
     },
     "Categories": {
@@ -166,5 +358,37 @@
         "masterplan": "Masterplan",
         "3d_printing": "3D Printing",
         "business_gifts": "Business Gifts"
+    },
+    "ClientsPage": {
+        "partnerships": "Our Partnerships",
+        "trustedBy": "Trusted by",
+        "industryLeaders": "Industry Leaders",
+        "description": "We are proud to collaborate with visionary companies and organizations that shape the skylines of tomorrow.",
+        "failedToLoad": "Failed to Load Clients",
+        "retry": "Retry",
+        "checkBackend": "Please check backend connection.",
+        "error": "Failed to fetch clients. Please check if the backend server is running.",
+        "noClients": "No clients found to display.",
+        "noLogo": "No Logo"
+    },
+    "Common": {
+        "loading": "Loading...",
+        "errorPrefix": "Error: ",
+        "featured": "Featured",
+        "viewDetails": "View Details"
+    },
+    "Footer": {
+        "navigate": "Navigate",
+        "home": "Home",
+        "services": "Services",
+        "projects": "Projects",
+        "contact": "Contact",
+        "getInTouch": "Get in Touch",
+        "address": "Industrial Area 15, Sharjah, UAE",
+        "projectInMind": "Have a project in mind?",
+        "partnersText": "Let's create something extraordinary together.",
+        "startConversation": "Start a Conversation",
+        "rightsReserved": "Aiconmac. All rights reserved.",
+        "tagline": "Leading the way in architectural model making, we turn complex visions into tangible realities."
     }
 }

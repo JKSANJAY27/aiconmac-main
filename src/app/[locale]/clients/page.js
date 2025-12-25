@@ -7,6 +7,8 @@ import ClientsGrid from '@/components/clients/ClientsGrid';
 import { fetcher } from '@/lib/api';
 
 export default function ClientsPage() {
+    const t = useTranslations('ClientsPage');
+    const tCommon = useTranslations('Common');
     const [clients, setClients] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -36,7 +38,7 @@ export default function ClientsPage() {
             } catch (err) {
                 console.error("Failed to fetch clients:", err);
                 // Show the actual error instead of falling back silently
-                setError(err.info?.message || err.message || 'Failed to fetch clients. Please check if the backend server is running.');
+                setError(err.info?.message || err.message || t('error'));
                 // Optionally still set mock data for development
                 // setClients(MOCK_CLIENTS);
             } finally {
@@ -65,16 +67,16 @@ export default function ClientsPage() {
                         <div className="mb-8">
                             <div className="w-24 h-0.5 bg-gradient-to-r from-transparent via-amber-400 to-transparent mx-auto mb-6" />
                             <span className="text-xs uppercase tracking-[0.3em] text-gray-500 font-light">
-                                Our Partnerships
+                                {t('partnerships')}
                             </span>
                         </div>
 
                         <h1 className="text-4xl md:text-5xl lg:text-6xl font-extralight text-[#464646] mb-8 leading-tight">
-                            Trusted by <span className="font-light text-amber-600">Industry Leaders</span>
+                            {t('trustedBy')} <span className="font-light text-amber-600">{t('industryLeaders')}</span>
                         </h1>
 
                         <p className="text-lg md:text-xl text-gray-600 font-light leading-relaxed max-w-2xl mx-auto">
-                            We are proud to collaborate with visionary companies and organizations that shape the skylines of tomorrow.
+                            {t('description')}
                         </p>
                     </motion.div>
                 </div>
@@ -95,23 +97,17 @@ export default function ClientsPage() {
                                 </svg>
                             </div>
                             <div>
-                                <h3 className="text-xl font-light text-gray-800 mb-2">Failed to Load Clients</h3>
+                                <h3 className="text-xl font-light text-gray-800 mb-2">{t('failedToLoad')}</h3>
                                 <p className="text-red-600 font-light mb-4">{error}</p>
                                 <div className="text-sm text-gray-600 font-light space-y-2">
-                                    <p>Please check:</p>
-                                    <ul className="list-disc list-inside text-left max-w-md mx-auto">
-                                        <li>Backend server is running (port 5000)</li>
-                                        <li>Database connection is configured correctly</li>
-                                        <li>Prisma schema includes the Client model</li>
-                                        <li>Database URL has <code className="px-1 py-0.5 bg-gray-100 rounded text-xs">?pgbouncer=true</code> if using PgBouncer</li>
-                                    </ul>
+                                    <p>{t('checkBackend')}</p>
                                 </div>
                             </div>
                             <button
                                 onClick={() => window.location.reload()}
                                 className="px-6 py-2 bg-amber-600 text-white rounded-full hover:bg-amber-700 transition-colors font-light"
                             >
-                                Retry
+                                {t('retry')}
                             </button>
                         </div>
                     ) : (

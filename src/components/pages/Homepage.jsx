@@ -42,82 +42,88 @@ const serviceImages = {
 };
 
 // Fallback data for testimonials and services if API calls fail
-const testimonialsInitial = [
-  {
-    quote: "Building the future, one miniature at a time. Their models are breathtaking.",
-    name: "Architectural Firm",
-    title: "Global Partner"
-  }
-];
 
-// Feature cards data - Museum themed
-const features = [
-  {
-    title: "Museum Quality",
-    description: "Exhibition-grade models with impeccable detail",
-    items: [
-      "Archival materials and finishes",
-      "Professional presentation standards",
-      "Climate-resistant construction",
-      "Collector-worthy craftsmanship"
-    ]
-  },
-  {
-    title: "Precision Engineering",
-    description: "Technical accuracy meets artistic excellence",
-    items: [
-      "CAD-driven precision manufacturing",
-      "Scale-perfect proportions",
-      "Engineering-grade tolerances",
-      "Quality control protocols"
-    ]
-  },
-  {
-    title: "Curated Experience",
-    description: "Thoughtful design process from concept to completion",
-    items: [
-      "Collaborative design sessions",
-      "Progress documentation",
-      "Expert consultation",
-      "Custom presentation solutions"
-    ]
-  },
-  {
-    title: "Legacy Collection",
-    description: "Building tomorrow's architectural heritage today",
-    items: [
-      "11+ years of masterpieces",
-      "1200+ models in portfolios worldwide",
-      "Award-winning recognition",
-      "Industry-leading innovation"
-    ]
-  }
-];
 
-// Interactive services data
-const services = [
-  {
-    id: 'master',
-    title: 'Master Planning Models',
-    description: "Comprehensive urban visions that capture the grand scale of development projects with museum-quality presentation.",
-    img: serviceImages.master,
-  },
-  {
-    id: 'architectural',
-    title: 'Architectural Models',
-    description: 'Detailed building models showcasing both exterior beauty and interior sophistication in exhibition-ready formats.',
-    img: serviceImages.architectural,
-  },
-  {
-    id: 'industrial',
-    title: 'Industrial Models',
-    description: 'Complex facility models that communicate technical excellence and operational flow with artistic precision.',
-    img: serviceImages.industrial,
-  },
-];
+
 
 const Homepage = () => {
   const t = useTranslations('HomePage');
+
+  // Fallback data for testimonials and services if API calls fail
+  const testimonialsInitial = [
+    {
+      quote: t('fallback.testimonial.quote'),
+      name: t('fallback.testimonial.name'),
+      title: t('fallback.testimonial.title')
+    }
+  ];
+
+  // Feature cards data - Museum themed
+  const features = [
+    {
+      title: t('features.museumQuality.title'),
+      description: t('features.museumQuality.description'),
+      items: [
+        t('features.museumQuality.items.0'),
+        t('features.museumQuality.items.1'),
+        t('features.museumQuality.items.2'),
+        t('features.museumQuality.items.3')
+      ]
+    },
+    {
+      title: t('features.precisionEngineering.title'),
+      description: t('features.precisionEngineering.description'),
+      items: [
+        t('features.precisionEngineering.items.0'),
+        t('features.precisionEngineering.items.1'),
+        t('features.precisionEngineering.items.2'),
+        t('features.precisionEngineering.items.3')
+      ]
+    },
+    {
+      title: t('features.curatedExperience.title'),
+      description: t('features.curatedExperience.description'),
+      items: [
+        t('features.curatedExperience.items.0'),
+        t('features.curatedExperience.items.1'),
+        t('features.curatedExperience.items.2'),
+        t('features.curatedExperience.items.3')
+      ]
+    },
+    {
+      title: t('features.legacyCollection.title'),
+      description: t('features.legacyCollection.description'),
+      items: [
+        t('features.legacyCollection.items.0'),
+        t('features.legacyCollection.items.1'),
+        t('features.legacyCollection.items.2'),
+        t('features.legacyCollection.items.3')
+      ]
+    }
+  ];
+
+  // Interactive services data
+  const services = [
+    {
+      id: 'master',
+      title: t('services.master.title'),
+      description: t('services.master.description'),
+      img: serviceImages.master,
+    },
+    {
+      id: 'architectural',
+      title: t('services.architectural.title'),
+      description: t('services.architectural.description'),
+      img: serviceImages.architectural,
+    },
+    {
+      id: 'industrial',
+      title: t('services.industrial.title'),
+      description: t('services.industrial.description'),
+      img: serviceImages.industrial,
+    },
+  ];
+
   const [activeServiceImage, setActiveServiceImage] = useState(serviceImages.master);
   const [scrollY, setScrollY] = useState(0);
   const [servicesData, setServicesData] = useState([]); // State for fetched services
@@ -157,7 +163,7 @@ const Homepage = () => {
         const mappedTestimonials = data.map(t => ({
           quote: t.quote,
           name: t.author,
-          title: t.title ? `${t.title}, ${t.company}` : t.company || 'Client',
+          title: t.title ? `${t.title}, ${t.company}` : t.company || t('fallback.client'),
         }));
         setTestimonialsData(mappedTestimonials.length > 0 ? mappedTestimonials : testimonialsInitial);
       })
@@ -173,31 +179,31 @@ const Homepage = () => {
           id: project.id,
           title: project.title,
           description: project.description.substring(0, 150) + '...',
-          img: project.images[0] ? { src: project.images[0].url, alt: project.images[0].altText || project.title } : { src: '/images/placeholder.jpg', alt: 'Placeholder' },
+          img: project.images[0] ? { src: project.images[0].url, alt: project.images[0].altText || project.title } : { src: '/images/placeholder.jpg', alt: t('fallback.placeholder') },
         }));
         setServicesData(mappedServices);
         if (mappedServices.length > 0) {
           setActiveServiceImage(mappedServices[0].img);
         } else {
-          setActiveServiceImage({ src: '/images/placeholder.jpg', alt: 'Placeholder' });
+          setActiveServiceImage({ src: '/images/placeholder.jpg', alt: t('fallback.placeholder') });
         }
       })
       .catch(err => {
         console.error("Failed to fetch services/projects:", err);
         setServicesData([
-          { id: 'static-master', title: 'Master Planning Models', description: "Comprehensive urban visions...", img: { src: '/images/placeholder.jpg', alt: 'Masterplan' } },
-          { id: 'static-arch', title: 'Architectural Models', description: 'Detailed building models...', img: { src: '/images/placeholder.jpg', alt: 'Architecture' } },
+          { id: 'static-master', title: t('services.master.title'), description: t('services.master.description'), img: { src: '/images/placeholder.jpg', alt: t('services.master.title') } },
+          { id: 'static-arch', title: t('services.architectural.title'), description: t('services.architectural.description'), img: { src: '/images/placeholder.jpg', alt: t('services.architectural.title') } },
         ]);
-        setActiveServiceImage({ src: '/images/placeholder.jpg', alt: 'Placeholder' });
+        setActiveServiceImage({ src: '/images/placeholder.jpg', alt: t('fallback.placeholder') });
       });
 
     // Fetch Featured Projects
     fetcher('/projects?isPublished=true&take=3')
       .then(data => {
         const mappedFeatured = data.map(project => ({
-          img: project.images[0] ? { src: project.images[0].url, alt: project.images[0].altText || project.title } : { src: '/images/placeholder.jpg', alt: 'Placeholder' },
+          img: project.images[0] ? { src: project.images[0].url, alt: project.images[0].altText || project.title } : { src: '/images/placeholder.jpg', alt: t('fallback.placeholder') },
           title: project.title,
-          medium: `Scale 1:${Math.floor(Math.random() * 800) + 200} — Mixed Media`,
+          medium: t('generatedMedium', { scale: Math.floor(Math.random() * 800) + 200 }),
           year: new Date(project.createdAt).getFullYear(),
           link: `/projects/${project.id}`
         }));
@@ -206,8 +212,8 @@ const Homepage = () => {
       .catch(err => {
         console.error("Failed to fetch featured projects:", err);
         setFeaturedProjectsData([
-          { img: { src: '/images/placeholder.jpg', alt: 'Featured 1' }, title: "Urban Planning Masterpiece", medium: "Scale 1:500 — Mixed Media", year: "2023", link: "/projects" },
-          { img: { src: '/images/placeholder.jpg', alt: 'Featured 2' }, title: "Contemporary Architecture", medium: "Scale 1:200 — Premium Materials", year: "2023", link: "/projects" },
+          { img: { src: '/images/placeholder.jpg', alt: 'Featured 1' }, title: t('fallback.featured.title1'), medium: t('fallback.featured.medium1'), year: "2023", link: "/projects" },
+          { img: { src: '/images/placeholder.jpg', alt: 'Featured 2' }, title: t('fallback.featured.title2'), medium: t('fallback.featured.medium2'), year: "2023", link: "/projects" },
         ]);
       });
 
@@ -219,10 +225,10 @@ const Homepage = () => {
         } else {
           // Fallback if empty array
           setClientsData([
-            { id: '1', name: 'Emaar', logo: '' },
-            { id: '2', name: 'Nakheel', logo: '' },
-            { id: '3', name: 'DP', logo: '' },
-            { id: '4', name: 'Damac', logo: '' },
+            { id: '1', name: t('fallback.clients.emaar'), logo: '' },
+            { id: '2', name: t('fallback.clients.nakheel'), logo: '' },
+            { id: '3', name: t('fallback.clients.dp'), logo: '' },
+            { id: '4', name: t('fallback.clients.damac'), logo: '' },
           ]);
         }
       })
@@ -230,11 +236,11 @@ const Homepage = () => {
         console.warn("Failed to fetch clients for homepage:", err.message);
         // Fallback mock data
         setClientsData([
-          { id: '1', name: 'Emaar', logo: '' },
-          { id: '2', name: 'Nakheel', logo: '' },
-          { id: '3', name: 'DP', logo: '' },
-          { id: '4', name: 'Damac', logo: '' },
-          { id: '5', name: 'Aldar', logo: '' },
+          { id: '1', name: t('fallback.clients.emaar'), logo: '' },
+          { id: '2', name: t('fallback.clients.nakheel'), logo: '' },
+          { id: '3', name: t('fallback.clients.dp'), logo: '' },
+          { id: '4', name: t('fallback.clients.damac'), logo: '' },
+          { id: '5', name: t('fallback.clients.aldar'), logo: '' },
         ]);
       });
 
@@ -270,15 +276,15 @@ const Homepage = () => {
             <div className="mb-8">
               <div className="w-24 h-0.5 bg-gradient-to-r from-transparent via-gray-500 to-transparent mx-auto mb-6" />
               <span className="text-xs uppercase tracking-[0.3em] text-gray-500 font-light">
-                Master Craftsmanship
+                {t('masterCraftsmanship')}
               </span>
             </div>
 
             <TextType
               text={[
                 t('title'),
-                "Where Vision Becomes Art",
-                "Excellence in Every Detail"
+                t('visionArt'),
+                t('excellence')
               ]}
               as="h2"
               className="bg-gradient-to-br from-gray-700 to-gray-900 bg-clip-text text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-extralight tracking-tight text-transparent mb-8"
@@ -317,7 +323,7 @@ const Homepage = () => {
                     duration={1}
                     className="count-up-text"
                   />+</div>
-                <div className="text-gray-500 text-xs sm:text-sm uppercase tracking-[0.2em] font-light">Masterpieces Created</div>
+                <div className="text-gray-500 text-xs sm:text-sm uppercase tracking-[0.2em] font-light">{t('statsMasterpieces')}</div>
                 <div className="w-12 h-0.5 bg-amber-400/50 mx-auto mt-3" />
               </div>
               <div className="text-center relative">
@@ -330,7 +336,7 @@ const Homepage = () => {
                     duration={1}
                     className="count-up-text"
                   />+</div>
-                <div className="text-gray-500 text-xs sm:text-sm uppercase tracking-[0.2em] font-light">Master Artisans</div>
+                <div className="text-gray-500 text-xs sm:text-sm uppercase tracking-[0.2em] font-light">{t('statsArtisans')}</div>
                 <div className="w-12 h-0.5 bg-amber-400/50 mx-auto mt-3" />
               </div>
               <div className="text-center relative">
@@ -343,7 +349,7 @@ const Homepage = () => {
                     duration={1}
                     className="count-up-text"
                   />+</div>
-                <div className="text-gray-500 text-xs sm:text-sm uppercase tracking-[0.2em] font-light">Years of Excellence</div>
+                <div className="text-gray-500 text-xs sm:text-sm uppercase tracking-[0.2em] font-light">{t('statsYears')}</div>
                 <div className="w-12 h-0.5 bg-amber-400/50 mx-auto mt-3" />
               </div>
             </motion.div>
@@ -366,7 +372,7 @@ const Homepage = () => {
                     <div className="mb-4">
                       <div className="w-8 h-0.5 bg-amber-400 mb-3" />
                       <span className="text-xs uppercase tracking-[0.2em] text-gray-500 font-light">
-                        Premium Service
+                        {t('premiumService')}
                       </span>
                     </div>
                     <p className="text-lg sm:text-xl font-light relative z-20 mt-2 text-gray-800 mb-3">
@@ -398,13 +404,13 @@ const Homepage = () => {
                 href="/projects"
                 className="bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white font-light py-4 px-8 rounded-none transition-all duration-300 transform hover:scale-105 hover:shadow-xl shadow-amber-500/25 text-sm sm:text-base uppercase tracking-wider"
               >
-                Explore Our Collection
+                {t('exploreCollection')}
               </IntlLink>
               <IntlLink
                 href="/contact"
                 className="border border-gray-300 hover:border-amber-500 bg-white/80 backdrop-blur-sm text-gray-700 hover:text-amber-600 font-light py-4 px-8 rounded-none transition-all duration-300 transform hover:scale-105 text-sm sm:text-base uppercase tracking-wider"
               >
-                Commission Artwork
+                {t('commissionArtwork')}
               </IntlLink>
             </motion.div>
           </div>
@@ -434,34 +440,30 @@ const Homepage = () => {
                   <div className="mb-8">
                     <div className="w-16 h-0.5 bg-gradient-to-r from-amber-400 to-transparent mb-4" />
                     <span className="text-xs uppercase tracking-[0.2em] text-gray-500 font-light">
-                      About the Atelier
+                      {t('aboutAtelier')}
                     </span>
                   </div>
 
                   <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extralight text-[#464646] mb-8 leading-tight">
                     Aiconmac<br />
-                    <span className="font-light text-gray-600">Architectural Gallery</span>
+                    <span className="font-light text-gray-600">{t('architecturalGallery')}</span>
                   </h2>
 
                   <div className="prose prose-lg max-w-none">
                     <p className="text-gray-600 text-lg leading-relaxed mb-6 font-light">
-                      Established in 2013 as Dubai's premier architectural model atelier, AICONMAC combines
-                      traditional craftsmanship with museum-quality presentation standards. Each piece in our
-                      collection represents a meticulous fusion of art, architecture, and precision engineering.
+                      {t('aboutText1')}
                     </p>
                     <p className="text-gray-500 text-base leading-relaxed font-light">
-                      Our gallery of 40+ master artisans has curated over 1200 architectural masterpieces,
-                      establishing a legacy that transcends borders and transforms the way architectural
-                      visions are presented and preserved.
+                      {t('aboutText2')}
                     </p>
                   </div>
 
                   {/* Museum-style stats */}
                   <div className="mt-12 grid grid-cols-3 gap-8">
                     {[
-                      { phrase: "A Vast Collection", label: "Curated Works" },
-                      { phrase: "Award-Winning Experts", label: "Master Artisans" },
-                      { phrase: "Over a Decade", label: "Years of Excellence" }
+                      { phrase: t('vastCollection'), label: t('curatedWorks') },
+                      { phrase: t('awardWinningExperts'), label: t('statsArtisans') },
+                      { phrase: t('overDecade'), label: t('statsYears') }
                     ].map((stat) => (
                       <div key={stat.label} className="text-center relative">
                         <div className="text-xl md:text-2xl font-light text-amber-600 mb-2 min-h-[3.5rem] flex items-center justify-center text-center">{stat.phrase}</div>
@@ -494,12 +496,12 @@ const Homepage = () => {
 
                   {/* Museum exhibition label */}
                   <div className="mt-6 px-2 border-t border-gray-100 pt-4">
-                    <div className="text-sm font-light text-gray-800 mb-1">Featured Masterpiece</div>
+                    <div className="text-sm font-light text-gray-800 mb-1">{t('featuredMasterpiece')}</div>
                     <div className="text-xs uppercase tracking-[0.2em] text-gray-500 font-light">
-                      Precision Architectural Model — Mixed Media, Scale 1:200
+                      {t('featuredDetails')}
                     </div>
                     <div className="text-xs text-gray-400 mt-2 font-light">
-                      From the AICONMAC Collection, Dubai
+                      {t('collectionLocation')}
                     </div>
                   </div>
                 </div>
@@ -528,14 +530,14 @@ const Homepage = () => {
               <div className="mb-8">
                 <div className="w-24 h-0.5 bg-gradient-to-r from-transparent via-amber-400 to-transparent mx-auto mb-6" />
                 <span className="text-xs uppercase tracking-[0.3em] text-gray-500 font-light">
-                  Collection Overview
+                  {t('collectionOverview')}
                 </span>
               </div>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extralight text-[#464646] mb-8">
-                Our <span className="font-light text-gray-600">Specializations</span>
+                Our <span className="font-light text-gray-600">{t('ourSpecializations')}</span>
               </h2>
               <TextType
-                text="From grand urban landscapes to intricate building details, we curate the models for architectural excellence."
+                text={t('specializationsDesc')}
                 as="p"
                 className="text-gray-600 max-w-3xl mx-auto text-base sm:text-lg font-light"
                 typingSpeed={30}
@@ -606,7 +608,7 @@ const Homepage = () => {
                   {/* Museum information placard */}
                   <div className="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-sm p-4 border border-gray-200/50">
                     <div className="text-xs uppercase tracking-[0.2em] text-gray-500 font-light">
-                      Featured Work — Interactive Display
+                      {t('interactiveDisplay')}
                     </div>
                   </div>
                 </div>
@@ -627,10 +629,10 @@ const Homepage = () => {
             <div className="text-center mb-12">
               <div className="w-16 h-0.5 bg-gradient-to-r from-transparent via-amber-400 to-transparent mx-auto mb-4" />
               <span className="text-xs uppercase tracking-[0.3em] text-gray-500 font-light">
-                Our Partnerships
+                {t('ourPartnerships')}
               </span>
               <h2 className="text-2xl sm:text-3xl font-extralight text-[#464646] mt-4">
-                Distinguished <span className="font-light text-gray-600">Clientele</span>
+                Distinguished <span className="font-light text-gray-600">{t('distinguishedClientele')}</span>
               </h2>
             </div>
 
@@ -649,7 +651,7 @@ const Homepage = () => {
                 href="/clients"
                 className="text-sm uppercase tracking-widest text-amber-600 hover:text-amber-700 transition-colors border-b border-amber-600/30 hover:border-amber-600 pb-1"
               >
-                View All Partners
+                {t('viewAllPartners')}
               </IntlLink>
             </div>
           </div>
@@ -674,14 +676,14 @@ const Homepage = () => {
               <div className="mb-6">
                 <div className="w-20 h-0.5 bg-gradient-to-r from-transparent via-amber-400 to-transparent mx-auto mb-4" />
                 <span className="text-xs uppercase tracking-[0.3em] text-gray-500 font-light">
-                  Client Testimonials
+                  {t('clientTestimonials')}
                 </span>
               </div>
               <h2 className="text-3xl sm:text-4xl font-extralight text-[#464646] mb-6">
-                Voices from Our <span className="font-light text-gray-600">Collection</span>
+                Voices from Our <span className="font-light text-gray-600">{t('voicesFromCollection')}</span>
               </h2>
               <p className="text-gray-600 max-w-2xl mx-auto text-sm sm:text-base font-light">
-                Trusted by leading architects, developers, and designers across the UAE and beyond.
+                {t('voicesDesc')}
               </p>
             </motion.div>
 
@@ -721,23 +723,22 @@ const Homepage = () => {
               <div className="mb-6">
                 <div className="w-16 h-0.5 bg-gradient-to-r from-transparent via-amber-400 to-transparent mx-auto mb-4" />
                 <span className="text-xs uppercase tracking-[0.3em] text-gray-500 font-light">
-                  Exhibition Highlights
+                  {t('exhibitionHighlights')}
                 </span>
               </div>
               <h2 className="text-3xl sm:text-4xl font-extralight text-[#464646] mb-8">
-                Featured <span className="font-light text-gray-600">Masterpieces</span>
+                Featured <span className="font-light text-gray-600">{t('featuredMasterpiecesTitle')}</span>
               </h2>
               <p className="text-gray-600 max-w-3xl mx-auto text-base sm:text-lg font-light leading-relaxed">
-                A curated selection of our most distinguished architectural models, each representing
-                the pinnacle of craftsmanship and artistic excellence.
+                {t('featuredMasterpiecesDesc')}
               </p>
             </motion.div>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
               {[
-                { img: img3, title: "Urban Planning Masterpiece", medium: "Scale 1:500 — Mixed Media", year: "2023" },
-                { img: img4, title: "Contemporary Architecture", medium: "Scale 1:200 — Premium Materials", year: "2023" },
-                { img: img5, title: "Industrial Complex Model", medium: "Scale 1:1000 — Technical Precision", year: "2024" }
+                { img: img3, title: t('fallback.featured.title1'), medium: t('fallback.featured.medium1'), year: "2023" },
+                { img: img4, title: t('fallback.featured.title2'), medium: t('fallback.featured.medium2'), year: "2023" },
+                { img: img5, title: t('fallback.featured.title3'), medium: t('fallback.featured.medium3'), year: "2024" }
               ].map((project, index) => (
                 <motion.div
                   key={project.title}
@@ -775,7 +776,7 @@ const Homepage = () => {
                             {project.medium}
                           </p>
                           <div className="text-xs text-gray-400 font-light">
-                            From the AICONMAC Collection
+                            {t('collectionLocation')}
                           </div>
                           {/* Museum accent line */}
                           <div className="w-8 h-0.5 bg-amber-400/0 group-hover:bg-amber-400 transition-all duration-500 mt-3" />
@@ -798,7 +799,7 @@ const Homepage = () => {
                 href="/projects"
                 className="inline-flex items-center px-8 py-4 bg-white/90 backdrop-blur-sm hover:bg-white text-[#464646] hover:text-amber-600 font-light rounded-none border border-gray-200 hover:border-amber-400 hover:shadow-lg transition-all duration-300 text-base uppercase tracking-[0.15em] group"
               >
-                View Complete Collection
+                {t('viewCompleteCollection')}
                 <ArrowRight className="ml-3 w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </IntlLink>
             </motion.div>
@@ -824,18 +825,17 @@ const Homepage = () => {
                 <div className="mb-8">
                   <div className="w-24 h-0.5 bg-gradient-to-r from-transparent via-amber-400 to-transparent mx-auto mb-6" />
                   <span className="text-xs uppercase tracking-[0.3em] text-gray-500 font-light">
-                    Commission Your Masterpiece
+                    {t('callToAction.commissionMasterpiece')}
                   </span>
                 </div>
 
                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extralight text-[#464646] mb-8 leading-tight">
-                  Ready to Create Your<br />
-                  <span className="font-light text-amber-600">Architectural Legacy?</span>
+                  {t('callToAction.readyToCreate')}<br />
+                  <span className="font-light text-amber-600">{t('callToAction.architecturalLegacy')}</span>
                 </h2>
 
                 <p className="text-gray-600 text-lg sm:text-xl max-w-3xl mx-auto mb-12 leading-relaxed font-light">
-                  Transform your architectural vision into a museum-quality masterpiece.
-                  Our master artisans are ready to bring your dreams to life with unparalleled precision and artistry.
+                  {t('callToAction.transformVision')}
                 </p>
 
                 <motion.div
@@ -850,7 +850,7 @@ const Homepage = () => {
                       href="/contact"
                       className="bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white font-light py-4 px-8 rounded-none transition-all duration-300 hover:shadow-xl shadow-amber-500/25 text-base uppercase tracking-[0.15em] group"
                     >
-                      Start Your Commission
+                      {t('callToAction.startCommission')}
                       <ArrowRight className="inline ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </IntlLink>
                   </motion.div>
@@ -860,7 +860,7 @@ const Homepage = () => {
                       href="/projects"
                       className="border border-gray-300 hover:border-amber-500 bg-white/80 backdrop-blur-sm text-gray-700 hover:text-amber-600 font-light py-4 px-8 rounded-none transition-all duration-300 text-base uppercase tracking-[0.15em]"
                     >
-                      View Our Portfolio
+                      {t('callToAction.viewPortfolio')}
                     </IntlLink>
                   </motion.div>
                 </motion.div>

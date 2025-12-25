@@ -18,6 +18,7 @@ const initialProjectsState = [];
 const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProject }) => {
   const t = useTranslations('ProjectsPage');
   const tCategories = useTranslations('Categories');
+  const tCommon = useTranslations('Common');
   const [projectsData, setProjectsData] = useState(initialProjectsState);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -35,7 +36,7 @@ const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProjec
         const data = await fetcher(url);
         setProjectsData(data);
       } catch (err) {
-        setError(err.info?.message || err.message || 'Failed to fetch projects. Please try again later.');
+        setError(err.info?.message || err.message || t('error'));
         console.error("Projects fetch error:", err);
       } finally {
         setLoading(false);
@@ -73,7 +74,7 @@ const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProjec
   if (loading) {
     return (
       <div className="min-h-screen relative overflow-hidden pt-28 flex items-center justify-center bg-white">
-        <p className="text-gray-700">Loading projects...</p>
+        <p className="text-gray-700">{tCommon('loading')}</p>
       </div>
     );
   }
@@ -81,7 +82,7 @@ const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProjec
   if (error) {
     return (
       <div className="min-h-screen relative overflow-hidden pt-28 flex items-center justify-center bg-white">
-        <p className="text-red-600">Error: {error}</p>
+        <p className="text-red-600">{tCommon('errorPrefix')} {error}</p>
       </div>
     );
   }
@@ -161,8 +162,8 @@ const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProjec
               variants={cardVariants}
               onClick={() => setSelectedCategory(category.id)}
               className={`relative px-8 py-4 rounded-full transition-all duration-300 text-sm font-light tracking-wider uppercase overflow-hidden group ${selectedCategory === category.id
-                  ? 'text-black shadow-xl'
-                  : 'text-gray-600 hover:text-black'
+                ? 'text-black shadow-xl'
+                : 'text-gray-600 hover:text-black'
                 }`}
               style={{
                 background: selectedCategory === category.id
@@ -237,7 +238,7 @@ const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProjec
                           border: '1px solid rgba(245, 158, 11, 0.2)'
                         }}
                       >
-                        {item.badge || 'Featured'}
+                        {item.badge || tCommon('featured')}
                       </div>
 
                       <div className="flex items-center space-x-4 text-xs text-gray-500 uppercase tracking-wider">
@@ -247,7 +248,7 @@ const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProjec
                         </div>
                         <div className="flex items-center space-x-1">
                           <MapPin className="w-3 h-3" />
-                          <span>Dubai Collection</span>
+                          <span>{t('dubaiCollection')}</span>
                         </div>
                       </div>
                     </div>
@@ -293,7 +294,7 @@ const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProjec
                               whileHover={{ scale: 1.05 }}
                             >
                               <Eye className="w-4 h-4" />
-                              <span>{t('viewDetails')}</span>
+                              <span>{tCommon('viewDetails')}</span>
                             </motion.div>
                           </div>
                         }
@@ -385,7 +386,7 @@ const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProjec
                             border: '1px solid rgba(245, 158, 11, 0.2)'
                           }}
                         >
-                          {item.badge || 'Featured'}
+                          {item.badge || tCommon('featured')}
                         </span>
                       </div>
 
@@ -396,7 +397,7 @@ const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProjec
                       <div className="text-sm text-gray-600 line-clamp-3 font-light leading-relaxed">
                         {typeof item.description === 'string'
                           ? item.description
-                          : 'A masterfully crafted architectural model showcasing precision and artistry.'}
+                          : t('defaultDescription')}
                       </div>
 
                       <div className="mt-4 flex items-center text-amber-600 opacity-0 group-hover:opacity-100 transition-opacity">

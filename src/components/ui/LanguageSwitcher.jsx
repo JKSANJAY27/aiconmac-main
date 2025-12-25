@@ -4,7 +4,7 @@ import { useLocale } from 'next-intl';
 import { usePathname, useRouter } from '@/i18n/routing';
 import { startTransition } from 'react';
 
-export default function LanguageSwitcher() {
+export default function LanguageSwitcher({ className = "" }) {
     const locale = useLocale();
     const router = useRouter();
     const pathname = usePathname();
@@ -19,7 +19,7 @@ export default function LanguageSwitcher() {
     return (
         <select
             defaultValue={locale}
-            className="bg-transparent border border-white/20 rounded px-2 py-1 text-sm focus:outline-none focus:border-amber-500/50 text-white"
+            className={`bg-transparent border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:border-amber-500 text-gray-700 ${className}`}
             onChange={onSelectChange}
         >
             <option value="en" className="text-black">English</option>

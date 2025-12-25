@@ -48,23 +48,23 @@ const ContactPage = () => {
     const newErrors = {};
 
     if (!formData.fullName.trim()) {
-      newErrors.fullName = "Full Name is required";
+      newErrors.fullName = t('errors.fullName');
     }
 
     if (!formData.email.trim()) {
-      newErrors.email = "Email is required";
+      newErrors.email = t('errors.emailRequired');
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "Invalid email address";
+      newErrors.email = t('errors.emailInvalid');
     }
 
     if (!formData.commissionType) {
-      newErrors.commissionType = "Please select a commission type";
+      newErrors.commissionType = t('errors.commissionType');
     }
 
     if (!formData.projectVision.trim()) {
-      newErrors.projectVision = "Please describe your project vision";
+      newErrors.projectVision = t('errors.projectVision');
     } else if (formData.projectVision.trim().length < 10) {
-      newErrors.projectVision = "Please provide at least 10 characters";
+      newErrors.projectVision = t('errors.projectVisionLength');
     }
 
     setErrors(newErrors);
@@ -93,7 +93,7 @@ const ContactPage = () => {
 
       await poster('/contact', payload);
       setSubmissionStatus('success');
-      setSubmissionMessage('Your commission request has been submitted successfully! We will contact you within 24 hours.');
+      setSubmissionMessage(t('messages.success'));
 
       // Reset form
       setFormData({
@@ -105,7 +105,7 @@ const ContactPage = () => {
       });
     } catch (err) {
       setSubmissionStatus('error');
-      setSubmissionMessage(err.info?.message || err.message || 'Failed to submit request. Please try again.');
+      setSubmissionMessage(err.info?.message || err.message || t('messages.error'));
       console.error('Contact submission error:', err);
     } finally {
       setIsSubmitting(false);
@@ -375,8 +375,8 @@ const ContactPage = () => {
                 {[
                   { icon: Phone, label: t('contactDetails.directLine'), value: '+1 (555) 123-4567', subValue: t('contactDetails.available') },
                   { icon: Mail, label: t('contactDetails.studioEmail'), value: 'commissions@aiconmacmodels.com', subValue: t('contactDetails.response') },
-                  { icon: MapPin, label: t('contactDetails.designStudio'), value: '123 Architecture Quarter', subValue: 'Creative District, New York 10001' },
-                  { icon: Clock, label: t('contactDetails.studioHours'), value: 'Monday - Friday: 9:00 AM - 6:00 PM', subValue: t('contactDetails.saturday') }
+                  { icon: MapPin, label: t('contactDetails.designStudio'), value: t('contactDetails.addressLine1'), subValue: t('contactDetails.addressLine2') },
+                  { icon: Clock, label: t('contactDetails.studioHours'), value: t('contactDetails.weekdays'), subValue: t('contactDetails.saturday') }
                 ].map((contact, index) => (
                   <motion.div
                     key={index}
@@ -444,8 +444,8 @@ const ContactPage = () => {
               <div className="absolute inset-0 bg-gradient-to-br from-amber-50/50 to-amber-100/30" />
               <div className="relative text-center">
                 <MapPin className="w-12 h-12 text-amber-600 mx-auto mb-4" />
-                <span className="text-amber-700 font-light">Interactive Studio Location</span>
-                <p className="text-sm text-amber-600/70 mt-2">Click to view detailed directions</p>
+                <span className="text-amber-700 font-light">{t('map.title')}</span>
+                <p className="text-sm text-amber-600/70 mt-2">{t('map.hint')}</p>
               </div>
             </motion.div>
           </motion.div>

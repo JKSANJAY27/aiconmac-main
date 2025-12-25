@@ -1,13 +1,169 @@
 {
     "HomePage": {
         "title": "نماذج أيكون ماك - دقة في التصغير",
-        "description": "صياغة نماذج معمارية معقدة بتفاصيل لا مثيل لها وتميز فني."
+        "description": "صياغة نماذج معمارية معقدة بتفاصيل لا مثيل لها وتميز فني.",
+        "masterCraftsmanship": "إتقان الحرفية",
+        "visionArt": "حيث تصبح الرؤية فناً",
+        "excellence": "التميز في كل تفصيل",
+        "statsMasterpieces": "تحفة فنية",
+        "statsArtisans": "حرفي ماهر",
+        "statsYears": "سنوات من التميز",
+        "premiumService": "خدمة متميزة",
+        "features": {
+            "museumQuality": {
+                "title": "جودة المتاحف",
+                "description": "نماذج بجودة المعارض بتفاصيل لا تشوبها شائبة",
+                "items": [
+                    "مواد وتشطيبات أرشيفية",
+                    "معايير عرض احترافية",
+                    "بناء مقاوم للمناخ",
+                    "حرفية جديرة بالاقتناء"
+                ]
+            },
+            "precisionEngineering": {
+                "title": "هندسة دقيقة",
+                "description": "الدقة التقنية تلتقي بالتميز الفني",
+                "items": [
+                    "تصنيع دقيق مدعوم بتقنية CAD",
+                    "نسب مثالية للمقياس",
+                    "تفاوتات هندسية دقيقة",
+                    "بروتوكولات مراقبة الجودة"
+                ]
+            },
+            "curatedExperience": {
+                "title": "تجربة منسقة",
+                "description": "عملية تصميم مدروسة من الفكرة إلى الاكتمال",
+                "items": [
+                    "جلسات تصميم تعاونية",
+                    "توثيق التقدم",
+                    "استشارات الخبراء",
+                    "حلول عرض مخصصة"
+                ]
+            },
+            "legacyCollection": {
+                "title": "مجموعة الإرث",
+                "description": "بناء التراث المعماري للغد اليوم",
+                "items": [
+                    "+11 عاماً من الروائع",
+                    "+1200 نموذج في محافظ عالمية",
+                    "اعتراف وجوائز عالمية",
+                    "ابتكار رائد في الصناعة"
+                ]
+            }
+        },
+        "exploreCollection": "استكشف مجموعتنا",
+        "commissionArtwork": "اطلب عملاً فنياً",
+        "aboutAtelier": "عن المشغل",
+        "architecturalGallery": "معرض معماري",
+        "aboutText1": "تأسست أيكون ماك في عام 2013 كأول مشغل للنماذج المعمارية في دبي، وتجمع بين الحرفية التقليدية ومعايير العرض بجودة المتاحف. تمثل كل قطعة في مجموعتنا مزيجاً دقيقاً من الفن والهندسة المعمارية والدقة الهندسية.",
+        "aboutText2": "قام معرضنا الذي يضم أكثر من 40 حرفياً ماهراً برعاية أكثر من 1200 تحفة معمارية، مما رسخ إرثاً يتجاوز الحدود ويغير طريقة عرض الرؤى المعمارية والحفاظ عليها.",
+        "vastCollection": "مجموعة واسعة",
+        "curatedWorks": "أعمال مختارة",
+        "awardWinningExperts": "خبراء حائزون على جوائز",
+        "overDecade": "أكثر من عقد",
+        "featuredMasterpiece": "تحفة مميزة",
+        "featuredDetails": "نموذج معماري دقيق — وسائط مختلطة، مقياس 1:200",
+        "collectionLocation": "من مجموعة أيكون ماك، دبي",
+        "collectionOverview": "نظرة عامة على المجموعة",
+        "ourSpecializations": "تخصصاتنا",
+        "specializationsDesc": "من المناظر الطبيعية الحضرية الكبرى إلى تفاصيل المباني المعقدة، نقوم برعاية نماذج للتميز المعماري.",
+        "services": {
+            "master": {
+                "title": "نماذج التخطيط الرئيسي",
+                "description": "رؤى حضرية شاملة تلتقط الحجم الكبير لمشاريع التطوير بعرض بجودة المتاحف."
+            },
+            "architectural": {
+                "title": "نماذج معمارية",
+                "description": "نماذج مباني مفصلة تعرض الجمال الخارجي والتطور الداخلي بتنسيقات جاهزة للمعارض."
+            },
+            "industrial": {
+                "title": "نماذج صناعية",
+                "description": "نماذج مرافق معقدة توصل التميز التقني والتدفق التشغيلي بدقة فنية."
+            }
+        },
+        "interactiveDisplay": "عرض تفاعلي",
+        "ourPartnerships": "شراكاتنا",
+        "distinguishedClientele": "عملاؤنا المميزون",
+        "viewAllPartners": "عرض كل الشركاء",
+        "clientTestimonials": "شهادات العملاء",
+        "voicesFromCollection": "أصوات من المجموعة",
+        "voicesDesc": "موثوق به من قبل كبار المعماريين والمطورين والمصممين في جميع أنحاء الإمارات العربية المتحدة وخارجها.",
+        "exhibitionHighlights": "أبرز المعروضات",
+        "featuredMasterpiecesTitle": "روائع فنية",
+        "featuredMasterpiecesDesc": "مجموعة مختارة بعناية من أكثر نماذجنا المعمارية تميزاً، كل منها يمثل قمة الحرفية والتميز الفني.",
+        "viewCompleteCollection": "عرض المجموعة الكاملة",
+        "fallback": {
+            "featured": {
+                "title1": "تحفة التخطيط الحضري",
+                "medium1": "مقياس 1:500 — وسائط مختلطة",
+                "title2": "العمارة المعاصرة",
+                "medium2": "مقياس 1:200 — مواد فاخرة",
+                "title3": "نموذج مجمع صناعي",
+                "medium3": "مقياس 1:1000 — دقة تقنية"
+            },
+            "client": "عميل",
+            "placeholder": "عنصر نائب",
+            "testimonial": {
+                "quote": "نبني المستقبل، نموذجاً مصغراً في كل مرة. نماذجهم تخطف الأنفاس.",
+                "name": "شركة معمارية",
+                "title": "شريك عالمي"
+            },
+            "clients": {
+                "emaar": "إعمار",
+                "nakheel": "نخيل",
+                "dp": "دي بي",
+                "damac": "داماك",
+                "aldar": "الدار"
+            }
+        },
+        "generatedMedium": "مقياس 1:{scale} — وسائط مختلطة",
+        "clientTestimonial": "شهادة العميل",
+        "HeroCarousel": {
+            "masterPlanning": {
+                "title": "التخطيط الرئيسي",
+                "category": "رؤية حضرية"
+            },
+            "architecturalModels": {
+                "title": "نماذج معمارية",
+                "category": "حرفة دقيقة"
+            },
+            "industrialModels": {
+                "title": "نماذج صناعية",
+                "category": "تميز تقني"
+            },
+            "commercialSpaces": {
+                "title": "مساحات تجارية",
+                "category": "رؤية تجارية"
+            },
+            "residentialLiving": {
+                "title": "المعيشة السكنية",
+                "category": "منازل الأحلام"
+            }
+        },
+        "callToAction": {
+            "commissionMasterpiece": "اصنع تحفتك الفنية",
+            "readyToCreate": "هل أنت مستعد لإنشاء",
+            "architecturalLegacy": "إرثك المعماري؟",
+            "transformVision": "حول رؤيتك المعمارية إلى تحفة فنية بجودة المتاحف. حرفيونا الماهرون مستعدون لإحياء أحلامك بدقة وفنية لا مثيل لها.",
+            "startCommission": "ابدأ طلبك",
+            "viewPortfolio": "تصفح أعمالنا"
+        }
     },
     "Navigation": {
         "home": "الرئيسية",
         "projects": "المشاريع",
+        "clients": "العملاء",
         "careers": "وظائف",
-        "contact": "اتصل بنا"
+        "contact": "اتصل بنا",
+        "catalogue": "Catalogue",
+        "contactUs": "Contact Us",
+        "downloadCatalogue": "Download Catalogue",
+        "success": "Success!",
+        "downloadingMessage": "Your catalogue is downloading...",
+        "emailPrompt": "Enter your email to receive our complete project catalogue",
+        "emailAddress": "Email Address",
+        "processing": "Processing...",
+        "consent": "By downloading, you agree to receive updates from AICONMAC"
     },
     "ProjectsPage": {
         "heroTitle": "معرض المشاريع",
@@ -21,7 +177,10 @@
         "startCommission": "ابدأ طلبك",
         "viewDetails": "عرض التفاصيل",
         "curatorialNotes": "ملاحظات تنظيمية",
-        "explorePiece": "استكشف القطعة"
+        "explorePiece": "استكشف القطعة",
+        "error": "فشل جلب المشاريع. يرجى المحاولة مرة أخرى لاحقًا.",
+        "dubaiCollection": "مجموعة دبي",
+        "defaultDescription": "نموذج معماري متقن الصنع يبرز الدقة والفن."
     },
     "CareersPage": {
         "heroTitle": "انضم إلى مشغلنا",
@@ -43,11 +202,12 @@
         "formSubmitting": "جاري التقديم...",
         "cultureTitle": "ثقافة مشغلنا",
         "growthTitle": "مسار النمو",
-        "openingsTitle": "الوظائف المتاحة",
-        "ctaTitle": "اصنع إرثك",
-        "ctaDescription": "انضم إلى فريق تشكل فيه رؤيتك الفنية منمنمات معمارية ستعتز بها الأجيال. دقتك، منصتنا.",
+        "openingsTitle": "الوظائف المتاحة حاليا",
+        "ctaTitle": "شكل المستقبل معنا",
+        "ctaDescription": "هل أنت مستعد لإحياء الرؤى المعمارية؟ نحن بانتظارك.",
         "applyNow": "قدم الآن",
         "studioTour": "جولة في الاستوديو",
+        "formMessagePlaceholder": "أخبرنا عن شغفك بالحرفية الدقيقة، وتجربتك مع النماذج المعمارية، ولماذا تريد الانضمام إلى مشغلنا...",
         "benefits": {
             "creativeMastery": {
                 "title": "إتقان إبداعي",
@@ -103,6 +263,19 @@
             "fullTime": "دوام كامل",
             "contract": "عقد",
             "urgent": "عاجل"
+        },
+        "messages": {
+            "success": "تم تقديم طلبك بنجاح! سنعود إليك قريبا.",
+            "error": "فشل تقديم الطلب. يرجى المحاولة مرة أخرى.",
+            "fileHint": "PDF, DOC, DOCX (الحد الأقصى 5 ميجابايت)"
+        },
+        "errors": {
+            "fullName": "الاسم الكامل مطلوب",
+            "emailRequired": "البريد الإلكتروني مطلوب",
+            "emailInvalid": "عنوان البريد الإلكتروني غير صالح",
+            "resumeRequired": "السيرة الذاتية مطلوبة",
+            "fileType": "يسمح فقط بتنسيقات PDF أو DOCX",
+            "fileSize": "أقصى حجم للسيرة الذاتية هو 5 ميجابايت"
         }
     },
     "ContactPage": {
@@ -134,7 +307,10 @@
             "response": "الرد خلال 24 ساعة",
             "designStudio": "استوديو التصميم",
             "studioHours": "ساعات العمل",
-            "saturday": "السبت: بموعد مسبق"
+            "saturday": "السبت: بموعد مسبق",
+            "addressLine1": "123 حي العمارة",
+            "addressLine2": "المنطقة الإبداعية، نيويورك 10001",
+            "weekdays": "السبت - الخميس: 9:00 صباحًا - 6:00 مساءً"
         },
         "credentials": {
             "awardWinning": {
@@ -157,6 +333,22 @@
             "printing": "طباعة ثلاثية الأبعاد دقيقة",
             "gifts": "نماذج هدايا تنفيذية",
             "museum": "قطعة عرض متحفية"
+        },
+        "messages": {
+            "success": "تم تقديم طلب التكليف بنجاح! سنتصل بك في غضون 24 ساعة.",
+            "error": "فشل تقديم الطلب. يرجى المحاولة مرة أخرى."
+        },
+        "errors": {
+            "fullName": "الاسم الكامل مطلوب",
+            "emailRequired": "البريد الإلكتروني مطلوب",
+            "emailInvalid": "عنوان البريد الإلكتروني غير صالح",
+            "commissionType": "يرجى اختيار نوع التكليف",
+            "projectVision": "يرجى وصف رؤية مشروعك",
+            "projectVisionLength": "يرجى تقديم 10 أحرف على الأقل"
+        },
+        "map": {
+            "title": "موقع الاستوديو التفاعلي",
+            "hint": "انقر لعرض الاتجاهات التفصيلية"
         }
     },
     "Categories": {
@@ -166,5 +358,37 @@
         "masterplan": "مخطط رئيسي",
         "3d_printing": "طباعة ثلاثية الأبعاد",
         "business_gifts": "هدايا تجارية"
+    },
+    "ClientsPage": {
+        "partnerships": "شركاؤنا",
+        "trustedBy": "موثوق به من قبل",
+        "industryLeaders": "قادة الصناعة",
+        "description": "نحن فخورون بالتعاون مع شركات ومنظمات ذات رؤية تشكل آفاق المستقبل.",
+        "failedToLoad": "فشل تحميل العملاء",
+        "retry": "إعادة المحاولة",
+        "checkBackend": "يرجى التحقق من الاتصال بالخلفية.",
+        "error": "فشل جلب العملاء. الرجاء التحقق مما إذا كان الخادم الخلفي يعمل.",
+        "noClients": "لم يتم العثور على عملاء لعرضهم.",
+        "noLogo": "لا يوجد شعار"
+    },
+    "Common": {
+        "loading": "جاري التحميل...",
+        "errorPrefix": "خطأ: ",
+        "featured": "مميز",
+        "viewDetails": "عرض التفاصيل"
+    },
+    "Footer": {
+        "navigate": "تصفح",
+        "home": "الرئيسية",
+        "services": "خدماتنا",
+        "projects": "المشاريع",
+        "contact": "اتصل بنا",
+        "getInTouch": "تواصل معنا",
+        "address": "المنطقة الصناعية 15، الشارقة، الإمارات العربية المتحدة",
+        "projectInMind": "هل لديك مشروع في الاعتبار؟",
+        "partnersText": "دعنا نصنع شيئًا استثنائيًا معًا.",
+        "startConversation": "ابدأ محادثة",
+        "rightsReserved": "Aiconmac. جميع الحقوق محفوظة.",
+        "tagline": "ن الريادة في صناعة النماذج المعمارية، نحول الرؤى المعقدة إلى واقع ملموس."
     }
 }

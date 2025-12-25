@@ -55,7 +55,7 @@ const CareersPage = () => {
       if (!validTypes.includes(file.type)) {
         setErrors(prev => ({
           ...prev,
-          resume: 'Only PDF or DOCX formats are allowed'
+          resume: t('errors.fileType')
         }));
         return;
       }
@@ -63,7 +63,7 @@ const CareersPage = () => {
       if (file.size > maxSize) {
         setErrors(prev => ({
           ...prev,
-          resume: 'Max resume size is 5MB'
+          resume: t('errors.fileSize')
         }));
         return;
       }
@@ -85,17 +85,17 @@ const CareersPage = () => {
     const newErrors = {};
 
     if (!formData.fullName.trim()) {
-      newErrors.fullName = "Full Name is required";
+      newErrors.fullName = t('errors.fullName');
     }
 
     if (!formData.email.trim()) {
-      newErrors.email = "Email is required";
+      newErrors.email = t('errors.emailRequired');
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "Invalid email address";
+      newErrors.email = t('errors.emailInvalid');
     }
 
     if (!formData.resume) {
-      newErrors.resume = "Resume is required";
+      newErrors.resume = t('errors.resumeRequired');
     }
 
     setErrors(newErrors);
@@ -124,7 +124,7 @@ const CareersPage = () => {
 
       await poster('/careers', formDataToSend, true);
       setSubmissionStatus('success');
-      setSubmissionMessage('Your application has been submitted successfully! We will get back to you soon.');
+      setSubmissionMessage(t('messages.success'));
 
       // Reset form
       setFormData({
@@ -137,7 +137,7 @@ const CareersPage = () => {
       setResumeFileName(null);
     } catch (err) {
       setSubmissionStatus('error');
-      setSubmissionMessage(err.info?.message || err.message || 'Failed to submit application. Please try again.');
+      setSubmissionMessage(err.info?.message || err.message || t('messages.error'));
       console.error('Career submission error:', err);
     } finally {
       setIsSubmitting(false);
@@ -426,7 +426,7 @@ const CareersPage = () => {
                     <p className="text-gray-600 mb-2 font-light">
                       {resumeFileName ? resumeFileName : t('formResume')}
                     </p>
-                    <p className="text-sm text-gray-400 font-light">PDF, DOC, DOCX (Max 5MB)</p>
+                    <p className="text-sm text-gray-400 font-light">{t('messages.fileHint')}</p>
                   </motion.label>
                   {errors.resume && <p className="mt-1 text-sm text-red-600">{errors.resume}</p>}
                 </motion.div>
@@ -438,7 +438,7 @@ const CareersPage = () => {
                   <textarea
                     id="message"
                     name="message"
-                    placeholder="Tell us about your passion for precision craftsmanship, your experience with architectural models, and why you want to join our atelier..."
+                    placeholder={t('formMessagePlaceholder')}
                     rows={6}
                     value={formData.message}
                     onChange={handleChange}

@@ -5,17 +5,19 @@ import { Link } from '@/i18n/routing';
 import Image from 'next/image';
 import logo from '@/images/logo.jpg'; // Adjust path as needed
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher';
+import { useTranslations } from 'next-intl';
 
 const GlassNavbar = ({ isVisible }) => {
+  const t = useTranslations('Navigation');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   if (!isVisible) return null;
 
   const navItems = [
-    { name: "Home", href: "/" },
-    { name: "Projects", href: "/projects" },
-    { name: "Clients", href: "/clients" },
-    { name: "Careers", href: "/careers" }
+    { name: t('home'), href: "/" },
+    { name: t('projects'), href: "/projects" },
+    { name: t('clients'), href: "/clients" },
+    { name: t('careers'), href: "/careers" }
   ];
 
   return (
@@ -56,7 +58,7 @@ const GlassNavbar = ({ isVisible }) => {
           {/* Navigation Items */}
           <div className="flex items-center space-x-1">
             {navItems.map((item, index) => (
-              <motion.div key={item.name} whileHover={{ scale: 1.05 }}>
+              <motion.div key={item.href} whileHover={{ scale: 1.05 }}>
                 <Link
                   href={item.href}
                   className="px-4 py-2 text-sm font-light tracking-wider text-black/90 hover:text-black uppercase transition-colors relative"
@@ -81,7 +83,7 @@ const GlassNavbar = ({ isVisible }) => {
                   boxShadow: '0 4px 16px rgba(0, 0, 0, 0.1)'
                 }}
               >
-                Contact Us
+                {t('contactUs')}
               </Link>
             </motion.div>
           </div>
@@ -136,7 +138,7 @@ const GlassNavbar = ({ isVisible }) => {
               <div className="space-y-4">
                 {navItems.map((item) => (
                   <motion.div
-                    key={item.name}
+                    key={item.href}
                     whileHover={{ x: 10, scale: 1.05 }}
                   >
                     <Link
@@ -161,7 +163,7 @@ const GlassNavbar = ({ isVisible }) => {
                       }}
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
-                      Contact Us
+                      {t('contactUs')}
                     </Link>
                   </motion.div>
                 </div>

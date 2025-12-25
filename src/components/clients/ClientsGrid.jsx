@@ -3,13 +3,16 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import { CardSpotlight } from '@/components/ui/card-spotlight';
 
 const ClientsGrid = ({ clients }) => {
+    const t = useTranslations('ClientsPage');
+
     if (!clients || clients.length === 0) {
         return (
             <div className="text-center py-20">
-                <p className="text-gray-500 font-light">No clients found to display.</p>
+                <p className="text-gray-500 font-light">{t('noClients')}</p>
             </div>
         );
     }
@@ -37,7 +40,7 @@ const ClientsGrid = ({ clients }) => {
                                 />
                             ) : (
                                 <div className="w-full h-full bg-gray-100 flex items-center justify-center rounded-md text-gray-400">
-                                    No Logo
+                                    {t('noLogo')}
                                 </div>
                             )}
                         </div>
