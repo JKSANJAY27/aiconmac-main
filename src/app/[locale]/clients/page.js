@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
 import ClientsGrid from '@/components/clients/ClientsGrid';
+import LoadingScreen from '@/components/ui/LoadingScreen';
 import { fetcher } from '@/lib/api';
 
 export default function ClientsPage() {
@@ -86,9 +87,7 @@ export default function ClientsPage() {
             <section className="pb-32">
                 <div className="container mx-auto px-6">
                     {isLoading ? (
-                        <div className="min-h-[400px] flex items-center justify-center">
-                            <div className="w-10 h-10 border-2 border-amber-200 border-t-amber-600 rounded-full animate-spin" />
-                        </div>
+                        <LoadingScreen fullScreen={false} message={t('loadingClients') || "Loading clients..."} />
                     ) : error ? (
                         <div className="min-h-[400px] flex flex-col items-center justify-center gap-6 max-w-2xl mx-auto text-center">
                             <div className="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center">

@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { Upload, Palette, Ruler, Award, Users, Lightbulb, Heart } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from '@/i18n/routing';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
 
 import { poster } from '@/lib/api';
 
@@ -473,7 +474,14 @@ const CareersPage = () => {
                   whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
                   variants={cardVariants}
                 >
-                  {isSubmitting ? t('formSubmitting') : t('formSubmit')}
+                  {isSubmitting ? (
+                    <span className="flex items-center justify-center space-x-2">
+                      <LoadingSpinner size="sm" color="white" />
+                      <span>{t('formSubmitting')}</span>
+                    </span>
+                  ) : (
+                    t('formSubmit')
+                  )}
                 </motion.button>
               </form>
             </div>

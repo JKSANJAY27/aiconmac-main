@@ -9,6 +9,7 @@ import { useTranslations } from 'next-intl';
 import { TracingBeam } from '@/components/ui/tracing-beam';
 import TiltedCard from '@/components/ui/TiltedCard';
 import { CardSpotlight } from '@/components/ui/card-spotlight';
+import LoadingScreen from '@/components/ui/LoadingScreen';
 import { categories } from '@/data/projects';
 import useMediaQuery from '@/hooks/useMediaQuery';
 import { fetcher } from '@/lib/api';
@@ -72,11 +73,7 @@ const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProjec
   };
 
   if (loading) {
-    return (
-      <div className="min-h-screen relative overflow-hidden pt-28 flex items-center justify-center bg-white">
-        <p className="text-gray-700">{tCommon('loading')}</p>
-      </div>
-    );
+    return <LoadingScreen message={t('loadingProjects') || "Loading projects..."} />;
   }
 
   if (error) {

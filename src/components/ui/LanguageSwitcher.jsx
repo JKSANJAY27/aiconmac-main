@@ -16,10 +16,12 @@ export default function LanguageSwitcher({ className = "" }) {
         });
     };
 
+    const textColor = 'text-gray-700 border-gray-300';
+
     return (
         <select
             defaultValue={locale}
-            className={`bg-transparent border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:border-amber-500 text-gray-700 ${className}`}
+            className={`bg-transparent border rounded px-2 py-1 text-sm focus:outline-none focus:border-amber-500 transition-colors duration-300 ${textColor} ${className}`}
             onChange={onSelectChange}
         >
             <option value="en" className="text-black">English</option>

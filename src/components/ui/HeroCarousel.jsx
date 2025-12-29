@@ -43,7 +43,7 @@ const OverlayCarousel = () => {
     if (isAutoPlaying) {
       const timer = setInterval(() => {
         setCurrentIndex(prev => (prev + 1) % services.length);
-      }, 5000);
+      }, 3000);
       return () => clearInterval(timer);
     }
   }, [isAutoPlaying, services.length]);
@@ -146,8 +146,8 @@ const OverlayCarousel = () => {
                     whileTap={{ scale: 0.9 }}
                   >
                     <div className={`h-1 rounded-full transition-all duration-500 ${currentIndex === index
-                        ? 'w-16 bg-white'
-                        : 'w-8 bg-white/30 hover:bg-white/50'
+                      ? 'w-16 bg-white'
+                      : 'w-8 bg-white/30 hover:bg-white/50'
                       }`}>
                     </div>
                   </motion.button>

@@ -259,7 +259,7 @@ const Homepage = () => {
       <HeroNavbar />
       {/* Museum Background */}
       <MuseumBackground scrollY={scrollY} />
-      <div className="relative w-full">
+      <div className="relative w-full pt-25">
         <EnhancedCarousel />
       </div>
 
@@ -317,7 +317,7 @@ const Homepage = () => {
                 <div className="text-4xl sm:text-5xl md:text-6xl font-extralight text-amber-600 mb-3">
                   <CountUp
                     from={0}
-                    to={1200}
+                    to={500}
                     separator=","
                     direction="up"
                     duration={1}
@@ -330,7 +330,7 @@ const Homepage = () => {
                 <div className="text-4xl sm:text-5xl md:text-6xl font-extralight text-amber-600 mb-3">
                   <CountUp
                     from={0}
-                    to={40}
+                    to={100}
                     separator=","
                     direction="up"
                     duration={1}
@@ -343,7 +343,7 @@ const Homepage = () => {
                 <div className="text-4xl sm:text-5xl md:text-6xl font-extralight text-amber-600 mb-3">
                   <CountUp
                     from={0}
-                    to={11}
+                    to={15}
                     separator=","
                     direction="up"
                     duration={1}

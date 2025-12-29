@@ -69,11 +69,11 @@
         "specializationsDesc": "From grand urban landscapes to intricate building details, we curate the models for architectural excellence.",
         "services": {
             "master": {
-                "title": "Master Planning Models",
+                "title": "Masterplan",
                 "description": "Comprehensive urban visions that capture the grand scale of development projects with museum-quality presentation."
             },
             "architectural": {
-                "title": "Architectural Models",
+                "title": "High & Midrise",
                 "description": "Detailed building models showcasing both exterior beauty and interior sophistication in exhibition-ready formats."
             },
             "industrial": {
@@ -120,11 +120,11 @@
         "clientTestimonial": "Client Testimonial",
         "HeroCarousel": {
             "masterPlanning": {
-                "title": "Master Planning",
+                "title": "Masterplan",
                 "category": "URBAN VISION"
             },
             "architecturalModels": {
-                "title": "Architectural Models",
+                "title": "High & Midrise",
                 "category": "PRECISION CRAFT"
             },
             "industrialModels": {
@@ -132,11 +132,11 @@
                 "category": "TECHNICAL EXCELLENCE"
             },
             "commercialSpaces": {
-                "title": "Commercial Spaces",
+                "title": "Interior Models",
                 "category": "BUSINESS VISION"
             },
             "residentialLiving": {
-                "title": "Residential Living",
+                "title": "Villa Models",
                 "category": "DREAM HOMES"
             }
         },
@@ -180,7 +180,8 @@
         "explorePiece": "Explore Piece",
         "error": "Failed to fetch projects. Please try again later.",
         "dubaiCollection": "Dubai Collection",
-        "defaultDescription": "A masterfully crafted architectural model showcasing precision and artistry."
+        "defaultDescription": "A masterfully crafted architectural model showcasing precision and artistry.",
+        "loadingProjects": "Loading projects..."
     },
     "CareersPage": {
         "heroTitle": "Join Our Atelier",
@@ -353,9 +354,15 @@
     },
     "Categories": {
         "all": "All Projects",
-        "architectural": "Architectural",
-        "industrial": "Industrial",
         "masterplan": "Masterplan",
+        "high_midrise": "High & Midrise",
+        "villa": "Villa Models",
+        "interior": "Interior Models",
+        "mechanical": "Mechanical Effect Models",
+        "conceptual": "Conceptual Models",
+        "industrial": "Industrial Models",
+        "gifts": "Gift Models",
+        "architectural": "Architectural Models",
         "3d_printing": "3D Printing",
         "business_gifts": "Business Gifts"
     },
@@ -369,7 +376,8 @@
         "checkBackend": "Please check backend connection.",
         "error": "Failed to fetch clients. Please check if the backend server is running.",
         "noClients": "No clients found to display.",
-        "noLogo": "No Logo"
+        "noLogo": "No Logo",
+        "loadingClients": "Loading clients..."
     },
     "Common": {
         "loading": "Loading...",
