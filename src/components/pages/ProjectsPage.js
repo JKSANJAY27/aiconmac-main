@@ -4,7 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Eye, ArrowRight, Calendar, MapPin } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
+import { getLocalizedContent } from '@/lib/i18n-utils';
 
 import { TracingBeam } from '@/components/ui/tracing-beam';
 import TiltedCard from '@/components/ui/TiltedCard';
@@ -18,6 +19,7 @@ const initialProjectsState = [];
 
 const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProject }) => {
   const t = useTranslations('ProjectsPage');
+  const locale = useLocale();
   const tCategories = useTranslations('Categories');
   const tCommon = useTranslations('Common');
   const [projectsData, setProjectsData] = useState(initialProjectsState);
@@ -46,6 +48,14 @@ const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProjec
 
     fetchProjects();
   }, [selectedCategory]);
+
+  const localizedProjects = projectsData.map(item => ({
+    ...item,
+    title: getLocalizedContent(item, 'title', locale),
+    description: getLocalizedContent(item, 'description', locale),
+    badge: getLocalizedContent(item, 'badge', locale),
+    // category can be handled if needed, but filtering uses ID
+  }));
 
   const fadeIn = {
     hidden: { opacity: 0, y: 30 },
@@ -132,7 +142,7 @@ const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProjec
             className="flex flex-wrap justify-center gap-8 mb-16"
           >
             <div className="text-center">
-              <div className="text-3xl font-extralight text-amber-600">{projectsData.length}</div>
+              <div className="text-3xl font-extralight text-amber-600">{localizedProjects.length}</div>
               <div className="text-sm uppercase tracking-wider text-gray-500">{t('statsMasterpieces')}</div>
             </div>
             <div className="text-center">
@@ -207,7 +217,7 @@ const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProjec
         {isDesktop ? (
           <TracingBeam className="px-6">
             <div className="max-w-6xl mx-auto antialiased pt-8 relative">
-              {projectsData.map((item, index) => (
+              {localizedProjects.map((item, index) => (
                 <motion.div
                   key={`exhibit-${item.id}`}
                   className="mb-32"
@@ -354,7 +364,7 @@ const ProjectsPage = ({ selectedCategory, setSelectedCategory, setSelectedProjec
               animate="visible"
               variants={staggerContainer}
             >
-              {projectsData.map((item) => (
+              {localizedProjects.map((item) => (
                 <motion.div
                   key={`mobile-${item.id}`}
                   variants={cardVariants}

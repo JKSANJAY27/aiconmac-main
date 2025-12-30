@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
+import { getLocalizedContent } from '@/lib/i18n-utils';
 import Link from 'next/link'; // We might need to use the locale-aware Link from navigation, but for now standard Link or the one passed via props/context
 // Actually, for i18n, we should use the Link from our routing configuration if possible, 
 // but since this is a client component, we might need to import it from '@/i18n/routing' or 'next-intl/navigation'
@@ -48,6 +49,7 @@ const serviceImages = {
 
 const Homepage = () => {
   const t = useTranslations('HomePage');
+  const locale = useLocale();
 
   // Fallback data for testimonials and services if API calls fail
   const testimonialsInitial = [
@@ -161,9 +163,9 @@ const Homepage = () => {
     fetcher('/testimonials?isApproved=true')
       .then(data => {
         const mappedTestimonials = data.map(t => ({
-          quote: t.quote,
-          name: t.author,
-          title: t.title ? `${t.title}, ${t.company}` : t.company || t('fallback.client'),
+          quote: getLocalizedContent(t, 'quote', locale),
+          name: getLocalizedContent(t, 'author', locale) || t.author, // Fallback to raw author if needed, though helper handles default field
+          title: getLocalizedContent(t, 'title', locale) ? `${getLocalizedContent(t, 'title', locale)}, ${getLocalizedContent(t, 'company', locale)}` : getLocalizedContent(t, 'company', locale) || t('fallback.client'),
         }));
         setTestimonialsData(mappedTestimonials.length > 0 ? mappedTestimonials : testimonialsInitial);
       })
@@ -177,9 +179,9 @@ const Homepage = () => {
       .then(data => {
         const mappedServices = data.map(project => ({
           id: project.id,
-          title: project.title,
-          description: project.description.substring(0, 150) + '...',
-          img: project.images[0] ? { src: project.images[0].url, alt: project.images[0].altText || project.title } : { src: '/images/placeholder.jpg', alt: t('fallback.placeholder') },
+          title: getLocalizedContent(project, 'title', locale),
+          description: (getLocalizedContent(project, 'description', locale) || '').substring(0, 150) + '...',
+          img: project.images[0] ? { src: project.images[0].url, alt: project.images[0].altText || getLocalizedContent(project, 'title', locale) } : { src: '/images/placeholder.jpg', alt: t('fallback.placeholder') },
         }));
         setServicesData(mappedServices);
         if (mappedServices.length > 0) {
@@ -201,8 +203,8 @@ const Homepage = () => {
     fetcher('/projects?isPublished=true&take=3')
       .then(data => {
         const mappedFeatured = data.map(project => ({
-          img: project.images[0] ? { src: project.images[0].url, alt: project.images[0].altText || project.title } : { src: '/images/placeholder.jpg', alt: t('fallback.placeholder') },
-          title: project.title,
+          img: project.images[0] ? { src: project.images[0].url, alt: project.images[0].altText || getLocalizedContent(project, 'title', locale) } : { src: '/images/placeholder.jpg', alt: t('fallback.placeholder') },
+          title: getLocalizedContent(project, 'title', locale),
           medium: t('generatedMedium', { scale: Math.floor(Math.random() * 800) + 200 }),
           year: new Date(project.createdAt).getFullYear(),
           link: `/projects/${project.id}`
@@ -221,7 +223,11 @@ const Homepage = () => {
     fetcher('/clients')
       .then(data => {
         if (Array.isArray(data) && data.length > 0) {
-          setClientsData(data);
+          const localizedClients = data.map(client => ({
+            ...client,
+            name: getLocalizedContent(client, 'name', locale)
+          }));
+          setClientsData(localizedClients);
         } else {
           // Fallback if empty array
           setClientsData([

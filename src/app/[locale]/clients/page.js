@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
+import { getLocalizedContent } from '@/lib/i18n-utils';
 import { motion } from 'framer-motion';
 import ClientsGrid from '@/components/clients/ClientsGrid';
 import LoadingScreen from '@/components/ui/LoadingScreen';
@@ -9,6 +10,7 @@ import { fetcher } from '@/lib/api';
 
 export default function ClientsPage() {
     const t = useTranslations('ClientsPage');
+    const locale = useLocale();
     const tCommon = useTranslations('Common');
     const [clients, setClients] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -31,7 +33,11 @@ export default function ClientsPage() {
             try {
                 const data = await fetcher('/clients');
                 if (Array.isArray(data) && data.length > 0) {
-                    setClients(data);
+                    const localizedClients = data.map(client => ({
+                        ...client,
+                        name: getLocalizedContent(client, 'name', locale)
+                    }));
+                    setClients(localizedClients);
                 } else {
                     console.warn("API returned empty client list, using mock data.");
                     setClients(MOCK_CLIENTS);
