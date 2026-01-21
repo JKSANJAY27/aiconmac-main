@@ -20,7 +20,7 @@ const ContactPage = () => {
     fullName: '',
     email: '',
     phone: '',
-    commissionType: '',
+    projectCategory: '',
     projectVision: ''
   });
 
@@ -57,8 +57,8 @@ const ContactPage = () => {
       newErrors.email = t('errors.emailInvalid');
     }
 
-    if (!formData.commissionType) {
-      newErrors.commissionType = t('errors.commissionType');
+    if (!formData.projectCategory) {
+      newErrors.projectCategory = t('errors.commissionType');
     }
 
     if (!formData.projectVision.trim()) {
@@ -87,7 +87,7 @@ const ContactPage = () => {
         fullName: formData.fullName,
         email: formData.email,
         phone: formData.phone || undefined,
-        projectType: formData.commissionType,
+        projectType: formData.projectCategory,
         message: formData.projectVision,
       };
 
@@ -100,7 +100,7 @@ const ContactPage = () => {
         fullName: '',
         email: '',
         phone: '',
-        commissionType: '',
+        projectCategory: '',
         projectVision: ''
       });
     } catch (err) {
@@ -201,7 +201,7 @@ const ContactPage = () => {
       {/* Main Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 pb-20">
         <div className="grid lg:grid-cols-2 gap-16">
-          {/* Commission Request Form */}
+          {/* Project Inquiry Form */}
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -276,26 +276,28 @@ const ContactPage = () => {
                 </motion.div>
 
                 <motion.div variants={cardVariants}>
-                  <label htmlFor="commissionType" className="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wider">
+                  <label htmlFor="projectCategory" className="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wider">
                     {t('formCommissionType')}
                   </label>
                   <select
-                    id="commissionType"
-                    name="commissionType"
-                    value={formData.commissionType}
+                    id="projectCategory"
+                    name="projectCategory"
+                    value={formData.projectCategory}
                     onChange={handleChange}
                     className="w-full p-4 rounded-xl border border-gray-200/50 bg-white/50 backdrop-blur-sm focus:border-amber-400 focus:outline-none transition-all font-light"
                     style={{ backdropFilter: 'blur(10px)' }}
                   >
                     <option value="">{t('formCommissionType')}</option>
-                    <option value="Architectural Scale Model">{t('commissionTypes.scaleModel')}</option>
-                    <option value="Industrial Prototype">{t('commissionTypes.prototype')}</option>
-                    <option value="Urban Masterplan">{t('commissionTypes.masterplan')}</option>
-                    <option value="Precision 3D Printing">{t('commissionTypes.printing')}</option>
-                    <option value="Executive Gift Models">{t('commissionTypes.gifts')}</option>
-                    <option value="Museum Exhibition Piece">{t('commissionTypes.museum')}</option>
+                    <option value="Masterplan">{t('commissionTypes.masterplan')}</option>
+                    <option value="High and Midrise Building">{t('commissionTypes.high_midrise')}</option>
+                    <option value="Villa Model">{t('commissionTypes.villa')}</option>
+                    <option value="Interior Model">{t('commissionTypes.interior')}</option>
+                    <option value="Mechanical Effect Model">{t('commissionTypes.mechanical')}</option>
+                    <option value="Conceptual Model">{t('commissionTypes.conceptual')}</option>
+                    <option value="Industrial Model">{t('commissionTypes.industrial')}</option>
+                    <option value="Gift Model">{t('commissionTypes.gifts')}</option>
                   </select>
-                  {errors.commissionType && <p className="mt-1 text-sm text-red-600">{errors.commissionType}</p>}
+                  {errors.projectCategory && <p className="mt-1 text-sm text-red-600">{errors.projectCategory}</p>}
                 </motion.div>
 
                 <motion.div variants={cardVariants}>
@@ -374,7 +376,7 @@ const ContactPage = () => {
               <div className="space-y-6">
                 {[
                   { icon: Phone, label: t('contactDetails.directLine'), value: '+1 (555) 123-4567', subValue: t('contactDetails.available') },
-                  { icon: Mail, label: t('contactDetails.studioEmail'), value: 'commissions@aiconmacmodels.com', subValue: t('contactDetails.response') },
+                  { icon: Mail, label: t('contactDetails.studioEmail'), value: 'projects@aiconmacmodels.com', subValue: t('contactDetails.response') },
                   { icon: MapPin, label: t('contactDetails.designStudio'), value: t('contactDetails.addressLine1'), subValue: t('contactDetails.addressLine2') },
                   { icon: Clock, label: t('contactDetails.studioHours'), value: t('contactDetails.weekdays'), subValue: t('contactDetails.saturday') }
                 ].map((contact, index) => (

@@ -249,7 +249,7 @@ const CareersPage = () => {
             className="flex flex-wrap justify-center gap-8 mb-16"
           >
             <div className="text-center">
-              <div className="text-3xl font-extralight text-amber-600">25+</div>
+              <div className="text-3xl font-extralight text-amber-600">100+</div>
               <div className="text-sm uppercase tracking-wider text-gray-500">{t('statsArtisans')}</div>
             </div>
             <div className="text-center">
@@ -565,41 +565,7 @@ const CareersPage = () => {
               </div>
             </motion.div>
 
-            {/* Open Positions */}
-            <motion.div
-              variants={cardVariants}
-              className="p-8 rounded-2xl"
-              style={{
-                background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%)',
-                border: '1px solid rgba(245, 158, 11, 0.2)'
-              }}
-            >
-              <div className="mb-6">
-                <h3 className="text-2xl font-light text-gray-800 mb-4">{t('openingsTitle')}</h3>
-                <div className="w-16 h-px bg-amber-300 mb-4" />
-              </div>
 
-              <div className="space-y-3">
-                {[
-                  { role: t('openings.seniorModelMaker'), type: t('openings.fullTime'), urgent: true },
-                  { role: t('openings.designSpecialist'), type: t('openings.fullTime'), urgent: false },
-                  { role: t('openings.finishingArtist'), type: t('openings.contract'), urgent: false },
-                  { role: t('openings.projectCoordinator'), type: t('openings.fullTime'), urgent: true }
-                ].map((position, index) => (
-                  <div key={index} className="flex items-center justify-between p-3 rounded-lg bg-white/40">
-                    <div>
-                      <h4 className="font-medium text-gray-800 text-sm">{position.role}</h4>
-                      <p className="text-xs text-gray-600">{position.type}</p>
-                    </div>
-                    {position.urgent && (
-                      <span className="px-2 py-1 bg-amber-200 text-amber-800 text-xs rounded-full font-medium">
-                        {t('openings.urgent')}
-                      </span>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </motion.div>
           </motion.div>
         </div>
       </div>
@@ -649,7 +615,7 @@ const CareersPage = () => {
               <motion.button
                 type="button"
                 onClick={() => {
-                  router.push('/about');
+                  router.push('/projects');
                 }}
                 className="px-8 py-4 rounded-full font-medium tracking-wider uppercase text-sm border border-gray-300 text-gray-700 hover:border-amber-400 hover:text-amber-700 transition-all"
                 style={{

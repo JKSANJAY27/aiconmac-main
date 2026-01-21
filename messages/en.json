@@ -1,4 +1,11 @@
 {
+    "NotFound": {
+        "title": "404 - Exhibit Not Found",
+        "description": "The page you are looking for is not found :(",
+        "backHome": "Back to Home Page",
+        "errorCode": "Error Code: 404",
+        "exploreProjects": "Explore Collection"
+    },
     "HomePage": {
         "title": "AICON MAC MODELS - Precision in Miniature",
         "description": "Crafting intricate architectural models with unparalleled detail and artistic excellence.",
@@ -52,7 +59,7 @@
             }
         },
         "exploreCollection": "Explore Our Collection",
-        "commissionArtwork": "Commission Artwork",
+        "commissionArtwork": "Custom Creation",
         "aboutAtelier": "About the Atelier",
         "architecturalGallery": "Architectural Gallery",
         "aboutText1": "Established in 2013 as Dubai's premier architectural model atelier, AICONMAC combines traditional craftsmanship with museum-quality presentation standards. Each piece in our collection represents a meticulous fusion of art, architecture, and precision engineering.",
@@ -141,11 +148,11 @@
             }
         },
         "callToAction": {
-            "commissionMasterpiece": "Commission Your Masterpiece",
+            "commissionMasterpiece": "Create Your Masterpiece",
             "readyToCreate": "Ready to Create Your",
             "architecturalLegacy": "Architectural Legacy?",
             "transformVision": "Transform your architectural vision into a museum-quality masterpiece. Our master artisans are ready to bring your dreams to life with unparalleled precision and artistry.",
-            "startCommission": "Start Your Commission",
+            "startCommission": "Start Your Project",
             "viewPortfolio": "View Our Portfolio"
         }
     },
@@ -172,9 +179,9 @@
         "statsCollections": "Collections",
         "statsYears": "Years Curating",
         "curatorialCollection": "Curatorial Collection",
-        "commissionTitle": "Commission Your Masterpiece",
+        "commissionTitle": "Create Your Masterpiece",
         "commissionDescription": "Ready to see your architectural vision transformed into a museum-quality miniature?",
-        "startCommission": "Start Your Commission",
+        "startCommission": "Start Your Project",
         "viewDetails": "View Details",
         "curatorialNotes": "Curatorial Notes",
         "explorePiece": "Explore Piece",
@@ -282,22 +289,22 @@
     "ContactPage": {
         "heroTitle": "Crafted on Request",
         "heroDescription": "Transform your architectural vision into museum-quality miniature masterpieces. Our artisans combine traditional craftsmanship with cutting-edge precision.",
-        "statsCommissions": "Commissions",
+        "statsCommissions": "Projects",
         "statsResponse": "Response",
         "statsCountries": "Countries",
         "architecturalAtelier": "Architectural Atelier",
-        "commissionRequestTitle": "Commission Request",
+        "commissionRequestTitle": "Project Inquiry",
         "commissionRequestDescription": "Begin your journey to architectural miniature excellence",
         "formFullName": "Full Name",
         "formEmail": "Email Address",
         "formPhone": "Phone Number",
-        "formCommissionType": "Commission Type",
+        "formCommissionType": "Project Category",
         "formProjectVision": "Project Vision",
-        "formSubmit": "Submit Commission Request",
+        "formSubmit": "Submit Project Inquiry",
         "formSubmitting": "Submitting...",
         "atelierDetailsTitle": "Atelier Details",
         "studioExcellenceTitle": "Studio Excellence",
-        "ctaTitle": "Begin Your Commission",
+        "ctaTitle": "Begin Your Project",
         "ctaDescription": "Every architectural masterpiece begins with a conversation. Let's discuss how we can transform your vision into tangible artistry.",
         "scheduleConsultation": "Schedule Consultation",
         "viewPortfolio": "View Portfolio",
@@ -316,22 +323,24 @@
             }
         },
         "commissionTypes": {
-            "scaleModel": "Architectural Scale Model",
-            "prototype": "Industrial Prototype",
-            "masterplan": "Urban Masterplan",
-            "printing": "Precision 3D Printing",
-            "gifts": "Executive Gift Models",
-            "museum": "Museum Exhibition Piece"
+            "masterplan": "Masterplan",
+            "high_midrise": "High and Midrise",
+            "villa": "Villa Models",
+            "interior": "Interior Models",
+            "mechanical": "Mechanical Effect Models",
+            "conceptual": "Conceptual Models",
+            "industrial": "Industrial Models",
+            "gifts": "Gift Models"
         },
         "messages": {
-            "success": "Your commission request has been submitted successfully! We will contact you within 24 hours.",
+            "success": "Your project inquiry has been submitted successfully! We will contact you within 24 hours.",
             "error": "Failed to submit request. Please try again."
         },
         "errors": {
             "fullName": "Full Name is required",
             "emailRequired": "Email is required",
             "emailInvalid": "Invalid email address",
-            "commissionType": "Please select a commission type",
+            "commissionType": "Please select a project category",
             "projectVision": "Please describe your project vision",
             "projectVisionLength": "Please provide at least 10 characters"
         },
