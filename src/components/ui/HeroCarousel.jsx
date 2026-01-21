@@ -163,26 +163,7 @@ const OverlayCarousel = () => {
                   <span>{String(services.length).padStart(2, '0')}</span>
                 </div>
 
-                {/* Navigation Arrows */}
-                <div className="flex items-center space-x-2">
-                  <motion.button
-                    onClick={prevSlide}
-                    className="p-2.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all duration-300"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    <ChevronLeft className="w-5 h-5 text-white" />
-                  </motion.button>
 
-                  <motion.button
-                    onClick={nextSlide}
-                    className="p-2.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all duration-300"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    <ChevronRight className="w-5 h-5 text-white" />
-                  </motion.button>
-                </div>
               </div>
             </motion.div>
           </div>

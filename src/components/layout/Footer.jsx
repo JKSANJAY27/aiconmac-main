@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from '@/i18n/routing';
-import logo from '@/images/logo.jpg';
+
 import { Linkedin, Twitter, Instagram } from 'lucide-react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
@@ -17,7 +17,14 @@ const Footer = () => {
           {/* Column 1: Branding & Logo */}
           <div className="md:col-span-4">
             <Link href="/" className="mb-4 inline-block">
-              <Image src={logo} alt="Aiconmac Logo" className="h-12 w-auto bg-white rounded-md p-1" />
+              <Image
+                src="/images/aicon-removebg-preview.png"
+                width={300}
+                height={300}
+                alt="Aiconmac Logo"
+                className="h-16 w-auto object-contain"
+                quality={100}
+              />
             </Link>
             <p className="text-gray-400 pr-4">{t('tagline')}</p>
           </div>
@@ -28,6 +35,8 @@ const Footer = () => {
             <ul className="space-y-2">
               <li><Link href="/" className="hover:text-orange transition-colors">{t('home')}</Link></li>
               <li><Link href="/projects" className="hover:text-orange transition-colors">{t('projects')}</Link></li>
+              <li><Link href="/clients" className="hover:text-orange transition-colors">{t('clients')}</Link></li>
+              <li><Link href="/careers" className="hover:text-orange transition-colors">{t('careers')}</Link></li>
               <li><Link href="/contact" className="hover:text-orange transition-colors">{t('contact')}</Link></li>
             </ul>
           </div>

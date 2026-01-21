@@ -43,16 +43,7 @@ const GlassNavbar = ({ isVisible }) => {
         >
           {/* Logo */}
           <div className="flex items-center space-x-3">
-            <div
-              className="p-2 rounded-full"
-              style={{
-                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)',
-                backdropFilter: 'blur(10px)',
-                border: '1px solid rgba(255, 255, 255, 0.1)'
-              }}
-            >
-              <Image src="/images/aicon-removebg-preview.png" width={40} height={40} alt="Aiconmac Logo" className="h-10 w-auto" />
-            </div>
+            <img src="/images/aicon-removebg-preview.png" alt="Aiconmac Logo" className="h-10 w-auto object-contain" />
           </div>
 
           {/* Navigation Items */}
@@ -106,7 +97,7 @@ const GlassNavbar = ({ isVisible }) => {
           }}
         >
           <div className="flex items-center space-x-3">
-            <Image src="/images/aicon-removebg-preview.png" width={32} height={32} alt="Aiconmac Logo" className="h-8 w-auto" />
+            <img src="/images/aicon-removebg-preview.png" alt="Aiconmac Logo" className="h-8 w-auto object-contain" />
           </div>
 
           <motion.button
