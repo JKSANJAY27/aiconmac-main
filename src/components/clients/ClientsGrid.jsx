@@ -18,36 +18,47 @@ const ClientsGrid = ({ clients }) => {
     }
 
     return (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
+        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 md:gap-12">
             {clients.map((client, index) => (
                 <motion.div
                     key={client.id || index}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, delay: index * 0.05 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: index * 0.05 }}
                     viewport={{ once: true }}
-                    className="aspect-square"
+                    className="group"
                 >
-                    <CardSpotlight className="h-full w-full p-6 flex flex-col items-center justify-center bg-white/80 backdrop-blur-sm border border-gray-200/50 hover:border-amber-400/50 transition-colors duration-500">
-                        <div className="relative w-full h-2/3 mb-4">
+                    <div className="relative bg-white aspect-square p-8 flex flex-col items-center justify-between border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 rounded-none group-hover:-translate-y-2">
+                        {/* Ambient background wash */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-amber-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                        <div className="relative z-10 w-full h-32 md:h-40 flex items-center justify-center">
                             {client.logo ? (
-                                <Image
+                                <img
                                     src={client.logo}
                                     alt={client.name}
-                                    fill
-                                    className="object-contain p-2"
-                                    sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                                    className="max-w-full max-h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-700"
                                 />
                             ) : (
-                                <div className="w-full h-full bg-gray-100 flex items-center justify-center rounded-md text-gray-400">
-                                    {t('noLogo')}
+                                <div className="w-16 h-16 rounded-full bg-gray-50 flex items-center justify-center border border-gray-100 transition-colors group-hover:border-amber-200">
+                                    <span className="text-gray-300 text-[10px] uppercase tracking-tighter font-light">
+                                        No Image
+                                    </span>
                                 </div>
                             )}
                         </div>
-                        <p className="text-center text-gray-700 font-light uppercase tracking-wider text-sm">
-                            {client.name}
-                        </p>
-                    </CardSpotlight>
+
+                        <div className="relative z-10 w-full pt-6 border-t border-gray-50 text-center">
+                            <span className="text-xs md:text-sm font-light text-gray-500 group-hover:text-gray-800 uppercase tracking-[0.2em] transition-colors duration-300 block mb-2 px-2">
+                                {client.name}
+                            </span>
+                            {/* Museum accent line */}
+                            <div className="w-8 h-0.5 bg-amber-400/0 group-hover:bg-amber-400 mx-auto transition-all duration-500" />
+                        </div>
+
+                        {/* Corner museum bracket */}
+                        <div className="absolute bottom-0 right-0 w-8 h-8 border-r border-b border-gray-100 group-hover:border-amber-200/50 transition-colors duration-500" />
+                    </div>
                 </motion.div>
             ))}
         </div>
