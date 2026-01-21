@@ -64,12 +64,8 @@ const HeroNavbar = () => {
               href="/"
               className="flex items-center space-x-3 group"
             >
-              <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">A</span>
-              </div>
-              <div className="hidden sm:block">
-                <div className="text-xl font-light tracking-wide transition-colors duration-300 text-gray-900">AICONMAC</div>
-                <div className="text-xs tracking-wider transition-colors duration-300 text-gray-500">GALLERY</div>
+              <div className="h-10 w-auto flex items-center justify-center overflow-hidden">
+                <img src="/images/aicon-removebg-preview.png" alt="Aiconmac Logo" className="w-full h-full object-contain" />
               </div>
             </Link>
 
@@ -84,7 +80,8 @@ const HeroNavbar = () => {
                 >
                   <Link
                     href={item.href}
-                    className="text-md transition-colors font-light tracking-wide text-gray-700 hover:text-gray-900"
+                    className="text-md transition-colors font-light tracking-wide text-gray-900 hover:text-gray-600"
+                    style={{ textShadow: '0 0 15px rgba(255,255,255,0.8), 0 0 20px rgba(255,255,255,0.5)' }}
                   >
                     {item.name}
                   </Link>
@@ -94,7 +91,10 @@ const HeroNavbar = () => {
 
             {/* Catalogue Button & Mobile Menu */}
             <div className="flex items-center space-x-4">
-              <LanguageSwitcher />
+              <LanguageSwitcher
+                className="text-gray-900 border-gray-300"
+                style={{ textShadow: '0 0 15px rgba(255,255,255,0.8), 0 0 20px rgba(255,255,255,0.5)' }}
+              />
 
               <motion.button
                 onClick={() => setShowCataloguePopup(true)}

@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 import Image from 'next/image';
-import logo from '@/images/logo.jpg'; // Adjust path as needed
+
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher';
 import { useTranslations } from 'next-intl';
 
@@ -51,7 +51,7 @@ const GlassNavbar = ({ isVisible }) => {
                 border: '1px solid rgba(255, 255, 255, 0.1)'
               }}
             >
-              <Image src={logo} alt="Aiconmac Logo" className="h-8 w-auto" />
+              <Image src="/images/aicon-removebg-preview.png" width={40} height={40} alt="Aiconmac Logo" className="h-10 w-auto" />
             </div>
           </div>
 
@@ -62,6 +62,7 @@ const GlassNavbar = ({ isVisible }) => {
                 <Link
                   href={item.href}
                   className="px-4 py-2 text-sm font-light tracking-wider text-black/90 hover:text-black uppercase transition-colors relative"
+                  style={{ textShadow: '0 0 15px rgba(255,255,255,0.8), 0 0 25px rgba(255,255,255,0.5)' }}
                 >
                   {item.name}
                 </Link>
@@ -71,7 +72,10 @@ const GlassNavbar = ({ isVisible }) => {
 
           {/* Contact Button & Language Switcher */}
           <div className="flex items-center space-x-4">
-            <LanguageSwitcher />
+            <LanguageSwitcher
+              className="text-black/90 border-gray-300"
+              style={{ textShadow: '0 0 15px rgba(255,255,255,0.8), 0 0 25px rgba(255,255,255,0.5)' }}
+            />
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Link
                 href="/contact"
@@ -102,7 +106,7 @@ const GlassNavbar = ({ isVisible }) => {
           }}
         >
           <div className="flex items-center space-x-3">
-            <Image src={logo} alt="Aiconmac Logo" className="h-8 w-auto" />
+            <Image src="/images/aicon-removebg-preview.png" width={32} height={32} alt="Aiconmac Logo" className="h-8 w-auto" />
           </div>
 
           <motion.button
