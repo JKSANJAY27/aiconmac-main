@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
+
 import { useTranslations } from 'next-intl';
 import { CardSpotlight } from '@/components/ui/card-spotlight';
 

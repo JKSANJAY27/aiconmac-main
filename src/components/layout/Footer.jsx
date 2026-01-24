@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from '@/i18n/routing';
 
-import { Linkedin, Music2, Instagram } from 'lucide-react';
+import { Linkedin, Instagram } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 const Footer = () => {
