@@ -80,7 +80,7 @@ export const InfiniteMovingLogos = ({
             >
                 {items.map((item, idx) => (
                     <li
-                        className="relative flex-shrink-0 flex flex-col items-center justify-center gap-6 grayscale hover:grayscale-0 transition-all duration-500 opacity-60 hover:opacity-100 group"
+                        className="relative flex-shrink-0 flex flex-col items-center justify-center gap-6 transition-all duration-500 opacity-90 hover:opacity-100 group"
                         key={`${item.id}-${idx}`}
                     >
                         <div className="relative w-32 h-16 md:w-44 md:h-20 flex items-center justify-center transition-transform duration-500 group-hover:scale-110">
