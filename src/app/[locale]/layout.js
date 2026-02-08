@@ -15,6 +15,15 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata = {
   title: 'AICON MAC MODELS - Precision in Miniature',
   description: 'Crafting intricate architectural models with unparalleled detail and artistic excellence.',
+  icons: {
+    icon: '/images/loader-logo.jpg',
+    shortcut: '/images/loader-logo.jpg',
+    apple: '/images/loader-logo.jpg',
+    other: {
+      rel: 'apple-touch-icon-precomposed',
+      url: '/images/loader-logo.jpg',
+    },
+  },
 };
 
 export default async function RootLayout({ children, params }) {
