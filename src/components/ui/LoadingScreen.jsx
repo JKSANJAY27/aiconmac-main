@@ -16,60 +16,50 @@ const LoadingScreen = ({ fullScreen = true, message = "Loading..." }) => {
             )}
 
             <div className="relative z-10 flex flex-col items-center space-y-8">
-                {/* Museum-style logo animation */}
-                <div className="relative">
-                    {/* Outer rotating ring */}
+                {/* Clean Logo Animation */}
+                <div className="relative flex items-center justify-center mb-4">
                     <motion.div
-                        className="absolute inset-0 w-24 h-24 rounded-full border-2 border-amber-200"
-                        animate={{ rotate: 360 }}
-                        transition={{
-                            duration: 3,
-                            repeat: Infinity,
-                            ease: "linear"
-                        }}
-                    />
-
-                    {/* Middle pulsing ring */}
-                    <motion.div
-                        className="absolute inset-2 w-20 h-20 rounded-full border-2 border-amber-400/50"
+                        className="relative w-24 h-24 bg-white rounded-2xl shadow-lg flex items-center justify-center p-4 overflow-hidden"
+                        initial={{ opacity: 0, scale: 0.8 }}
                         animate={{
-                            scale: [1, 1.1, 1],
-                            opacity: [0.5, 1, 0.5]
+                            opacity: 1,
+                            scale: 1,
+                            boxShadow: [
+                                "0 10px 15px -3px rgba(0, 0, 0, 0.1)",
+                                "0 20px 25px -5px rgba(245, 158, 11, 0.25)",
+                                "0 10px 15px -3px rgba(0, 0, 0, 0.1)"
+                            ]
                         }}
                         transition={{
-                            duration: 2,
-                            repeat: Infinity,
-                            ease: "easeInOut"
-                        }}
-                    />
-
-                    {/* Inner rotating ring (opposite direction) */}
-                    <motion.div
-                        className="absolute inset-4 w-16 h-16 rounded-full border-2 border-amber-600"
-                        animate={{ rotate: -360 }}
-                        transition={{
-                            duration: 2,
-                            repeat: Infinity,
-                            ease: "linear"
-                        }}
-                    />
-
-                    {/* Center logo */}
-                    <div className="relative w-24 h-24 flex items-center justify-center">
-                        <motion.div
-                            className="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded-lg flex items-center justify-center shadow-lg"
-                            animate={{
-                                scale: [1, 1.05, 1],
-                            }}
-                            transition={{
+                            duration: 0.5,
+                            ease: "easeOut",
+                            boxShadow: {
                                 duration: 2,
                                 repeat: Infinity,
                                 ease: "easeInOut"
+                            }
+                        }}
+                    >
+                        <img
+                            src="/images/loader-logo.jpg"
+                            alt="Aiconmac"
+                            className="w-full h-full object-contain"
+                        />
+
+                        {/* Shimmer overlay */}
+                        <motion.div
+                            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"
+                            animate={{
+                                x: ['-100%', '200%']
                             }}
-                        >
-                            <span className="text-white font-bold text-2xl">A</span>
-                        </motion.div>
-                    </div>
+                            transition={{
+                                duration: 1.5,
+                                repeat: Infinity,
+                                ease: "easeInOut",
+                                repeatDelay: 0.5
+                            }}
+                        />
+                    </motion.div>
                 </div>
 
                 {/* Loading text with typing effect */}

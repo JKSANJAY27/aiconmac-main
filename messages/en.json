@@ -170,7 +170,9 @@
         "emailPrompt": "Enter your email to receive our complete project catalogue",
         "emailAddress": "Email Address",
         "processing": "Processing...",
-        "consent": "By downloading, you agree to receive updates from AICONMAC"
+        "consent": "By downloading, you agree to receive updates from AICONMAC",
+        "error": "Failed to process request. Please try again.",
+        "emailInvalid": "Please enter a valid email address."
     },
     "ProjectsPage": {
         "heroTitle": "Project Gallery",

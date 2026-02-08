@@ -20,57 +20,52 @@ const PageLoader = ({ isLoading, children }) => {
                 >
                     <div className="absolute inset-0 backdrop-blur-sm bg-white/80" />
 
-                    <div className="relative z-10 flex flex-col items-center space-y-6">
-                        {/* Animated gallery frame */}
-                        <motion.div
-                            className="relative w-32 h-32"
-                            initial={{ scale: 0.8, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 1 }}
-                            transition={{ duration: 0.5 }}
-                        >
-                            {/* Outer frame */}
+                    <div className="relative flex flex-col items-center space-y-6">
+                        {/* Clean Logo Animation */}
+                        <div className="relative flex items-center justify-center">
                             <motion.div
-                                className="absolute inset-0 border-4 border-amber-200 rounded-sm"
+                                className="relative w-20 h-20 bg-white rounded-xl shadow-lg p-3 flex items-center justify-center overflow-hidden"
+                                initial={{ opacity: 0, scale: 0.8 }}
                                 animate={{
-                                    rotate: [0, 90, 180, 270, 360],
+                                    opacity: 1,
+                                    scale: 1,
+                                    boxShadow: [
+                                        "0 10px 15px -3px rgba(0, 0, 0, 0.1)",
+                                        "0 15px 20px -5px rgba(245, 158, 11, 0.25)",
+                                        "0 10px 15px -3px rgba(0, 0, 0, 0.1)"
+                                    ]
                                 }}
                                 transition={{
-                                    duration: 8,
-                                    repeat: Infinity,
-                                    ease: "linear"
-                                }}
-                            />
-
-                            {/* Inner frame */}
-                            <motion.div
-                                className="absolute inset-4 border-2 border-amber-400 rounded-sm"
-                                animate={{
-                                    rotate: [360, 270, 180, 90, 0],
-                                }}
-                                transition={{
-                                    duration: 6,
-                                    repeat: Infinity,
-                                    ease: "linear"
-                                }}
-                            />
-
-                            {/* Center logo */}
-                            <div className="absolute inset-0 flex items-center justify-center">
-                                <motion.div
-                                    className="w-16 h-16 bg-gradient-to-br from-amber-500 to-orange-600 rounded-lg flex items-center justify-center shadow-xl"
-                                    animate={{
-                                        scale: [1, 1.1, 1],
-                                    }}
-                                    transition={{
+                                    duration: 0.4,
+                                    ease: "easeOut",
+                                    boxShadow: {
                                         duration: 2,
                                         repeat: Infinity,
                                         ease: "easeInOut"
+                                    }
+                                }}
+                            >
+                                <img
+                                    src="/images/loader-logo.jpg"
+                                    alt="Aiconmac"
+                                    className="w-full h-full object-contain"
+                                />
+
+                                {/* Shimmer overlay */}
+                                <motion.div
+                                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"
+                                    animate={{
+                                        x: ['-100%', '200%']
                                     }}
-                                >
-                                    <span className="text-white font-bold text-3xl">A</span>
-                                </motion.div>
-                            </div>
-                        </motion.div>
+                                    transition={{
+                                        duration: 1.5,
+                                        repeat: Infinity,
+                                        ease: "easeInOut",
+                                        repeatDelay: 0.5
+                                    }}
+                                />
+                            </motion.div>
+                        </div>
 
                         {/* Loading text */}
                         <motion.div

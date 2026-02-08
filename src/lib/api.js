@@ -19,6 +19,10 @@ export async function fetcher(url) {
   return response.json();
 }
 
+export async function downloadBrochure(email) {
+  return poster('/brochure-request', { email });
+}
+
 export async function poster(url, data, isFormData = false) {
   const headers = {};
   let body;
